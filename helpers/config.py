@@ -5,6 +5,10 @@ class Settings(BaseSettings):
     APP_NAME:str
     APP_VERSION: str
     
+    MODEL_NAME:str
+    API_KEY:str
+    
+    
     class Config:
         env_file =".env"
         
