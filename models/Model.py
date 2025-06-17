@@ -1,8 +1,8 @@
 from crewai import LLM
 from.helpers.config import get_settings
 
-class GeminiModel:
-    def __init__(self, config):
+class Model:
+    def __init__(self):
         self.llm = LLM(
             model=get_settings.MODEL_NAME,
             api_key=get_settings.API_KEY,

@@ -18,10 +18,15 @@ conda activate coreAgent
 ### How to run the  CoreMind:
 
 #### install the dependencis
-```
+```bash
 pip install -r requirements.txt
 ```
 #### copy file .env from .env.example:
-```
+```bash
 cp .env.example .env
+```
+
+#### Run the app:
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
