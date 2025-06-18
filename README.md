@@ -1,6 +1,6 @@
 # CoreMind
 
-## MuliAgents for improve the Businees 
+## MultiAgents for improve the Business 
 
 ### Requirements
 * python 3.10 
