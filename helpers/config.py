@@ -7,6 +7,9 @@ class Settings(BaseSettings):
     
     MODEL_NAME:str
     API_KEY:str
+    AGENT_NAME:str
+    COMPANY_NAME:str
+    INDUSTRY_NAME:str
     
     
     class Config:
