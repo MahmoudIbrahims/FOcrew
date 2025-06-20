@@ -1,4 +1,4 @@
-# MABSYS
+# JellyOps
 
 ## MultiAgents for Business System
 
