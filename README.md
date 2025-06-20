@@ -1,6 +1,6 @@
-# CoreMind
+# MABSYS
 
-## MultiAgents for improve the Business 
+## MultiAgents for Business system
 
 ### Requirements
 * python 3.10 
