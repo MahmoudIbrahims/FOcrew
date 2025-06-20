@@ -1,10 +1,10 @@
 from crewai import LLM
 from helpers.config import get_settings
-from Agents.AgentEnums import AgentNAME
+from Agents.AgentEnums import AgentName
 
 class ProviderLLM:
     def __init__(self):
-        self.enums = AgentNAME
+        self.enums = AgentName
         settings = get_settings()
         self.llm = LLM(
             model=settings.MODEL_NAME,

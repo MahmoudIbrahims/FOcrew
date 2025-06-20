@@ -8,8 +8,8 @@ app =FastAPI()
 
 async def startup_span():
     settings = get_settings()
-    
-    Agent_provider_factory = AgentProviderFactory(config =settings)
+
+    Agent_provider_factory = AgentProviderFactory(settings.Config)
     app.Agent_client = Agent_provider_factory.create(Crew_Name = settings.AGENT_NAME)
     
 async def shutdown_span():
