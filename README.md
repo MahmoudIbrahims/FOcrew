@@ -1,5 +1,6 @@
 ![Image](https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604)
 
+
 ## FOcrew is a MultiAgents for Business 
 
 ### Requirements
@@ -7,7 +8,8 @@
 * install python using Miniconda
 * Download and install Miniconda .
 
-#### create a new environment using the following command:
+
+#### Create a new environment using the following command:
 ```bash
 $ conda create -n coreAgent python=3.10
 ```
@@ -15,13 +17,19 @@ $ conda create -n coreAgent python=3.10
 ```bash
 conda activate coreAgent
 ```
-### How to run the  CoreMind:
+### How to run the FOcrew:
 
-#### install the dependencis
+#### Install the dependencis
 ```bash
 pip install -r requirements.txt
 ```
-#### copy file .env from .env.example:
+#### Copy file .env from .env.example:
+
 ```bash
 cp .env.example .env
+```
+
+#### Run the app:
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
