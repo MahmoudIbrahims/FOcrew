@@ -7,7 +7,7 @@
 * install python using Miniconda
 * Download and install Miniconda .
 
-#### create a new environment using the following command:
+#### Create a new environment using the following command:
 ```
 $ conda create -n coreAgent python=3.10
 ```
@@ -17,11 +17,11 @@ conda activate coreAgent
 ```
 ### How to run the  CoreMind:
 
-#### install the dependencis
+#### Install the dependencis
 ```bash
 pip install -r requirements.txt
 ```
-#### copy file .env from .env.example:
+#### Copy file .env from .env.example:
 ```bash
 cp .env.example .env
 ```
