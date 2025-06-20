@@ -1,6 +1,6 @@
 # MABSYS
 
-## MultiAgents for Business system
+## MultiAgents for Business System
 
 ### Requirements
 * python 3.10 
