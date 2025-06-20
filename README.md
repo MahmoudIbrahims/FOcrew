@@ -1,6 +1,6 @@
-# FOcrew
 ![Image](https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604)
-## MultiAgents for Business System
+
+## FOcrew is a MultiAgents for Business 
 
 ### Requirements
 * python 3.10 
