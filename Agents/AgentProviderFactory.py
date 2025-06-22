@@ -13,7 +13,7 @@ from .AgentProvider import DataProcessing
 from .AgentProvider import DemandForecastingAnalyst
 from .AgentProvider import InventoryOptimizationExpert
 from .AgentProvider import InventoryAnalysisReportingSpecialist
-
+from .AgentProvider import DataVisualizationExpert
 
 class AgentProviderFactory:
     
@@ -84,6 +84,7 @@ class AgentProviderFactory:
             Demand_ForecastingAnalyst =DemandForecastingAnalyst()
             Inventory_OptimizationExpert =InventoryOptimizationExpert()
             Inventory_AnalysisReportingSpecialist =InventoryAnalysisReportingSpecialist()
+            # Data_VisualizationExpert  = DataVisualizationExpert()
         
             Data_Processing_Agent =Data_Processing.get_agent()
             Data_Processing_task =Data_Processing.get_task()
@@ -109,6 +110,9 @@ class AgentProviderFactory:
             
             Inventory_AnalysisReportingSpecialist_Agent =Inventory_AnalysisReportingSpecialist.get_agent()
             Inventory_AnalysisReportingSpecialist_task =Inventory_AnalysisReportingSpecialist.get_task()
+            
+            # Data_VisualizationExpert_Agent = Data_VisualizationExpert.get_agent()
+            # Data_VisualizationExpert_task = Data_VisualizationExpert.get_task()
             
             
             if lanuage== Languages.ARABIC.value:

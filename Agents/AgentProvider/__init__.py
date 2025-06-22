@@ -7,3 +7,4 @@ from .InventoryManagment import DataProcessing
 from .InventoryManagment import DemandForecastingAnalyst
 from .InventoryManagment import InventoryOptimizationExpert
 from .InventoryManagment import InventoryAnalysisReportingSpecialist
+from .InventoryManagment import DataVisualizationExpert

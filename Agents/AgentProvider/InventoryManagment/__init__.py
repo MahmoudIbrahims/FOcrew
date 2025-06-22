@@ -2,3 +2,4 @@ from .DataProcessing_Agent import DataProcessing
 from .DemandForecastingAnalyst import DemandForecastingAnalyst
 from .InventoryOptimizationExpert import InventoryOptimizationExpert
 from .AnalysisReportingSpecialist import InventoryAnalysisReportingSpecialist
+from .DataVisualizationExpert import DataVisualizationExpert

@@ -26,34 +26,7 @@ class DataProcessing(BaseAgent):
         
     def get_task(self):
         return Task(
-            description="\n".join([
-                "Process the inventory data and prepare it for analysis",
-                "Your responsibilities:",
-                "1. Read and analyze the file structure",
-                "2. Validate data quality and identify any issues",
-                "3. Extract key information about inventory items",
-                "4. Prepare clean data summary for further analysis",
-                "5. Identify data patterns and basic statistics",
-                
-                "Ensure the data is properly formatted with:",
-                "- Item IDs/Names",
-                "- Current stock levels",
-                "- Sales history",
-                "- Unit costs",
-                "- Any other relevant inventory metrics",
-    
-                "Provide a comprehensive data summary."
-                
-                
-                ]),
+            description="Analyze inventory data and prepare for analysis",
             agent=self.get_agent(),
-            expected_output="\n".join([
-                "A detailed data summary including:",
-                "- Total number of inventory items",
-                "- Data quality assessment",
-                "- Basic statistics (min, max, average stock levels)",
-                "- Sample of processed data",
-                "- Any data issues identified ."
-                    ])
-                )
-        
+            expected_output="Complete data summary with basic statistics"
+                 )
