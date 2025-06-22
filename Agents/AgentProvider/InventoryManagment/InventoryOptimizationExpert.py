@@ -18,8 +18,7 @@ class InventoryOptimizationExpert(BaseAgent):
                         "You determine optimal reorder points, safety stock levels, and inventory policies to balance cost and service levels."
                         ]),
                     llm=llm,
-                    allow_delegation=False,
-                    #tools=[file_tool]
+                    allow_delegation=False
                         )
         
     

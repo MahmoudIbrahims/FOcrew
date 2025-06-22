@@ -1,13 +1,13 @@
 from crewai import Task
 from ..BaseAgent import BaseAgent
 from models.ProviderLLM import ProviderLLM
-from tools.FileReading import FileTool 
+
 
 class InventoryAnalysisReportingSpecialist(BaseAgent):
     def __init__(self):
         provider = ProviderLLM()
         llm = provider.get_llm()
-        #file_tool = FileTool()
+        
         super().__init__(
                     name="Inventory Analysis & Reporting Specialist",
                     role="Inventory Analysis & Reporting Specialist",
@@ -17,16 +17,15 @@ class InventoryAnalysisReportingSpecialist(BaseAgent):
                         "You synthesize all analysis results into clear, actionable insights for inventory managers and executives."
                         ]),
                     llm=llm,
-                    allow_delegation=False,
-                    #tools=[file_tool]  
-            
+                    allow_delegation=False
                      )
         
     def get_task(self):
         return Task(
                 description="Create comprehensive inventory management reports and recommendations",
                 agent=self.get_agent(),
-                expected_output="Executive summary, critical alerts, KPIs, and action plan"
+                expected_output = "A Markdown (.md) file containing: Executive summary, critical alerts, KPIs, and action plan."
+
             )
                     
             

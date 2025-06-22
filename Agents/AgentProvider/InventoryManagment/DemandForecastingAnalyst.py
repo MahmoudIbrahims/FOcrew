@@ -1,14 +1,13 @@
 from crewai import Task
 from ..BaseAgent import BaseAgent
 from models.ProviderLLM import ProviderLLM
-from tools.FileReading import FileTool 
 
 
 class DemandForecastingAnalyst(BaseAgent):
     def __init__(self):
         provider = ProviderLLM()
         llm = provider.get_llm()
-        #file_tool = FileTool()
+        
         super().__init__(
                     name="Demand Forecasting Analyst",
                     role="Demand Forecasting Analyst",
@@ -18,9 +17,7 @@ class DemandForecastingAnalyst(BaseAgent):
                         "You use statistical methods and pattern recognition to provide accurate demand forecasts."
                         ]),
                     llm=llm,
-                    allow_delegation=False,
-                    #tools=[file_tool] 
-            
+                    allow_delegation=False
                      )
         
     
