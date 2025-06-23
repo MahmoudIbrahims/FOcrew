@@ -1,8 +1,7 @@
 import os
 from crewai import Crew
 from .AgentEnums import AgentName ,Languages
-from datetime import datetime
-import json
+
 ## marketingstratgeyplanner
 from .AgentProvider import SWOTAnalyst
 from .AgentProvider import MarketingStrategist
@@ -13,10 +12,10 @@ from .AgentProvider import DataProcessing
 from .AgentProvider import DemandForecastingAnalyst
 from .AgentProvider import InventoryOptimizationExpert
 from .AgentProvider import InventoryAnalysisReportingSpecialist
-from .AgentProvider import DataVisualizationExpert
+
 
 class AgentProviderFactory:
-    
+
     def __init__(self,config : dict ):
         
         self.config =config 
@@ -75,16 +74,13 @@ class AgentProviderFactory:
                     
         elif Crew_Name ==AgentName.INVENTORY_MANAGMENT.value:
             
-            print("📂 Using inventory file path:", file_path)
-            
             if not os.path.exists(file_path):
                 raise FileNotFoundError(f"Inventory file not found:{file_path}")
-            
+
             Data_Processing =DataProcessing()
             Demand_ForecastingAnalyst =DemandForecastingAnalyst()
             Inventory_OptimizationExpert =InventoryOptimizationExpert()
             Inventory_AnalysisReportingSpecialist =InventoryAnalysisReportingSpecialist()
-            # Data_VisualizationExpert  = DataVisualizationExpert()
         
             Data_Processing_Agent =Data_Processing.get_agent()
             Data_Processing_task =Data_Processing.get_task()
@@ -104,26 +100,22 @@ class AgentProviderFactory:
             Demand_ForecastingAnalyst_Agent =Demand_ForecastingAnalyst.get_agent()
             Demand_ForecastingAnalyst_task =Demand_ForecastingAnalyst.get_task()
             
-            
             Inventory_OptimizationExpert_Agent =Inventory_OptimizationExpert.get_agent()
             Inventory_OptimizationExpert_task =Inventory_OptimizationExpert.get_task()
             
             Inventory_AnalysisReportingSpecialist_Agent =Inventory_AnalysisReportingSpecialist.get_agent()
             Inventory_AnalysisReportingSpecialist_task =Inventory_AnalysisReportingSpecialist.get_task()
             
-            # Data_VisualizationExpert_Agent = Data_VisualizationExpert.get_agent()
-            # Data_VisualizationExpert_task = Data_VisualizationExpert.get_task()
-            
-            
-            if lanuage== Languages.ARABIC.value:
-                translation_agent_provider = TranslationEnglishArabic()
-                translation_agent = translation_agent_provider.get_agent()
-                translation_task = translation_agent_provider.get_task()
-                translation_task.description ="\n".join([
+            translation_agent_provider = TranslationEnglishArabic()
+            translation_agent = translation_agent_provider.get_agent()
+            translation_task = translation_agent_provider.get_task()
+            translation_task.description ="\n".join([
                         "Translate the comprehensive inventory analysis report from English to Arabic.",
                         "Ensure technical terms are accurately translated and the report maintains its professional structure and actionable insights."
                                         ])
-                
+            
+            if lanuage== Languages.ARABIC.value:
+                              
                 crew = Crew(
                     agents=[Data_Processing_Agent,
                             Demand_ForecastingAnalyst_Agent,
@@ -141,38 +133,27 @@ class AgentProviderFactory:
                                 )
                 
                 result = crew.kickoff()
+                    
+            elif lanuage== Languages.ENGLISH.value:
+                crew = Crew(
+                        agents=[Data_Processing_Agent,
+                                Demand_ForecastingAnalyst_Agent,
+                                Inventory_OptimizationExpert_Agent,
+                                Inventory_AnalysisReportingSpecialist_Agent
+                                ],
+                        
+                        tasks=[Data_Processing_task ,
+                            Demand_ForecastingAnalyst_task,
+                            Inventory_OptimizationExpert_task,
+                            Inventory_AnalysisReportingSpecialist_task],
+                                verbose=True
+                                    )
                 
-                timestamp = datetime.now().strftime('%Y-%m-%d, %H:%M')
-                output_dir = 'results/inventory_management'
-                os.makedirs(output_dir, exist_ok=True)
+                result = crew.kickoff()
                 
-                output_path = os.path.join(output_dir,'inventory_managmet_arabic.md')
-                md_content ="\n".join([
-                    "# Inventory Management Analysis Report",
-                    f"**Generated:**{timestamp} ",
-                    
-                    "## Executive Summary",
-                    
-                    "### Analysis Overview",
-                    
-                    "This report provides comprehensive inventory analysis including demand forecasting", 
-                    "optimization recommendations, and actionable insights for inventory management.",
-                    
-                    
-                    "## Detailed Analysis",
-                    
-                    f"{str(result)}",
-                    
-                    "## Key Deliverables",
-                    
-                    "**Data Processing:** File validation and quality assessment",
-                    "**Demand Forecasting:** Weekly and monthly predictions",
-                    "**Inventory Optimization:** ABC analysis and reorder points", 
-                    "**Comprehensive Report:** Executive summary with recommendations",
-                        ])
+               
+            
                 
-                with open(output_path, 'w', encoding='utf-8') as f:
-                    f.write(md_content)
                 
         
             
