@@ -2,7 +2,7 @@
 
 
 ## FOcrew --> Future-Oriented crew 
-this project is a MultiAgents for Business 
+* This project is a MultiAgents for Business 
 
 ### Requirements
 * python 3.10 
