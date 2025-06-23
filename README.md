@@ -1,7 +1,8 @@
 ![Image](https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604)
 
 
-## FOcrew is a MultiAgents for Business 
+## FOcrew --> Future-Oriented crew 
+this project is a MultiAgents for Business 
 
 ### Requirements
 * python 3.10 
