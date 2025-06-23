@@ -2,3 +2,9 @@ from .MarketingStratgeyPlanner import ContentPlanner
 from .MarketingStratgeyPlanner import MarketingStrategist
 from .MarketingStratgeyPlanner import SWOTAnalyst
 from .MarketingStratgeyPlanner import TranslationEnglishArabic
+
+from .InventoryManagment import DataProcessing
+from .InventoryManagment import DemandForecastingAnalyst
+from .InventoryManagment import InventoryOptimizationExpert
+from .InventoryManagment import InventoryAnalysisReportingSpecialist
+from .InventoryManagment import DataVisualizationExpert

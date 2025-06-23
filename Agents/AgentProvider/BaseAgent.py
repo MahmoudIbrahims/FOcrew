@@ -3,14 +3,18 @@ from langchain_core.language_models import BaseLanguageModel
 from helpers.config import get_settings
 
 class BaseAgent:
-    def __init__(self, name: str, role: str, goal: str,backstory:str, llm: BaseLanguageModel):
+    def __init__(self, name: str, role: str, goal: str,backstory:str, llm: BaseLanguageModel,
+                                                    allow_delegation: bool = False,tools: list = None):
         self.agent = Agent(
             name=name,
             role=role,
             goal=goal,
             backstory =backstory,
             llm=llm,
-            verbose=True
+            verbose=True,
+            allow_delegation=allow_delegation,
+            tools= tools if tools else [],
+            
         )
 
     def run(self, task_input: str) -> str:

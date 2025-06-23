@@ -1,5 +1,6 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings
 from typing import List
+
 class Settings(BaseSettings):
     
     APP_NAME:str
@@ -9,8 +10,12 @@ class Settings(BaseSettings):
     API_KEY:str
     
     AGENT_NAME:str
+    AGANT_NAME_LITERAL:List[str]=None
+    DATA_PATH:str
+    
     COMPANY_NAME:str
     INDUSTRY_NAME:str
+    LANGUAGE_LITERAL:List[str]=None
     LANGUAGE:str
     
     

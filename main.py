@@ -10,7 +10,8 @@ async def startup_span():
     settings = get_settings()
 
     Agent_provider_factory = AgentProviderFactory(settings.Config)
-    app.Agent_client = Agent_provider_factory.create(Crew_Name = settings.AGENT_NAME,lanuage =settings.LANGUAGE)
+    app.Agent_client = Agent_provider_factory.create(Crew_Name=settings.AGENT_NAME,lanuage=settings.LANGUAGE,
+                                                     file_path=settings.DATA_PATH)
     
 async def shutdown_span():
     pass
