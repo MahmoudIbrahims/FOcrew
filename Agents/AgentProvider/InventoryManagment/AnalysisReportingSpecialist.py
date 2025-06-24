@@ -114,7 +114,7 @@ class InventoryAnalysisReportingSpecialist(BaseAgent):
                 "|-------|----------|----------------|-----------------|",
                 "| ... | ... | ... | ... |",
                 "",
-                f"**Language:** {self.get_config().LANGUAGE}",
+                f"**please use the Language:** {self.get_config().LANGUAGE} **for this report",
                 "",
                 "**Quality Requirements:**",
                 "- Each section must be clearly separated with proper headers",
