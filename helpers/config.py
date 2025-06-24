@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     APP_NAME:str
     APP_VERSION: str
     
+    MODEL_NAME_LITERAL:List[str]=None
     MODEL_NAME:str
     API_KEY:str
     
