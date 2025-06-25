@@ -1,6 +1,6 @@
 from crewai import Task
 from ..BaseAgent import BaseAgent
-from models.ProviderLLM import ProviderLLM
+from Providers.ProviderLLM import ProviderLLM
 
 
 class TranslationEnglishArabic(BaseAgent):
