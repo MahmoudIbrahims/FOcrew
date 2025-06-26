@@ -2,20 +2,21 @@ from fastapi import FastAPI, APIRouter ,Depends,UploadFile,status,Request
 from Agents import (DataProcessing,DemandForecastingAnalyst,InventoryOptimizationExpert,
                     InventoryAnalysisReportingSpecialist,TranslationEnglishArabic)
 from helpers.config import get_settings ,Settings
-from  AgentRouterEnums import Languages ,ResponseSignal
+from AGRouterEnums import Languages ,ResponseSignal
 from crewai import Crew
 from fastapi.responses import JSONResponse
-
+from fastapi import File, Form
 
 agent_router = APIRouter(
-    prefix ="/api/v1/",
+    prefix ="/api/v1",
     tags =["api_v1"],
 )
 
 
 @agent_router.post('/agent/inventory')
-async def inventory_agent(file : UploadFile,
-                         Language:str , app_settings:Settings =Depends(get_settings)):
+async def inventory_agent(file : UploadFile=File(...),Language: str = Form(...),
+                                                COMPANY_NAME: str = Form(...),
+                                                INDUSTRY_NAME: str = Form(...)):
     
     Data_Processing =DataProcessing()
     Demand_ForecastingAnalyst =DemandForecastingAnalyst()
