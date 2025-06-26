@@ -4,5 +4,9 @@ crewai==0.130.0
 pyyaml==6.0.2
 pydantic-settings==2.2.1
 langchain-core==0.3.65
-crewai-tools==0.47.1
+#crewai-tools==0.47.1
 plotly==6.1.2
+SQLAlchemy==2.0.36
+asyncpg==0.30.0
+alembic==1.14.1
+psycopg2==2.9.10

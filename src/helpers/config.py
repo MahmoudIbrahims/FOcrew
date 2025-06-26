@@ -6,6 +6,12 @@ class Settings(BaseSettings):
     APP_NAME:str
     APP_VERSION: str
     
+    POSTGRES_USERNAME:str
+    POSTGRES_PASSWORD:str
+    POSTGRES_HOUST:str
+    POSTGRES_PORT:str
+    POSTGRES_MAIN_DATABASE:str
+    
     MODEL_NAME_LITERAL:List[str]=None
     MODEL_NAME:str
     API_KEY:str

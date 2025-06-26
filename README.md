@@ -19,6 +19,18 @@ conda activate coreAgent
 ```
 ### How to run the FOcrew:
 
+#### First run the image postgres 
+```bash
+cd docker
+```
+```bash
+sudo docker compose up -d
+```
+#### Open new terminal and run the app
+
+```bash
+cd src
+```
 #### Install the dependencis
 ```bash
 pip install -r requirements.txt
