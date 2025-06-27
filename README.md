@@ -1,7 +1,16 @@
 ![Image](https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604)
 
 
-## FOcrew  [*Future-Oriented crew *]
+## FOcrew -->Future-Oriented crew
+
+<h1 align="center">
+  🌟 FOcrew
+</h1>
+
+<p align="center">
+  <strong>Future-Oriented Crew</strong><br>
+  <em>Pioneering the future of technology</em>
+</p>
 
 * FOcrew is an open-source Multi-Agent System powered by AI,
 * designed for business productivity, automation, and intelligent decision support. Built using Python, FastAPI, and CrewAI,
