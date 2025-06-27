@@ -46,3 +46,6 @@ cp .env.example .env
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+#### Result for Agent inventory managment
+ [report.md](results\inventory_management\comprehensive_inventory_analysis_report.md )
