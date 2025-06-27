@@ -35,6 +35,7 @@ cd src
 ```bash
 pip install -r requirements.txt
 ```
+
 #### Copy file .env from .env.example:
 
 ```bash
