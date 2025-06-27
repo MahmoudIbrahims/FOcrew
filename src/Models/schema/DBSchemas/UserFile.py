@@ -1,0 +1,51 @@
+from .FOcrew_base import SQLAlchemyBase
+from sqlalchemy import Column, Integer, DateTime, func, String, Text, JSON, Boolean, ForeignKey, Float
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
+from sqlalchemy.orm import relationship
+
+
+class UserFile(SQLAlchemyBase):
+    
+    __tablename__ = "user_files"
+    
+    file_id = Column(Integer, primary_key=True, autoincrement=True)
+    file_uuid = Column(UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False)
+    
+    original_filename = Column(String(500), nullable=False)
+    file_type = Column(String(10), nullable=False)  
+    file_size = Column(Integer, nullable=False) 
+    file_path = Column(String(1000), nullable=False) 
+    
+   
+    rows_count = Column(Integer, nullable=True)  
+    columns_count = Column(Integer, nullable=True)  
+    columns_info = Column(JSON, nullable=True)  
+    
+   
+    sample_data = Column(JSON, nullable=True)  
+    full_data = Column(JSON, nullable=False) 
+    raw_content = Column(Text, nullable=True)  
+    
+    
+    storage_method = Column(String(20), default="database", nullable=False)  # database, file_system, hybrid
+    
+   
+    is_processed = Column(Boolean, default=False, nullable=False)
+    processing_status = Column(String(50), default="uploaded", nullable=False)  # uploaded, processing, processed, failed
+    processing_error = Column(Text, nullable=True)
+    
+    
+    Usermetadata = Column(JSON, nullable=True)
+    tags = Column(JSON, nullable=True)  
+    description = Column(Text, nullable=True)  
+    
+
+    uploaded_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    processed_at = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now(), nullable=True)
+    
+    
+    project_id = Column(Integer, ForeignKey("projects.project_id"), nullable=False)
+    project = relationship("Project", back_populates="user_files")

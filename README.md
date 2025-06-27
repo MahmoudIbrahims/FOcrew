@@ -20,10 +20,23 @@ conda activate coreAgent
 ```
 ### How to run the FOcrew:
 
+#### First run the image postgres 
+```bash
+cd docker
+```
+```bash
+sudo docker compose up -d
+```
+#### Open new terminal and run the app
+
+```bash
+cd src
+```
 #### Install the dependencis
 ```bash
 pip install -r requirements.txt
 ```
+
 #### Copy file .env from .env.example:
 
 ```bash
@@ -34,3 +47,12 @@ cp .env.example .env
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+#### Result for Agent inventory managment:
+[report.md](src/results/inventory_management/comprehensive_inventory_analysis_report.md)
+
+#### Result for Agent Marketing Stratgey:
+[report.md](src/results/Agent_marketing/marketing_analysis_arabic.md )
+
+
+

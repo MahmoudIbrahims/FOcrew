@@ -1,0 +1,14 @@
+fastapi==0.110.2
+uvicorn[standard]==0.29.0
+crewai==0.130.0
+pyyaml==6.0.2
+langchain-core==0.3.66
+langchain==0.3.26
+langchain-community==0.3.26
+pydantic-settings==2.4.0
+crewai-tools==0.47.1
+plotly==6.1.2
+SQLAlchemy==2.0.36
+asyncpg==0.30.0
+alembic==1.14.1
+psycopg2==2.9.10
