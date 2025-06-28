@@ -8,7 +8,7 @@
 <p align="center">
   <strong>Future-Oriented Crew</strong><br>
 </p>
-
+## What is FOcrew?
 * FOcrew is an open-source Multi-Agent System powered by AI,
 * designed for business productivity, automation, and intelligent decision support. Built using Python, FastAPI, and CrewAI,
 * FOcrew provides a modular platform to automate data analysis, generate actionable reports, and streamline business operations.
