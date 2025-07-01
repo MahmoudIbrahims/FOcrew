@@ -4,6 +4,7 @@ from helpers.config import get_settings
 from Agents.AgentProviderFactory import AgentProviderFactory
 from sqlalchemy.ext.asyncio import create_async_engine,AsyncSession
 from sqlalchemy.orm import sessionmaker
+from Providers import DataBaseProviderFactory
 
 app =FastAPI()
 
@@ -21,6 +22,13 @@ async def startup_span():
     Agent_provider_factory = AgentProviderFactory(settings.Config)
     app.Agent_client = Agent_provider_factory.create(Crew_Name=settings.AGENT_NAME,lanuage=settings.LANGUAGE,
                                                      file_path=settings.DATA_PATH)
+    
+    db_provider_factory = DataBaseProviderFactory(settings.Config ,db_client=app.db_client)
+    app.Database_client =db_provider_factory.create(
+                         provider=settings.DB_BACKEND
+        
+                                )
+    
     
 async def shutdown_span():
     app.db_engine.dispose()
