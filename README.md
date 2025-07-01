@@ -1,7 +1,19 @@
 ![Image](https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604)
 
 
-## FOcrew is a MultiAgents for Business 
+<h1 align="center">
+  🌟 FOcrew
+</h1>
+
+<p align="center">
+  <strong>Future-Oriented Crew</strong><br>
+</p>
+
+## What is FOcrew?
+
+* FOcrew is an open-source Multi-Agent System powered by AI,
+* designed for business productivity, automation, and intelligent decision support. Built using Python, FastAPI, and CrewAI,
+* FOcrew provides a modular platform to automate data analysis, generate actionable reports, and streamline business operations.
 
 ### Requirements
 * python 3.10 
@@ -50,5 +62,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 #### Result for Agent inventory managment:
 [report.md](src/results/inventory_management/comprehensive_inventory_analysis_report.md)
 
+
 ### Result for Agent Marketing Stratgey:
 [report.md](src/results/Agent_marketing/marketing_analysis_english.md )
+
