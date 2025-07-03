@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import base,AgentsRouter
+from routes import base,AgentsRouter,data
 from helpers.config import get_settings
 from Agents.AgentProviderFactory import AgentProviderFactory
 from sqlalchemy.ext.asyncio import create_async_engine,AsyncSession
@@ -39,5 +39,6 @@ app.on_event("startup")(startup_span)
 app.on_event("shutdown")(shutdown_span)
 
 app.include_router(base.base_router)
+app.include_router(data.data_router)
 app.include_router(AgentsRouter.agent_router)
 

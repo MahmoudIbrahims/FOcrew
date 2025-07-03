@@ -1,10 +1,10 @@
 from fastapi import APIRouter ,Depends,UploadFile,status,Request,HTTPException
-from ..Models.UserFileModel import UserFileModel
-from ..Models.ProjectModel import ProjectModel
-from ..Controllers.DataController import DataController,ProjectController
-from ..Models.schema.DBSchemas import UserFile
+from Models.UserFileModel import UserFileModel
+from Models.ProjectModel import ProjectModel
+from Controllers.DataController import DataController,ProjectController
+from Models.schema.DBSchemas import UserFile
 from helpers.config import get_settings ,Settings
-from ..Models.enums.ResponseEnum import ResponseSignal
+from Models.enums.ResponseEnum import ResponseSignal
 from fastapi.responses import JSONResponse
 from .AGRouterEnums import FileNameEnum
 import uuid
