@@ -9,8 +9,9 @@ from fastapi.responses import JSONResponse
 from .AGRouterEnums import FileNameEnum
 import uuid
 import pandas as pd
-from io import StringIO
+from io import StringIO,BytesIO
 import logging
+from fastapi import File
 
 
 logger =logging.getLogger('uvcorn.error')
@@ -21,7 +22,7 @@ data_router = APIRouter(
 )
 
 @data_router.post('/upload/{project_id}')
-async def upload_data(request : Request ,project_id:int ,file : UploadFile,
+async def upload_data(request : Request ,project_id:int ,file : UploadFile = File(...),
                    app_settings:Settings =Depends(get_settings)):
 
     project_model = await ProjectModel.create_instance( 
@@ -51,6 +52,7 @@ async def upload_data(request : Request ,project_id:int ,file : UploadFile,
         orig_file_name=file.filename,
         project_id=project_id
     )
+    
 
     try:
         contents = await file.read()
@@ -63,7 +65,7 @@ async def upload_data(request : Request ,project_id:int ,file : UploadFile,
         if file_type ==FileNameEnum.CSV.value:
             df = pd.read_csv(StringIO(contents.decode("utf-8")))
         elif file_type == FileNameEnum.EXCEL.value or FileNameEnum.SHEET.value:
-            df = pd.read_excel(StringIO(contents.decode("utf-8")))
+            df = pd.read_excel(BytesIO(contents))
         else:
             raise HTTPException(status_code=400, detail="Unsupported file type")
 

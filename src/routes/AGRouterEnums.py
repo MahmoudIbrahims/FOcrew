@@ -6,6 +6,6 @@ class Languages(Enum):
 
 
 class FileNameEnum(Enum):
-    CSV ="text/csv"
-    EXCEL ="application/vnd.ms-excel"
-    SHEET="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    CSV = "csv"
+    EXCEL = "xlsx"
+    SHEET = "xls"
