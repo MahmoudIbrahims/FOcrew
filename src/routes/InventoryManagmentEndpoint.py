@@ -15,7 +15,8 @@ from .AGRouterEnums import Languages
 from Models.enums import ResponseSignal
 from crewai import Crew
 from fastapi.responses import JSONResponse
-from datetime import datetime
+from .Prompts.InventoryTemplate import report_prompt ,process_prompt,translation_prompt
+
 
 agent_router = APIRouter(
     prefix ="/api/v1/agent",
@@ -56,7 +57,6 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
             content={"message": "No uploaded file found for this project"}
         )
         
-        
     Data_Processing =DataProcessing()
     Demand_ForecastingAnalyst =DemandForecastingAnalyst()
     Inventory_OptimizationExpert =InventoryOptimizationExpert()
@@ -64,19 +64,8 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
         
     Data_Processing_Agent =Data_Processing.get_agent()
     Data_Processing_task =Data_Processing.get_task()
-    Data_Processing_task.description ="\n".join([
-                            f"Process the inventory data file: {latest_file.full_data}",
-                            
-                            "Your responsibilities:",
-                            "1. Read and analyze the file structure",
-                            "2. Validate data quality and identify any issues",
-                            "3. Extract key information about inventory items",
-                            "4. Prepare clean data summary for further analysis",
-                            "5. Identify data patterns and basic statistics",
-                            
-                            "Provide a comprehensive data summary."
-                            ])
-            
+    Data_Processing_task.description =process_prompt.safe_substitute(full_data=latest_file.full_data)
+    
     Demand_ForecastingAnalyst_Agent =Demand_ForecastingAnalyst.get_agent()
     Demand_ForecastingAnalyst_task =Demand_ForecastingAnalyst.get_task()
             
@@ -85,82 +74,17 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
             
     Inventory_AnalysisReportingSpecialist_Agent =Inventory_AnalysisReportingSpecialist.get_agent()
     Inventory_AnalysisReportingSpecialist_task =Inventory_AnalysisReportingSpecialist.get_task()
-    Inventory_AnalysisReportingSpecialist_task.expected_output="\n".join([
-                "A professional markdown report with the following structure:",
-                "",
-                "# Inventory Management Analysis Report",
-                f"**Company:** {Process_Request.COMPANY_NAME}",
-                f"**Date:** {datetime.now().strftime('%Y-%m-%d, %H:%M')}",
-                f"**INDUSTRY_NAME:** {Process_Request.INDUSTRY_NAME}"
-                "",
-                "## 📊 Executive Summary",
-                "- Key findings summary (200-300 words)",
-                "- Critical business impacts",
-                "- Priority recommendations",
-                "",
-                "## 🚨 Critical Alerts",
-                "| Alert Type | Item | Severity | Impact | Action Required | Timeline |",
-                "|------------|------|----------|--------|-----------------|----------|",
-                "| .......... | .... | ........ | ...... | ............... | ........ |",
-                "",
-                "## 📈 Key Performance Indicators",
-                "### Inventory Turnover",
-                "| Category | Current | Target | Status | Trend |",
-                "|----------|---------|--------|--------|-------|",
-                "| ........ | ....... | ...... | ...... | ..... |",
-                "",
-                "### Service Levels",
-                "| Metric | Current | Target | Gap | Action |",
-                "|--------|---------|--------|-----|--------|",
-                "| .......| ....... | ...... | ... | ...... |",
-                "",
-                "## 🔍 ABC Analysis",
-                "### Classification Summary",
-                "| Class | Items | Value % | Recommendations |",
-                "|-------|-------|---------|-----------------|",
-                "| A     |...... |........ | ................|",
-                "| B     |...... |........ | ................|",
-                "| C     |...... |........ | ................|",
-                "",
-                "## 🎯 Action Plan",
-                "### Immediate Actions (0-48 hours)",
-                "1. **Action 1:** Description, timeline, responsible party",
-                "2. **Action 2:** Description, timeline, responsible party",
-                "",
-                "### Short-term Improvements (1-4 weeks)",
-                "1. **Initiative 1:** Objective, resources needed, success metrics",
-                "2. **Initiative 2:** Objective, resources needed, success metrics",
-                "",
-                "### Long-term Strategy (1-6 months)",
-                "1. **Strategy 1:** Goals, ROI projection, implementation plan",
-                "2. **Strategy 2:** Goals, ROI projection, implementation plan",
-                "",
-                "## 📋 Implementation Timeline",
-                "| Phase | Duration | Key Milestones | Success Metrics |",
-                "|-------|----------|----------------|-----------------|",
-                "| ... ..| ........ | .............. | ............... |",
-                "",
-                f"**please use the Language:** {Process_Request.Language} **for this report",
-                "",
-                "**Quality Requirements:**",
-                "- Each section must be clearly separated with proper headers",
-                "- All tables must be properly formatted with consistent columns",
-                "- No raw CSV data presentation",
-                "- Include specific, measurable recommendations",
-                "- Use professional, executive-friendly language",
-                "- NEVER output raw CSV data"
-                "- ALWAYS convert to markdown tables",
-                "- ALWAYS use | separators"
-            ])
-            
+    Inventory_AnalysisReportingSpecialist_task.expected_output= report_prompt.safe_substitute(
+                    COMPANY_NAME=Process_Request.COMPANY_NAME,
+                    INDUSTRY_NAME=Process_Request.INDUSTRY_NAME,
+                    Language=Process_Request.Language
+                    )
+    
     translation_agent_provider = TranslationEnglishArabic()
     translation_agent = translation_agent_provider.get_agent()
     translation_task = translation_agent_provider.get_task()
-    translation_task.description ="\n".join([
-                        "Translate the comprehensive inventory analysis report from English to Arabic.",
-                        "Ensure technical terms are accurately translated and the report maintains its professional structure and actionable insights."
-                                        ])
-            
+    translation_task.description =translation_prompt.safe_substitute()
+   
     if Process_Request.Language== Languages.ARABIC.value:
                               
         crew = Crew(
