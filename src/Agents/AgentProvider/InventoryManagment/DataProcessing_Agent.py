@@ -20,10 +20,12 @@ class DataProcessing(BaseAgent):
                         ]),
                     llm=llm,
                     allow_delegation=False,
-                    tools=[file_tool,directory_tool] 
+                    tools=[file_tool,directory_tool] ,
+                    reasoning=True,  # Enable reasoning
+                    max_reasoning_attempts=5  # Optional: Set a maximum number of reasoning attempts
+                    )
             
-                     )
-        
+                     
     def get_task(self):
         return Task(
             description="Analyze inventory data and prepare for analysis",
