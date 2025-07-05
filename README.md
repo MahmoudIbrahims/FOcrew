@@ -62,8 +62,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 #### Result for Agent inventory managment:
 [report.md](src/results/inventory_management/comprehensive_inventory_analysis_report.md)
 
-#### Result for Agent Marketing Stratgey:
-[report.md](src/results/Agent_marketing/marketing_analysis_arabic.md )
 
-
+### Result for Agent Marketing Stratgey:
+[report.md](src/results/Agent_marketing/marketing_analysis_english.md )
 

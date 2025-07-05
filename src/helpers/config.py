@@ -6,6 +6,9 @@ class Settings(BaseSettings):
     APP_NAME:str
     APP_VERSION: str
     
+    FILE_ALLOWED_TYPES:List[str]
+    DB_BACKEND:str
+    
     POSTGRES_USERNAME:str
     POSTGRES_PASSWORD:str
     POSTGRES_HOST:str

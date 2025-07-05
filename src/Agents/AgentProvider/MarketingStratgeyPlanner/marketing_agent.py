@@ -1,6 +1,6 @@
 from crewai import Task
 from ..BaseAgent import BaseAgent
-from Providers.ProviderLLM import ProviderLLM
+from Providers import ProviderLLM
 
 
 class MarketingStrategist(BaseAgent):

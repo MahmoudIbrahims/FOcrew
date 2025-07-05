@@ -14,7 +14,7 @@ class AgentResult(SQLAlchemyBase):
     result_uuid = Column(UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False)
     
     agent_name = Column(String(255), nullable=False)
-    agent_type = Column(String(100), nullable=False)  
+    agent_type = Column(String, nullable=False, default="generic")
     task_description = Column(Text, nullable=True)
     
  
