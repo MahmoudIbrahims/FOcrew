@@ -118,6 +118,6 @@ async def upload_data(request : Request ,project_id:int ,file : UploadFile = Fil
             status_code =status.HTTP_400_BAD_REQUEST,
             content ={
                 "message" : ResponseSignal.FILE_UPLOADED_FAILED.value
-            },
+            }
         )
 

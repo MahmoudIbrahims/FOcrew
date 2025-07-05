@@ -2,6 +2,7 @@ from .BaseDataModel import BaseDataModel
 from .schema.DBSchemas import UserFile
 from sqlalchemy.future import select
 from sqlalchemy import func
+from sqlalchemy import desc 
 
 
 class UserFileModel(BaseDataModel):
@@ -71,3 +72,19 @@ class UserFileModel(BaseDataModel):
                 files = result.scalars().all()
 
                 return files, total_pages
+            
+        
+
+    async def get_latest_user_file_by_project(self, project_id: int):
+        async with self.db_client() as session:
+            async with session.begin():
+                query = (
+                    select(UserFile)
+                    .where(UserFile.project_id == project_id)
+                    .order_by(desc(UserFile.created_at))  
+                    .limit(1)
+                )
+                result = await session.execute(query)
+                user_file = result.scalar_one_or_none()
+                return user_file
+

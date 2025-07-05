@@ -9,3 +9,9 @@ class FileNameEnum(Enum):
     CSV = "csv"
     EXCEL = "xlsx"
     SHEET = "xls"
+    
+
+class UsageType(Enum):
+    INPUT ="input"
+    OUTPUT ="output"
+    Reference ="reference"
