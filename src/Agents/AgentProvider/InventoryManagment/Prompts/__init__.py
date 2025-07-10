@@ -1,0 +1,1 @@
+from .AnalysisReportPrompt import description_prompt, expected_output_prompt
