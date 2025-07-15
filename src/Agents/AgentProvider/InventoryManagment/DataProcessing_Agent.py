@@ -1,7 +1,7 @@
 from crewai import Task
 from ..BaseAgent import BaseAgent
 from Providers import ProviderLLM
-from tools.FileReading import FileTool,DirectoryTool 
+from tools.FileReading import FileTool,DirectoryTool,BatchFileReader
 
 
 class DataProcessing(BaseAgent):
@@ -10,6 +10,7 @@ class DataProcessing(BaseAgent):
         llm = provider.get_llm()
         file_tool = FileTool()
         directory_tool =DirectoryTool()
+        batch_file_reader =BatchFileReader()
         super().__init__(
                     name="Data Processing Specialist",
                     role="Data Processing Specialist",
@@ -20,7 +21,7 @@ class DataProcessing(BaseAgent):
                         ]),
                     llm=llm,
                     allow_delegation=False,
-                    tools=[file_tool,directory_tool],
+                    tools=[file_tool], 
                     reasoning=True,  # Enable reasoning
                     max_reasoning_attempts=5  # Optional: Set a maximum number of reasoning attempts
                     )
@@ -30,5 +31,6 @@ class DataProcessing(BaseAgent):
         return Task(
             description="Analyze inventory data and prepare for analysis",
             agent=self.get_agent(),
-            expected_output="Complete data summary with basic statistics"
+            expected_output="results/inventory_management/DataProcessing_report.md"
+            #"Complete data summary with basic statistics"
                  )

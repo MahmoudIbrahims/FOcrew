@@ -2,7 +2,8 @@ from crewai import Task
 from ..BaseAgent import BaseAgent
 from Providers import ProviderLLM
 from datetime import datetime
-from .Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt
+from ...Prompts import description_prompt, expected_output_prompt
+
 
 class InventoryAnalysisReportingSpecialist(BaseAgent):
     def __init__(self):
