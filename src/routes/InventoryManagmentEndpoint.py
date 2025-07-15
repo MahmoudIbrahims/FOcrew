@@ -128,7 +128,7 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
         return JSONResponse(
                 content ={
                     "signal" : ResponseSignal.RESPONSE_SUCCESS.value,
-                    "resultS" : str(agent.result_data),
+                    "results" : str(agent.result_data),
                     "created_at":str(agent_Relation.created_at)
                     
                 }
@@ -175,7 +175,7 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
         return JSONResponse(
                 content ={
                     "signal" : ResponseSignal.RESPONSE_SUCCESS.value,
-                    "resultS" : str(agent.result_data),
+                    "results" : str(agent.result_data),
                     "created_at":str(agent_Relation.created_at)
                     
                 }

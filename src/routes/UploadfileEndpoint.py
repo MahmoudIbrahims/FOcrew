@@ -49,7 +49,7 @@ async def upload_data(request : Request ,project_id:int ,file : UploadFile = Fil
         )
     
     project_dir_path = ProjectController().get_project_path(project_id=project_id)
-    file_path,file_id = data_controller.generate_unique_filepath(
+    File_path,file_id = data_controller.generate_unique_filepath(
         orig_file_name=file.filename,
         project_id=project_id
     )
@@ -60,7 +60,7 @@ async def upload_data(request : Request ,project_id:int ,file : UploadFile = Fil
         filename = file.filename
         file_type = filename.split(".")[-1].lower()
         file_size = len(contents)
-        file_path = f"/virtual/path/{uuid.uuid4()}" 
+        file_path =File_path                  #f"/virtual/path/{uuid.uuid4()}" 
 
       
         if file_type ==FileNameEnum.CSV.value:
@@ -77,10 +77,11 @@ async def upload_data(request : Request ,project_id:int ,file : UploadFile = Fil
         columns_info = df.dtypes.apply(lambda x: str(x)).to_dict()
         sample_data = df.head(5).to_dict(orient="records")
         full_data = df.to_dict(orient="records")
+        file_UUID = uuid.uuid4()
 
        
         user_file = UserFile(
-            file_uuid=uuid.uuid4(),
+            file_uuid=file_UUID,
             original_filename=filename,
             file_type=file_type,
             file_size=file_size,
@@ -106,6 +107,7 @@ async def upload_data(request : Request ,project_id:int ,file : UploadFile = Fil
                 content ={
                     "message" : ResponseSignal.FILE_UPLOADED_Success.value,
                     "file_id" : str(saved_file.file_id),
+                    "file_uuid": str(file_UUID),
                     "original_filename":str(saved_file.original_filename),
                     "rows":str(rows_count),
                     "columns": str(columns_count)

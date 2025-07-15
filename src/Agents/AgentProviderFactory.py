@@ -14,6 +14,7 @@ from .AgentProvider import InventoryOptimizationExpert
 from .AgentProvider import InventoryAnalysisReportingSpecialist
 
 
+
 class AgentProviderFactory:
     def __init__(self,config : dict ):  
         self.config =config 
