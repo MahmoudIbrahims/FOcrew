@@ -113,6 +113,9 @@ expected_output_prompt=Template("\n".join([
     "|------|--------|----------|-----------|----------------|",
     "",
     "**Important Reporting Guidelines:**",
+   
+    "- All tables should have **10 items at minimum**, sorted by impact or priority.",
+    "- Do not output raw data — only professional insights.",
     "- All tables should have **10 items at minimum**, sorted by impact or priority.",
     "- Do not output raw data — only professional insights.",
     "- Format all tables using markdown with `|` separators.",

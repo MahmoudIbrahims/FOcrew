@@ -21,7 +21,7 @@ class DataProcessing(BaseAgent):
                         ]),
                     llm=llm,
                     allow_delegation=False,
-                    tools=[file_tool], 
+                    tools=[batch_file_reader], 
                     reasoning=True,  # Enable reasoning
                     max_reasoning_attempts=5  # Optional: Set a maximum number of reasoning attempts
                     )
@@ -29,8 +29,12 @@ class DataProcessing(BaseAgent):
                      
     def get_task(self):
         return Task(
-            description="Analyze inventory data and prepare for analysis",
+            description="".join([
+                "Analyze the inventory dataset and generate a strategic report based on real data only. ",
+                "🚨 You MUST use the exact SKUs, Product IDs, and Product Names from the original uploaded file. ",
+                "Never fabricate, infer, rename, or guess any values. Ensure the report reflects actual data integrity."
+            ]),
+            #"Analyze inventory data and prepare for analysis",
             agent=self.get_agent(),
-            expected_output="results/inventory_management/DataProcessing_report.md"
-            #"Complete data summary with basic statistics"
+            expected_output="Complete data summary with basic statistics"
                  )
