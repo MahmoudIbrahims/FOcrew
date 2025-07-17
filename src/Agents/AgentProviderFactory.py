@@ -14,10 +14,9 @@ from .AgentProvider import InventoryOptimizationExpert
 from .AgentProvider import InventoryAnalysisReportingSpecialist
 
 
-class AgentProviderFactory:
 
-    def __init__(self,config : dict ):
-        
+class AgentProviderFactory:
+    def __init__(self,config : dict ):  
         self.config =config 
     
     def create(self, Crew_Name: str ,lanuage:str ,file_path:str):

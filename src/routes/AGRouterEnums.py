@@ -6,7 +6,7 @@ class Languages(Enum):
 
 
 class FileNameEnum(Enum):
-    CSV = "csv"
+    CSV   = "csv"
     EXCEL = "xlsx"
     SHEET = "xls"
     

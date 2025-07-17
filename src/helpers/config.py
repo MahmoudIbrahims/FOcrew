@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     MODEL_NAME_LITERAL:List[str]=None
     MODEL_NAME:str
     API_KEY:str
+    TEMPERATURE:float
     
     AGENT_NAME:str
     AGANT_NAME_LITERAL:List[str]=None

@@ -9,6 +9,7 @@ class ProviderLLM:
         self.llm = LLM(
             model=settings.MODEL_NAME,
             api_key=settings.API_KEY,
+            temperature=settings.TEMPERATURE
         )
     
     def get_llm(self):

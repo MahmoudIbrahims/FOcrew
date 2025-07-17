@@ -5,3 +5,4 @@ from .AgentProvider import InventoryAnalysisReportingSpecialist
 from .AgentProvider import DataVisualizationExpert
 #______________________________________________________________
 from .AgentProvider import TranslationEnglishArabic
+from .Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt

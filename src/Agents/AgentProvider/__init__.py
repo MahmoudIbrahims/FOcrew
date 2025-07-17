@@ -8,3 +8,5 @@ from .InventoryManagment import DemandForecastingAnalyst
 from .InventoryManagment import InventoryOptimizationExpert
 from .InventoryManagment import InventoryAnalysisReportingSpecialist
 from .InventoryManagment import DataVisualizationExpert
+
+from ..Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt
