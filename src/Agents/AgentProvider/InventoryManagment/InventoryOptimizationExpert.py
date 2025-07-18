@@ -8,7 +8,7 @@ class InventoryOptimizationExpert(BaseAgent):
     def __init__(self):
         provider = ProviderLLM()
         llm = provider.get_llm()
-        #file_tool = FileTool()
+        
         super().__init__(
                     name="Inventory Optimization Expert",
                     role="Inventory Optimization Expert",
@@ -24,9 +24,9 @@ class InventoryOptimizationExpert(BaseAgent):
     
     def get_task(self):
         return Task(
-                description="Optimize inventory levels and create management strategies",
+                description="Optimize inventory levels and create management strategies ABC classification, reorder points, and optimization recommendations and save in results/inventory_management/Inventory_Optimization.md",
                 agent=self.get_agent(),
-                expected_output="ABC classification, reorder points, and optimization recommendations"
+                expected_output="results/inventory_management/Inventory_Optimization.md"
             )
                     
             

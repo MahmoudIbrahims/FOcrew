@@ -7,7 +7,6 @@ class DemandForecastingAnalyst(BaseAgent):
     def __init__(self):
         provider = ProviderLLM()
         llm = provider.get_llm()
-        
         super().__init__(
                     name="Demand Forecasting Analyst",
                     role="Demand Forecasting Analyst",
@@ -25,5 +24,5 @@ class DemandForecastingAnalyst(BaseAgent):
         return Task(
             description="Analyze sales data and create demand forecasts",
             agent=self.get_agent(),
-            expected_output="Weekly/monthly forecasts with trend analysis and stock coverage"
+            expected_output="Weekly/monthly forecasts with trend analysis and stock coverage and save in results/inventory_management/Forecasting_Analyst.md",
         )
