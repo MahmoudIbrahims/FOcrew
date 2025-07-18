@@ -12,6 +12,7 @@ from .AgentProvider import DataProcessing
 from .AgentProvider import DemandForecastingAnalyst
 from .AgentProvider import InventoryOptimizationExpert
 from .AgentProvider import InventoryAnalysisReportingSpecialist
+from .AgentProvider import DataVisualizationExpert
 
 
 
@@ -80,6 +81,7 @@ class AgentProviderFactory:
             Demand_ForecastingAnalyst =DemandForecastingAnalyst()
             Inventory_OptimizationExpert =InventoryOptimizationExpert()
             Inventory_AnalysisReportingSpecialist =InventoryAnalysisReportingSpecialist()
+            Data_VisualizationExpert  = DataVisualizationExpert()
         
             Data_Processing_Agent =Data_Processing.get_agent()
             Data_Processing_task =Data_Processing.get_task()
@@ -104,6 +106,9 @@ class AgentProviderFactory:
             
             Inventory_AnalysisReportingSpecialist_Agent =Inventory_AnalysisReportingSpecialist.get_agent()
             Inventory_AnalysisReportingSpecialist_task =Inventory_AnalysisReportingSpecialist.get_task()
+            Data_VisualizationExpert_Agent = Data_VisualizationExpert.get_agent()
+            Data_VisualizationExpert_task =Data_VisualizationExpert.get_task()
+            
             
             translation_agent_provider = TranslationEnglishArabic()
             translation_agent = translation_agent_provider.get_agent()
@@ -120,6 +125,7 @@ class AgentProviderFactory:
                             Demand_ForecastingAnalyst_Agent,
                             Inventory_OptimizationExpert_Agent,
                             Inventory_AnalysisReportingSpecialist_Agent,
+                            Data_VisualizationExpert_Agent,
                             translation_agent
                             ],
                     
@@ -127,6 +133,7 @@ class AgentProviderFactory:
                            Demand_ForecastingAnalyst_task,
                            Inventory_OptimizationExpert_task,
                            Inventory_AnalysisReportingSpecialist_task,
+                           Data_VisualizationExpert_task,
                            translation_task],
                             verbose=True
                                 )
@@ -138,13 +145,15 @@ class AgentProviderFactory:
                         agents=[Data_Processing_Agent,
                                 Demand_ForecastingAnalyst_Agent,
                                 Inventory_OptimizationExpert_Agent,
-                                Inventory_AnalysisReportingSpecialist_Agent
+                                Inventory_AnalysisReportingSpecialist_Agent,
+                                Data_VisualizationExpert_Agent
                                 ],
                         
                         tasks=[Data_Processing_task ,
                             Demand_ForecastingAnalyst_task,
                             Inventory_OptimizationExpert_task,
-                            Inventory_AnalysisReportingSpecialist_task],
+                            Inventory_AnalysisReportingSpecialist_task,
+                            Data_VisualizationExpert_task],
                                 verbose=True
                                     )
                 
