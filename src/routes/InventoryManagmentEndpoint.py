@@ -3,10 +3,6 @@ from Models.ProjectModel import ProjectModel
 from Models.AgentResultModel import AgentResultModel
 from Models.FileAgentRelationModel import FileAgentRelationModel
 from Models.UserFileModel import UserFileModel
-
-from Agents import (DataProcessing,DemandForecastingAnalyst,InventoryOptimizationExpert,
-                    InventoryAnalysisReportingSpecialist,TranslationEnglishArabic)
-
 from Models.schema.DBSchemas import AgentResult  
 import uuid
 from .Schemes.data import ProcessRequest
@@ -15,8 +11,11 @@ from .AGRouterEnums import Languages
 from Models.enums import ResponseSignal
 from crewai import Crew
 from fastapi.responses import JSONResponse
-from .Prompts.InventoryTemplate import report_prompt ,process_prompt,translation_prompt
+from Agents import (DataAnalysisSpecialist,DemandForecastingAnalyst,InventoryOptimizationExpert,
+                    InventoryAnalysisReportingSpecialist,DataVisualizationExpert ,TranslationEnglishArabic)
 
+from Agents.Prompts import (finally_expected_output_prompt,Analysis_description_prompt,
+                              Visualization_description_prompt,Visualization_expected_output_prompt,translation_description_prompt)
 
 agent_router = APIRouter(
     prefix ="/api/v1/agent",
@@ -57,15 +56,16 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
             content={"message": "No uploaded file found for this project"}
         )
         
-    Data_Processing =DataProcessing()
+    Data_Processing =DataAnalysisSpecialist()
     Demand_ForecastingAnalyst =DemandForecastingAnalyst()
     Inventory_OptimizationExpert =InventoryOptimizationExpert()
     Inventory_AnalysisReportingSpecialist =InventoryAnalysisReportingSpecialist()
+    Data_VisualizationExpert =DataVisualizationExpert()
         
     Data_Processing_Agent =Data_Processing.get_agent()
     Data_Processing_task =Data_Processing.get_task()
-    Data_Processing_task.description =process_prompt.safe_substitute(full_data=latest_file.full_data)
-    
+    Data_Processing_task.description =Analysis_description_prompt.safe_substitute( file_path =latest_file.full_data)
+
     Demand_ForecastingAnalyst_Agent =Demand_ForecastingAnalyst.get_agent()
     Demand_ForecastingAnalyst_task =Demand_ForecastingAnalyst.get_task()
             
@@ -74,16 +74,20 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
             
     Inventory_AnalysisReportingSpecialist_Agent =Inventory_AnalysisReportingSpecialist.get_agent()
     Inventory_AnalysisReportingSpecialist_task =Inventory_AnalysisReportingSpecialist.get_task()
-    Inventory_AnalysisReportingSpecialist_task.expected_output= report_prompt.safe_substitute(
+    Inventory_AnalysisReportingSpecialist_task.expected_output= finally_expected_output_prompt.safe_substitute(
                     COMPANY_NAME=Process_Request.COMPANY_NAME,
                     INDUSTRY_NAME=Process_Request.INDUSTRY_NAME,
                     Language=Process_Request.Language
                     )
+    Data_VisualizationExpert_agent = Data_VisualizationExpert.get_agent()
+    Data_VisualizationExpert_task = Data_VisualizationExpert.get_task()
+    Data_VisualizationExpert_task.description =Visualization_description_prompt.safe_substitute(file_path=latest_file.full_data)
+    Data_VisualizationExpert_task.expected_output =Visualization_expected_output_prompt.safe_substitute(file_path=latest_file.full_data)
     
     translation_agent_provider = TranslationEnglishArabic()
     translation_agent = translation_agent_provider.get_agent()
     translation_task = translation_agent_provider.get_task()
-    translation_task.description =translation_prompt.safe_substitute()
+    translation_task.description =translation_description_prompt.safe_substitute()
    
     if Process_Request.Language== Languages.ARABIC.value:
                               
@@ -92,6 +96,7 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
                             Demand_ForecastingAnalyst_Agent,
                             Inventory_OptimizationExpert_Agent,
                             Inventory_AnalysisReportingSpecialist_Agent,
+                            Data_VisualizationExpert_agent,
                             translation_agent
                             ],
                     
@@ -99,6 +104,7 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
                            Demand_ForecastingAnalyst_task,
                            Inventory_OptimizationExpert_task,
                            Inventory_AnalysisReportingSpecialist_task,
+                           Data_VisualizationExpert_task,
                            translation_task],
                             verbose=True
                                 )
@@ -140,13 +146,15 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
                 agents=[Data_Processing_Agent,
                         Demand_ForecastingAnalyst_Agent,
                         Inventory_OptimizationExpert_Agent,
-                        Inventory_AnalysisReportingSpecialist_Agent
+                        Inventory_AnalysisReportingSpecialist_Agent,
+                        Data_VisualizationExpert_agent
                                 ],
                         
                 tasks=[Data_Processing_task ,
                        Demand_ForecastingAnalyst_task,
                        Inventory_OptimizationExpert_task,
-                       Inventory_AnalysisReportingSpecialist_task],
+                       Inventory_AnalysisReportingSpecialist_task,
+                       Data_VisualizationExpert_task],
                        verbose=True
                             )
                 

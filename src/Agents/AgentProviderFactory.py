@@ -8,7 +8,7 @@ from .AgentProvider import MarketingStrategist
 from .AgentProvider import  ContentPlanner
 from .AgentProvider import TranslationEnglishArabic
 ## InventoryManagment
-from .AgentProvider import DataProcessing
+from .AgentProvider import DataAnalysisSpecialist
 from .AgentProvider import DemandForecastingAnalyst
 from .AgentProvider import InventoryOptimizationExpert
 from .AgentProvider import InventoryAnalysisReportingSpecialist
@@ -77,7 +77,7 @@ class AgentProviderFactory:
             if not os.path.exists(file_path):
                 raise FileNotFoundError(f"Inventory file not found:{file_path}")
 
-            Data_Processing =DataProcessing()
+            Data_Processing =DataAnalysisSpecialist()
             Demand_ForecastingAnalyst =DemandForecastingAnalyst()
             Inventory_OptimizationExpert =InventoryOptimizationExpert()
             Inventory_AnalysisReportingSpecialist =InventoryAnalysisReportingSpecialist()
@@ -86,16 +86,7 @@ class AgentProviderFactory:
             Data_Processing_Agent =Data_Processing.get_agent()
             Data_Processing_task =Data_Processing.get_task()
             Data_Processing_task.description ="\n".join([
-                            f"Process the inventory data file: {file_path}",
-                            
-                            "Your responsibilities:",
-                            "1. Read and analyze the file structure",
-                            "2. Validate data quality and identify any issues",
-                            "3. Extract key information about inventory items",
-                            "4. Prepare clean data summary for further analysis",
-                            "5. Identify data patterns and basic statistics",
-                            
-                            "Provide a comprehensive data summary."
+                            f"file: {file_path}",
                             ])
             
             Demand_ForecastingAnalyst_Agent =Demand_ForecastingAnalyst.get_agent()

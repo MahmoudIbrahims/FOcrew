@@ -1,1 +1,4 @@
-from .AnalysisReportPrompt import description_prompt, expected_output_prompt
+from .InventoryAnalysisReportPrompt import finally_description_prompt, finally_expected_output_prompt
+from .DataVisulizationPrompt import Visualization_description_prompt ,Visualization_expected_output_prompt
+from .DataِAnalysisPrompt import Analysis_description_prompt
+from .TranslationPrompt import translation_description_prompt

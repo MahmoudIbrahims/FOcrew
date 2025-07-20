@@ -2,22 +2,48 @@ from string import Template
 from datetime import datetime
 
 
+finally_description_prompt =Template("\n".join([
+                "Create a comprehensive inventory management report with separate, clearly formatted sections for each analysis area.",
+                "",
+                "## Analysis Requirements:",
+                "",
+                "**1. Executive Summary Section:**",
+                "- Business impact overview",
+                "- Critical findings and priorities",
+                "- Financial implications",
+                "",
+                "**2. Critical Alerts Section:**",
+                "- Immediate stockout risks",
+                "- Overstocked items",
+                "- Supplier performance issues",
+                "- Each alert: severity level, impact, action required, timeline",
+                "",
+                "**3. KPI Dashboard Section:**",
+                "- Inventory turnover by category",
+                "- Service level performance",
+                "- Carrying cost analysis",
+                "- Forecast accuracy metrics",
+                "",
+                "**4. ABC Analysis Section:**",
+                "- Classification breakdown with insights",
+                "- Category performance analysis",
+                "- Optimization recommendations",
+                "",
+                "**5. Action Plan Section:**",
+                "- Immediate actions (0-48 hours)",
+                "- Short-term improvements (1-4 weeks)",
+                "- Long-term strategy (1-6 months)",
+                "- Each action: objective, timeline, success metrics",
+                "",
+                "## Formatting Requirements:",
+                "- Use clear markdown headers for each section",
+                "- Present data in well-formatted tables",
+                "- Include bullet points for key insights",
+                "- Separate each analysis type clearly",
+                "- Avoid CSV-style data presentation"
+            ]))
 
-process_prompt =Template("\n".join([
-                            f"Process the inventory data file: $full_data",
-                            
-                            "Your responsibilities:",
-                            "1. Read and analyze the file structure",
-                            "2. Validate data quality and identify any issues",
-                            "3. Extract key information about inventory items",
-                            "4. Prepare clean data summary for further analysis",
-                            "5. Identify data patterns and basic statistics",
-                            
-                            "Provide a comprehensive data summary."
-                            ]))
-
-
-report_prompt =Template("\n".join([
+finally_expected_output_prompt=Template("\n".join([
     "# 📊 Executive Inventory Strategy Report – Full Advisory Format",
     "",
     "**Client:** $COMPANY_NAME",
@@ -87,6 +113,9 @@ report_prompt =Template("\n".join([
     "|------|--------|----------|-----------|----------------|",
     "",
     "**Important Reporting Guidelines:**",
+   
+    "- All tables should have **10 items at minimum**, sorted by impact or priority.",
+    "- Do not output raw data — only professional insights.",
     "- All tables should have **10 items at minimum**, sorted by impact or priority.",
     "- Do not output raw data — only professional insights.",
     "- Format all tables using markdown with `|` separators.",
@@ -94,8 +123,3 @@ report_prompt =Template("\n".join([
     "- Use real-world business vocabulary and focus on executive action."
 ]))
 
-
-translation_prompt =Template("\n".join([
-                        "Translate the comprehensive inventory analysis report from English to Arabic.",
-                        "Ensure technical terms are accurately translated and the report maintains its professional structure and actionable insights."
-                                        ]))

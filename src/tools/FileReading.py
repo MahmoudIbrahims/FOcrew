@@ -22,6 +22,10 @@ class BatchFileReader(BaseTool):
 
     def _run(self, file_path: str, num_batches: int = 5, mime_type: str = "text/csv"):
         try:
+            
+            if not mime_type:
+                mime_type = "text/csv"
+
             if num_batches is None:
                 num_batches = 5
             # Step 1: Count total rows

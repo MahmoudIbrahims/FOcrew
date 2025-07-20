@@ -1,7 +1,7 @@
-from .DataProcessing_Agent import DataProcessing
+from .DataAnalysis_Agent import DataAnalysisSpecialist
 from .DemandForecastingAnalyst import DemandForecastingAnalyst
 from .InventoryOptimizationExpert import InventoryOptimizationExpert
 from .AnalysisReportingSpecialist import InventoryAnalysisReportingSpecialist
 from .DataVisualizationExpert import DataVisualizationExpert
 
-from ...Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt
+from ...Prompts.InventoryAnalysisReportPrompt import finally_description_prompt, finally_expected_output_prompt

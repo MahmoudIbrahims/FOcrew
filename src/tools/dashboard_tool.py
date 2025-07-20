@@ -175,6 +175,7 @@ import os
 from datetime import datetime
 import numpy as np
 from plotly.subplots import make_subplots
+import ast
 
 
 class DashboardInput(BaseModel):
@@ -221,17 +222,21 @@ class ComprehensiveDashboardTool(BaseTool):
 
     def _load_data(self, data_source: str) -> pd.DataFrame:
         """Load data from file or JSON string."""
-        if data_source.endswith('.csv'):
-            return pd.read_csv(data_source)
-        elif data_source.endswith('.xlsx') or data_source.endswith('.xls'):
-            return pd.read_excel(data_source)
+    
+        if os.path.exists(data_source):
+            if data_source.endswith('.csv'):
+                return pd.read_csv(data_source)
+            elif data_source.endswith('.xlsx') or data_source.endswith('.xls'):
+                return pd.read_excel(data_source)
+            else:
+                raise ValueError("Unsupported file type.")
         else:
-            # Try to parse as JSON
             try:
                 data = json.loads(data_source)
                 return pd.DataFrame(data)
-            except:
-                raise ValueError("Unsupported data format")
+            except json.JSONDecodeError:
+                raise ValueError("Invalid JSON string or file path not found.")
+
 
     def _comprehensive_analysis(self, df: pd.DataFrame) -> Dict[str, Any]:
         """Perform comprehensive data analysis."""

@@ -2,7 +2,7 @@ from crewai import Task
 from ..BaseAgent import BaseAgent
 from Providers import ProviderLLM
 from tools.dashboard_tool import  ComprehensiveDashboardTool   #DashboardTool ComprehensiveDashboardTool
-
+from ...Prompts import Visualization_description_prompt , Visualization_expected_output_prompt
 
 class DataVisualizationExpert(BaseAgent):
     def __init__(self):
@@ -19,20 +19,15 @@ class DataVisualizationExpert(BaseAgent):
                         tools=[Plotly_DashboardTool]
                              )
     def get_task(self):
+        file_path = self.get_config().DATA_PATH  
+
         return Task(
-            description="".join([
-                "1. Create an interactive inventory dashboard and visual reports using your dashboard tools. ",
-                "2. Generate comprehensive charts, KPIs, and actionable insights from the inventory data. ",
-                "3. 📁 CRITICAL: Save your complete dashboard as an HTML file to 'results/Dashboard/Complete_Dashboard.html'. ",
-                "4. Ensure the directory structure exists and the file is properly saved. ",
-                "5. Include interactive elements like filters, hover effects, and drill-down capabilities. ",
-                "6. Confirm successful file creation before completing the task."
-            ]),
+            description=Visualization_description_prompt.safe_substitute(file_path=file_path),
             agent=self.get_agent(),
-            expected_output="Interactive HTML dashboard saved to results/Dashboard/Complete_Dashboard.html with confirmation of successful file creation",
+            expected_output=Visualization_expected_output_prompt.safe_substitute(file_path=file_path),
+            output_file="results/Dashboard/Complete_Dashboard.html"
         )
-               
-            
+
             
             
                         

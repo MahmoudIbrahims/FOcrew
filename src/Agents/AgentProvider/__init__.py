@@ -3,10 +3,10 @@ from .MarketingStratgeyPlanner import MarketingStrategist
 from .MarketingStratgeyPlanner import SWOTAnalyst
 from .MarketingStratgeyPlanner import TranslationEnglishArabic
 
-from .InventoryManagment import DataProcessing
+from .InventoryManagment import DataAnalysisSpecialist
 from .InventoryManagment import DemandForecastingAnalyst
 from .InventoryManagment import InventoryOptimizationExpert
 from .InventoryManagment import InventoryAnalysisReportingSpecialist
 from .InventoryManagment import DataVisualizationExpert
 
-from ..Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt
+from ..Prompts.InventoryAnalysisReportPrompt import finally_description_prompt, finally_description_prompt

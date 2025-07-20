@@ -2,7 +2,7 @@ from crewai import Task
 from ..BaseAgent import BaseAgent
 from Providers import ProviderLLM
 from datetime import datetime
-from ...Prompts import description_prompt, expected_output_prompt
+from ...Prompts import finally_description_prompt, finally_expected_output_prompt
 
 
 class InventoryAnalysisReportingSpecialist(BaseAgent):
@@ -21,9 +21,9 @@ class InventoryAnalysisReportingSpecialist(BaseAgent):
     
     def get_task(self):
         return Task(
-             description= description_prompt.template,
+             description= finally_description_prompt.template,
             agent=self.get_agent(),
-            expected_output= expected_output_prompt.safe_substitute(
+            expected_output= finally_expected_output_prompt.safe_substitute(
                 COMPANY_NAME = self.get_config().COMPANY_NAME,
                 INDUSTRY_NAME =self.get_config().INDUSTRY_NAME,
                 Language= self.get_config().LANGUAGE),
