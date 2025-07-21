@@ -5,7 +5,7 @@ Analysis_description_prompt =Template("\n".join([
    "You are a data analysis expert specialized in processing large inventory files (CSV or Excel formats)."
 
                     "##🎯 Mission:",
-                   " Analyze the inventory dataset located at: `$file_path`.",
+                   " Analyze and Perform a detailed the inventory dataset located at: `$file_path`.",
 
                    "  ### 📌 Objectives:" ,
                    "  1. **Identify column data types** (e.g., dates, categories, numeric, text).",
@@ -29,15 +29,24 @@ Analysis_description_prompt =Template("\n".join([
                    "  - Provide a structured **Markdown report**.",
                    "  - Use **clean and readable tables** for presenting key metrics.",
                    "  - **Do NOT fabricate** product names, SKUs, or values. Use only the actual content in the dataset.",
+                   "  - *****VERIFICATION the resluts and check in the result.******",
+                   "  - **Do Not write code in the file**",
+                   "  - ***check the result before write.***",
 
                    "  ### 💾 Save Output To:",
                    "  - Path: `results/inventory_management/data_analysis_report.md`",
                    "  - Ensure directory structure exists.",
                    "  - Overwrite the file if it already exists.",
+                   "  - ***check the result before write.***",
 
                    "  ### 🔒 Data Integrity Rules:",
                    "  - **No assumptions allowed** — rely only on what's in the file.",
                    "  - Avoid vague summaries — be specific, quantitative, and data-driven.",
-                   "  - Always maintain professional, factual tone in your reporting."
+                   "  - Always maintain professional, factual tone in your reporting.",
+                   "  - ❌ Do NOT include any value that is not directly verified through calculation.",
+                   "  - ❌ Do NOT round or approximate totals — report full values as computed.",
+                   "  - ❗ Accuracy of numbers is mission-critical — this report supports financial and stock decisions."
+
     
 ]))
+

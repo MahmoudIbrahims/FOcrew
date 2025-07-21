@@ -1,109 +1,95 @@
-# Sales Data Analysis Report
+```markdown
+## Inventory Data Analysis Report
 
-This report provides a comprehensive analysis of the sales data for the year 2019 and 2020. The data includes information on sales across different countries, branches, product categories, and brands.
+This report summarizes the inventory data from the provided Sales.xlsx file. The data includes sales information for various products across different countries, branches, and time periods.
 
-## 1. Overall Sales Summary
+### Data Overview
 
-This table summarizes the total sales for each year.
+The dataset contains sales records for the years 2019 and 2020, covering multiple quarters and months. The products are categorized into "Accessories" and "Electronic" items, with further sub-categories and brands.
 
-| Year | Total Sales | Total COGS |
-|---|---|---|
-| 2019 | 1198880500 | 621569132.4 |
-| 2020 | 689475950 | 361750500 |
+### Summary Tables
 
-## 2. Sales by Country
+#### 1. Total Sales by Country
 
-This table shows the sales distribution across different countries.
+| Country    | Total Sales |
+|------------|-------------|
+| Canada     | 287745000   |
+| USA        | 412978000   |
+| Brazil     | 217938000   |
+| Australia  | 172485000   |
+| Russia     | 1022860000  |
 
-| Country | Total Sales |
-|---|---|
-| Canada | 232931000 |
-| USA | 323758000 |
-| Brazil | 137351000 |
-| Australia | 111795000 |
-| Russia | 584521450 |
-
-## 3. Sales by Product Category
-
-This table breaks down the sales by product category.
+#### 2. Total Sales by Product Category
 
 | Product Category | Total Sales |
-|---|---|
-| Accessories | 296331450 |
-| Electronic | 626220000 |
+|------------------|-------------|
+| Accessories      | 292990000   |
+| Electronic       | 1815313000  |
 
-## 4. Sales by Product Sub Category
-
-This table shows the sales for each product sub-category.
-
-| Product Sub Category | Total Sales |
-|---|---|
-| Keyboard + Mouse | 88892500 |
-| Headphone | 110310000 |
-| Fast Charger | 97124000 |
-| TV | 108405000 |
-| Microwave | 60230000 |
-| Refrigerator | 107835000 |
-| Washing Machine | 105345000 |
-| Vacuum Machine | 118410000 |
-
-## 5. Sales by Brand
-
-This table presents the sales figures for each brand.
-
-| Brand | Total Sales |
-|---|---|
-| G1 | 48800000 |
-| B1 | 66680000 |
-| A1 | 71415000 |
-| samsung | 387890000 |
-| sharp | 80730000 |
-| G2 | 20475000 |
-| B2 | 27960000 |
-| A2 | 36050000 |
-| toshiba | 194325000 |
-| LG | 117036000 |
-| G3 | 29295000 |
-| B4 | 33550000 |
-| A4 | 38075000 |
-| B3 | 1500000 |
-| G4 | 9394500 |
-| B5 | 15600000 |
-| A5 | 1535000 |
-
-## 6. Quarterly Sales Summary
-
-This table summarizes the total sales for each quarter.
+#### 3. Total Sales by Quarter
 
 | Quarter | Total Sales |
-|---|---|
-| Q1 | 284193500 |
-| Q2 | 304992000 |
-| Q3 | 306512450 |
-| Q4 | 302653500 |
+|---------|-------------|
+| Q1      | 412428000   |
+| Q2      | 521495000   |
+| Q3      | 548200000   |
+| Q4      | 526170000   |
 
-## 7. Branch Sales Summary
+#### 4. Sales by Brand
 
-This table summarizes the total sales for each branch.
+| Brand     | Total Sales |
+|-----------|-------------|
+| G1        | 132381400   |
+| B1        | 153110000   |
+| A1        | 150454600   |
+| samsung   | 718290000   |
+| sharp     | 201375000   |
+| G2        | 77002500    |
+| B2        | 99360000    |
+| A2        | 105350000   |
+| toshiba   | 384890000   |
+| G3        | 68674500    |
+| B4        | 74140000    |
+| A4        | 76475000    |
+| LG        | 280000000   |
+| G4        | 24255000    |
+| B5        | 26040000    |
+| A5        | 27075000    |
 
-| Branch | Total Sales |
-|---|---|
-| Branch G | 44867000 |
-| Branch H | 45705000 |
-| Branch M | 75483000 |
-| Branch N | 76170000 |
-| Branch O | 76205000 |
-| Branch D | 44867000 |
-| Branch E | 45705000 |
-| Branch F | 45130000 |
-| Branch I | 45130000 |
-| Branch J | 112260000 |
-| Branch K | 112260000 |
-| Branch L | 112260000 |
-| Branch A | 45785000 |
-| Branch B | 45785000 |
-| Branch C | 45785000 |
+#### 5. Sales by Branch
 
-## Conclusion
+| Branch   | Total Sales |
+|----------|-------------|
+| Branch G | 136995000   |
+| Branch H | 142440000   |
+| Branch M | 140988000   |
+| Branch N | 141043000   |
+| Branch O | 140955000   |
+| Branch D | 137010000   |
+| Branch E | 137010000   |
+| Branch F | 137010000   |
+| Branch I | 136995000   |
+| Branch J | 205950000   |
+| Branch K | 205950000   |
+| Branch L | 205950000   |
+| Branch A | 72645000    |
+| Branch B | 72645000    |
+| Branch C | 72645000    |
 
-The sales data analysis reveals key insights into the performance of different products, brands, and regions. This information can be used to make informed decisions about inventory management, marketing strategies, and overall business operations.
+### Observations
+
+*   Russia has the highest total sales, significantly greater than other countries.
+*   Electronic products generate considerably more revenue than Accessories.
+*   Sales are relatively consistent across all quarters.
+*   Samsung and Toshiba are the top-performing brands.
+*   Branches J, K, and L have the highest sales figures.
+
+### Further Analysis
+
+Further analysis could involve:
+
+*   Investigating the reasons for Russia's high sales.
+*   Analyzing sales trends over time.
+*   Examining the profitability of different product categories and brands.
+*   Evaluating the performance of individual branches.
+```
