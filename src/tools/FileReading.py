@@ -84,7 +84,6 @@ class BatchFileReader(BaseTool):
                     elif value is None:
                         cleaned_record[key] = ""
                     else:
-                        # تحويل أي نوع آخر إلى string
                         cleaned_record[key] = str(value)
                 except Exception as e:
                     logging.warning(f"Error cleaning field {key}: {str(e)}")
