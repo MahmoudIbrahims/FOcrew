@@ -3,14 +3,12 @@ from .Schema import BatchFileReaderSchema,JsonBatchFileReaderSchema
 from crewai.tools import BaseTool
 from pydantic import BaseModel
 import dask.dataframe as dd
-from typing import Type
+from typing import Type,List
 import pandas as pd
 import time
 import json
 import os
 import logging
-
-
 
 
 logging.basicConfig(filename='batch_reader.log', level=logging.DEBUG, 
