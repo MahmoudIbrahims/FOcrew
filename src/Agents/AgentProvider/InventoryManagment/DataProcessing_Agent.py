@@ -1,400 +1,269 @@
 from crewai import Task
 from ..BaseAgent import BaseAgent
 from Providers import ProviderLLM
-from tools.FileReading import FileTool,DirectoryTool,BatchFileReader
-import json
+from tools.FileReading import BatchFileReader,JsonBatchFileReader
+from ...Prompts.DataprocessingPrompt import Data_processingprompt
 import os
 import logging
+from datetime import datetime
+from typing import List, Dict
+import gc
 
 
-# class DataProcessing(BaseAgent):
-#     def __init__(self):
-#         provider = ProviderLLM()
-#         llm = provider.get_llm()
-#         file_tool = FileTool()
-#         directory_tool =DirectoryTool()
-#         batch_file_reader =BatchFileReader()
-#         super().__init__(
-#                     name="Data Processing Specialist",
-#                     role="Data Processing Specialist",
-#                     goal="Process and analyze inventory data files efficiently regardless of size",
-#                     backstory="\n".join([
-#                         "You are a data processing expert who specializes in handling various file formats and sizes."
-#                         "You can efficiently read, clean, and prepare inventory data for analysis, ensuring data quality and consistency."
-#                         ]),
-#                     llm=llm,
-#                     allow_delegation=False,
-#                     tools=[batch_file_reader], 
-#                     # reasoning=True,  # Enable reasoning
-#                     # max_reasoning_attempts=5  # Optional: Set a maximum number of reasoning attempts
-#                     )
-            
-                     
-#     def get_task(self):
-#         return Task(
-#             description="".join([
-#                "Analyze the inventory dataset and generate a strategic report based on real data only. ",
-#                 "🚨 You MUST use the exact SKUs, Product IDs, and Product Names from the original uploaded file. ",
-#                 "Never fabricate, infer, rename, or guess any values. Ensure the report reflects actual data integrity. ",
-#                 "📁 IMPORTANT: Save your final analysis report to 'results/inventory_management/data_analysis_report.md'. ",
-#                 "Create the directory structure if it doesn't exist and write the complete analysis to the file."
-#             ]),
-            
-#             agent=self.get_agent(),
-#             expected_output="A comprehensive data analysis report saved to results/inventory_management/data_analysis_report.md"
-#         )
-#======================================================
+class DataProcessing(BaseAgent):
+    def __init__(self):
+        provider = ProviderLLM()
+        llm = provider.get_llm()
+        batch_file_reader = BatchFileReader()
+        Json_BatchFileReader = JsonBatchFileReader()
 
-# class DataProcessing(BaseAgent):
-#     def __init__(self):
-#         provider = ProviderLLM()  # Assuming this returns Gemini LLM
-#         llm = provider.get_llm()
-#         batch_file_reader = BatchFileReader()
-#         super().__init__(
-#             name="Data Processing Specialist",
-#             role="Data Processing Specialist",
-#             goal="Process and analyze large inventory data files efficiently with Gemini",
-#             backstory="\n".join([
-#                 "You are a data processing expert specializing in handling large datasets in various formats.",
-#                 "You ensure data quality and consistency, processing data in batches to fit within Gemini's context length."
-#             ]),
-#             llm=llm,
-#             allow_delegation=False,
-#             tools=[batch_file_reader],
-#         )
+        super().__init__(
+            name="Data Processing Specialist",
+            role="Data Processing Specialist",
+            goal="Process and analyze inventory data files efficiently regardless of size",
+            backstory="\n".join([
+                "You are a data processing expert who specializes in handling various file formats and sizes.",
+                "You can efficiently read, clean, and prepare inventory data for analysis, ensuring data quality and consistency."
+            ]),
+            llm=llm,
+            allow_delegation=False,
+            tools=[batch_file_reader, Json_BatchFileReader],
+        )
 
-#     def get_task(self):
-#         return Task(
-#             description="".join([
-#                 "Process large inventory dataset in batches optimized for Gemini's context length. For each batch: ",
-#                 "1. Analyze the batch to extract key insights (e.g., SKUs, Product IDs, Product Names). ",
-#                 "2. Use only real data from the batch; do not fabricate or guess any values. ",
-#                 "3. Save intermediate results for each batch to 'results/inventory_management/batch_{i}_report.md'. ",
-#                 "4. After processing all batches, combine insights into a final strategic report. ",
-#                 "5. Save the final report to 'results/inventory_management/data_analysis_report.md'. ",
-#                 "Create the directory structure if it doesn't exist."
-#             ]),
-#             agent=self.get_agent(),
-#             expected_output="A comprehensive data analysis report saved to results/inventory_management/data_analysis_report.md, with intermediate batch reports."
-#         )  
+        self.input_dir = "temp_batches/Breadfast.xlsx_1753569465.7975478_1031496/"
+        self.output_dir = "results/inventory_management/batch_reports/"
+        self.final_report_path = "results/inventory_management/data_analysis_report.md"
 
-#=============================================
+        os.makedirs(self.output_dir, exist_ok=True)
+        os.makedirs(os.path.dirname(self.final_report_path), exist_ok=True)
 
+        self.all_data = []
+        self.batch_reports = []
 
-# # Set up logging
-# logging.basicConfig(filename='data_processing.log', level=logging.DEBUG, 
-#                     format='%(asctime)s %(levelname)s: %(message)s')
+    def get_task(self):
+        return Task(
+            description="".join([
+                "Process large inventory dataset in batches optimized for Gemini's context length. For each batch: ",
+                "1. Analyze the batch to extract key insights. ",
+                "2. Use only real data from the batch. ",
+                "3. Save intermediate results per batch. ",
+                "4. Combine into a final report. ",
+            ]),
+            agent=self.get_agent(),
+            expected_output='results/inventory_management/data_analysis_report.md'
+        )
 
-# class DataProcessing(BaseAgent):
-#     def __init__(self):
-#         provider = ProviderLLM()
-#         llm = provider.get_llm()
-#         batch_file_reader = BatchFileReader()
-#         super().__init__(
-#             name="Data Processing Specialist",
-#             role="Data Processing Specialist",
-#             goal="Process and analyze large inventory data files efficiently with Gemini",
-#             backstory="\n".join([
-#                 "You are a data processing expert specializing in handling large datasets in various formats.",
-#                 "You process data in small batches from temporary JSON files to fit within Gemini's context length."
-#             ]),
-#             llm=llm,
-#             allow_delegation=False,
-#             tools=[batch_file_reader],
-#         )
+    def process_batches(self) -> None:
+        print(f"[INFO] Scanning input directory: {self.input_dir}")
+        batch_files = sorted([f for f in os.listdir(self.input_dir) if f.endswith('.json')])
+        print(f"[INFO] Found {len(batch_files)} batch files: {batch_files[:5]}...")
 
-#     def _analyze_batch(self, batch_data):
-#         """Analyze a batch and extract key insights."""
-#         try:
-#             num_records = len(batch_data)
-#             skus = [record.get("Product/Internal Reference", "") for record in batch_data]
-#             names = [record.get("Product/Name", "") for record in batch_data]
-#             categories = set(record.get("Financial Category", "") for record in batch_data)
-#             locations = set(record.get("Location", "") for record in batch_data)
-#             quantities = [record.get("Available Quantity", 0) for record in batch_data]
-#             missing_dates = sum(1 for record in batch_data if not record.get("Lot/Serial Number/Production Date", ""))
+        if not batch_files:
+            print("[ERROR] No JSON batch files found.")
+            return
 
-#             return f"""
-# Batch Analysis:
-# - Number of records: {num_records}
-# - Unique SKUs: {len(set(skus))}
-# - Product Names: {', '.join(set(names)[:5])} (showing up to 5)
-# - Categories: {', '.join(categories)}
-# - Locations: {', '.join(locations)}
-# - Average Available Quantity: {(sum(quantities) / num_records if num_records > 0 else 0):.2f}
-# - Records with missing dates: {missing_dates}
-# """
-#         except Exception as e:
-#             logging.error(f"Error analyzing batch: {str(e)}")
-#             return f"Error analyzing batch: {str(e)}"
+        for i, batch_file in enumerate(batch_files):
+            print(f"\n[INFO] Processing file {i+1}/{len(batch_files)}: {batch_file}")
+            try:
+                batch_number = int(batch_file.replace('batch_', '').replace('.json', '')) + 1
+            except ValueError as ve:
+                print(f"[WARNING] Invalid batch file name format: {batch_file}. Skipping... ({ve})")
+                continue
 
-#     def get_task(self):
-#         return Task(
-#             description="".join([
-#                 "Process large inventory dataset from batch JSON files. For each batch file: ",
-#                 "1. Read the batch data from the provided JSON file path. ",
-#                 "2. Analyze the batch to extract key insights (e.g., SKUs, Product Names, Categories, Locations, Quantities). ",
-#                 "3. Use only real data from the batch; do not fabricate or guess any values. ",
-#                 "4. Save intermediate results for each batch to 'results/inventory_management/batch_{i}_report.md'. ",
-#                 "5. After processing all batches, combine insights into a final strategic report. ",
-#                 "6. Save the final report to 'results/inventory_management/data_analysis_report.md'. ",
-#                 "7. Create the directory structure if it doesn't exist. ",
-#                 "8. Process one batch at a time to avoid overwhelming Gemini's context length. ",
-#                 "9. If a batch file is corrupted or empty, skip it and log the issue."
-#             ]),
-#             agent=self.get_agent(),
-#             expected_output="results/inventory_management/data_analysis_report.md",
-#             callback=self._process_batch_callback
-#         )
+            batch_path = os.path.join(self.input_dir, batch_file)
 
-#     def _process_batch_callback(self, result):
-#         """Callback to process each batch file and generate reports."""
-#         try:
-#             batch_files = result
-#             os.makedirs("results/inventory_management", exist_ok=True)
-#             all_insights = []
-#             data_structure = None
-#             missing_values = {"total_records": 0, "missing_dates": 0}
-#             unique_products = set()
-#             quantities = []
-#             categories = set()
-#             locations = set()
+            # Step 1: Read batch file
+            try:
+                batch_data = self.tools[1].read_file(batch_path)
+                print(f"[INFO] Batch {batch_number} loaded successfully. Records: {len(batch_data)} | Type: {type(batch_data)}")
+                if not batch_data:
+                    print(f"[WARNING] Batch {batch_number} is empty or invalid. Skipping...")
+                    continue
+            except Exception as e:
+                print(f"[ERROR] Failed to read batch {batch_file}: {str(e)}")
+                continue
 
-#             for i, batch_file in enumerate(batch_files):
-#                 try:
-#                     logging.info(f"Processing batch file: {batch_file}")
-#                     with open(batch_file, "r", encoding="utf-8") as f:
-#                         batch_data = json.load(f)
-#                     insights = self._analyze_batch(batch_data)
-#                     with open(f"results/inventory_management/batch_{i}_report.md", "w", encoding="utf-8") as f:
-#                         f.write(f"# Batch {i} Analysis\n\n{insights}")
-#                     all_insights.append(insights)
+            # Step 2: Analyze batch
+            try:
+                batch_insights = self.analyze_batch(batch_data, batch_number)
+                if not batch_insights:
+                    print(f"[WARNING] No insights generated for batch {batch_number}")
+                    continue
+            except Exception as e:
+                print(f"[ERROR] Failed to analyze batch {batch_number}: {str(e)}")
+                continue
 
-#                     # Aggregate statistics
-#                     if not data_structure and batch_data:
-#                         data_structure = {key: str(type(value)) for key, value in batch_data[0].items()}
-#                     missing_values["total_records"] += len(batch_data)
-#                     missing_values["missing_dates"] += sum(1 for record in batch_data if not record.get("Lot/Serial Number/Production Date", ""))
-#                     unique_products.update(record.get("Product/Internal Reference", "") for record in batch_data)
-#                     quantities.extend(record.get("Available Quantity", 0) for record in batch_data)
-#                     categories.update(record.get("Financial Category", "").split(" / ") for record in batch_data)
-#                     locations.update(record.get("Location", "") for record in batch_data)
-#                     logging.info(f"Processed batch {i} successfully")
-#                 except Exception as e:
-#                     logging.error(f"Error processing batch {i} from {batch_file}: {str(e)}")
-#                     continue
+            # Step 3: Save batch report
+            batch_report_path = os.path.join(self.output_dir, f"batch_{batch_number}_report.md")
+            try:
+                os.makedirs(os.path.dirname(batch_report_path), exist_ok=True)
+                self.save_batch_report(batch_insights, batch_report_path, batch_number)
+                print(f"[INFO] Batch report saved to: {batch_report_path}")
+            except Exception as e:
+                print(f"[ERROR] Failed to save batch report {batch_number}: {str(e)}")
+                continue
 
-#             # Generate final report
-#             final_report = "# Final Inventory Analysis Report\n\n"
-#             final_report += "## 1. Introduction\n"
-#             final_report += "- Purpose: Analyze inventory data from Breadfast.xlsx.\n"
-#             final_report += "- Data Source: Breadfast.xlsx\n\n"
-            
-#             final_report += "## 2. Data Structure\n"
-#             final_report += f"- Columns and Types: {json.dumps(data_structure, indent=2) if data_structure else 'Not available'}\n\n"
-            
-#             final_report += "## 3. Data Quality Assessment\n"
-#             final_report += f"- Total Records: {missing_values['total_records']}\n"
-#             final_report += f"- Missing Dates: {missing_values['missing_dates']} ({(missing_values['missing_dates'] / missing_values['total_records'] * 100):.2f}%)\n"
-#             final_report += "- Inconsistent Data: Not fully analyzed due to incomplete processing\n\n"
-            
-#             final_report += "## 4. Key Inventory Information\n"
-#             final_report += f"- Unique Products: {len(unique_products)}\n"
-#             final_report += f"- Total Quantities: {sum(quantities) if quantities else 0}\n"
-#             final_report += f"- Categories: {', '.join(categories)}\n"
-#             final_report += f"- Locations: {', '.join(locations)}\n\n"
-            
-#             final_report += "## 5. Data Patterns and Statistics\n"
-#             final_report += f"- Average Quantity: {(sum(quantities) / len(quantities) if quantities else 0):.2f}\n"
-#             final_report += f"- Median Quantity: {(sorted(quantities)[len(quantities)//2] if quantities else 0):.2f}\n"
-#             final_report += "- Trends: Not fully analyzed due to incomplete processing\n\n"
-            
-#             final_report += "## 6. Batch Reports\n"
-#             final_report += "\n".join(all_insights)
-            
-#             final_report += "## 7. Conclusion\n"
-#             final_report += "- Summary: Partial analysis completed due to processing limitations.\n"
-#             final_report += "- Recommendations: Optimize batch sizes and ensure LLM stability.\n"
+            # Step 4: Aggregate results
+            self.batch_reports.append({
+                'batch_number': batch_number,
+                'file': batch_file,
+                'insights': batch_insights
+            })
 
-#             with open("results/inventory_management/data_analysis_report.md", "w", encoding="utf-8") as f:
-#                 f.write(final_report)
-#             logging.info("Final report generated")
-#             return final_report
-#         except Exception as e:
-#             logging.error(f"Error in callback: {str(e)}")
-#             return f"Error in processing batches: {str(e)}"   
+            self.all_data.extend(batch_data)
+            print(f"[INFO] Batch {batch_number} processed successfully.")
 
-#===============================================
+            # Step 5: Cleanup
+            batch_data = None
+            batch_insights = None
+            gc.collect()
 
-# # Set up logging
-# logging.basicConfig(filename='data_processing.log', level=logging.DEBUG, 
-#                     format='%(asctime)s %(levelname)s: %(message)s')
+        # Final report
+        try:
+            print(f"\n[INFO] Generating final report...")
+            self.generate_final_report()
+            print(f"[INFO] Final report saved at: {self.final_report_path}")
+        except Exception as e:
+            print(f"[ERROR] Failed to generate final report: {str(e)}")
 
-# class DataProcessing(BaseAgent):
-#     def __init__(self):
-#         provider = ProviderLLM()
-#         llm = provider.get_llm()
-#         batch_file_reader = BatchFileReader()
-#         super().__init__(
-#             name="Data Processing Specialist",
-#             role="Data Processing Specialist",
-#             goal="Process and analyze large inventory data files efficiently with Gemini",
-#             backstory="\n".join([
-#                 "You are a data processing expert specializing in handling large datasets in various formats.",
-#                 "You process data in small batches from temporary JSON files to fit within Gemini's context length."
-#             ]),
-#             llm=llm,
-#             allow_delegation=False,
-#             tools=[batch_file_reader],
-#         )
+    def analyze_batch(self, batch_data: List[Dict], batch_number: int) -> Dict:
+        try:
+            insights = {
+                'batch_number': batch_number,
+                'total_items': len(batch_data),
+                'unique_skus': set(),
+                'product_ids': set(),
+                'product_names': set(),
+                'missing_data': {'skus': 0, 'product_ids': 0, 'product_names': 0, 'barcodes': 0},
+                'financial_categories': {},
+                'total_available_quantity': 0.0,
+                'near_expiry_products': []
+            }
 
-#     def _analyze_batch(self, batch_data):
-#         """Analyze a batch and extract key insights."""
-#         try:
-#             num_records = len(batch_data)
-#             skus = [record.get("Product/Internal Reference", "") for record in batch_data]
-#             names = [record.get("Product/Name", "") for record in batch_data]
-#             categories = set(record.get("Financial Category", "") for record in batch_data)
-#             locations = set(record.get("Location", "") for record in batch_data)
-#             quantities = [float(record.get("Available Quantity", 0)) for record in batch_data]
-#             quantities_total = [float(record.get("Quantity", 0)) for record in batch_data]
-#             missing_dates = sum(1 for record in batch_data if not record.get("Lot/Serial Number/Production Date", "") or not record.get("Lot/Serial Number/Expiration Date", ""))
-            
-#             return f"""
-# Batch Analysis:
-# - Number of records: {num_records}
-# - Unique SKUs: {len(set(skus))}
-# - Product Names: {', '.join(set(names)[:5])} (showing up to 5)
-# - Categories: {', '.join(categories)}
-# - Locations: {', '.join(locations)}
-# - Average Available Quantity: {(sum(quantities) / num_records if num_records > 0 else 0):.2f}
-# - Average Total Quantity: {(sum(quantities_total) / num_records if num_records > 0 else 0):.2f}
-# - Records with missing dates: {missing_dates}
-# """
-#         except Exception as e:
-#             logging.error(f"Error analyzing batch: {str(e)}")
-#             return f"Error analyzing batch: {str(e)}"
+            current_date = datetime.now()
+            for item in batch_data:
+                sku = item.get('Product/Internal Reference')
+                if sku:
+                    insights['unique_skus'].add(sku)
+                else:
+                    insights['missing_data']['skus'] += 1
 
-#     def get_task(self):
-#         return Task(
-#             description="".join([
-#                 "Process large inventory dataset from batch JSON files. For each batch file: ",
-#                 "1. Read the batch data from the provided JSON file path. ",
-#                 "2. Analyze the batch to extract key insights (e.g., Product/Internal Reference, Product/Name, Financial Category, Locations, Available Quantity ,Quantity). ",
-#                 "3. Use only real data from the batch; do not fabricate or guess any values. ",
-#                 "4. Save intermediate results for each batch to 'results/inventory_management/batch_{i}_report.md'. ",
-#                 "5. After processing all batches, combine insights into a final strategic report. ",
-#                 "6. Save the final report to 'results/inventory_management/data_analysis_report.md'. ",
-#                 "7. Create the directory structure if it doesn't exist. ",
-#                 "8. Process one batch at a time to avoid overwhelming Gemini's context length. ",
-#                 "9. If a batch file is corrupted or empty, skip it and log the issue."
-#             ]),
-#             agent=self.get_agent(),
-#             expected_output="A comprehensive data analysis report saved to results/inventory_management/data_analysis_report.md, with intermediate batch reports.",
-#             callback=self._process_batch_callback
-#         )
+                product_id = item.get('Product/Internal Reference')
+                if product_id:
+                    insights['product_ids'].add(product_id)
+                else:
+                    insights['missing_data']['product_ids'] += 1
 
-#     def _process_batch_callback(self, result):
-#         """Callback to process each batch file and generate reports."""
-#         try:
-#             # Ensure result is a list of file paths
-#             if not isinstance(result, list) or not all(isinstance(f, str) for f in result):
-#                 logging.error(f"Invalid batch files format: {result}")
-#                 raise ValueError(f"Expected list of file paths, got: {result}")
+                product_name = item.get('Product/Name')
+                if product_name:
+                    insights['product_names'].add(product_name)
+                else:
+                    insights['missing_data']['product_names'] += 1
 
-#             batch_files = result
-#             os.makedirs("results/inventory_management", exist_ok=True)
-#             all_insights = []
-#             data_structure = None
-#             missing_values = {"total_records": 0, "missing_dates": 0}
-#             unique_products = set()
-#             quantities = []
-#             quantities_total = []
-#             categories = set()
-#             locations = set()
+                barcode = item.get('Product/Barcode')
+                if not barcode:
+                    insights['missing_data']['barcodes'] += 1
 
-#             for i, batch_file in enumerate(batch_files):
-#                 try:
-#                     # Check if batch file exists
-#                     if not os.path.exists(batch_file):
-#                         logging.error(f"Batch file {batch_file} does not exist")
-#                         continue
+                category = item.get('Financial Category', 'Unknown')
+                insights['financial_categories'][category] = insights['financial_categories'].get(category, 0) + 1
 
-#                     logging.info(f"Processing batch file: {batch_file}")
-#                     with open(batch_file, "r", encoding="utf-8") as f:
-#                         batch_data = json.load(f)
-                    
-#                     # Check if batch_data is empty
-#                     if not batch_data:
-#                         logging.warning(f"Batch file {batch_file} is empty")
-#                         continue
+                quantity = item.get('Available Quantity', 0.0)
+                insights['total_available_quantity'] += quantity
 
-#                     insights = self._analyze_batch(batch_data)
-#                     batch_report_path = f"results/inventory_management/batch_{i}_report.md"
-#                     with open(batch_report_path, "w", encoding="utf-8") as f:
-#                         f.write(f"# Batch {i} Analysis\n\n{insights}")
-#                     logging.info(f"Saved batch report to {batch_report_path}")
-#                     all_insights.append(insights)
+                expiry_date = item.get('Lot/Serial Number/Expiration Date')
+                if expiry_date:
+                    try:
+                        expiry = datetime.strptime(expiry_date, '%Y-%m-%d %H:%M:%S')
+                        if expiry < current_date + timedelta(days=90):
+                            insights['near_expiry_products'].append({
+                                'sku': sku,
+                                'name': product_name,
+                                'expiry_date': expiry_date
+                            })
+                    except ValueError:
+                        pass
 
-#                     # Aggregate statistics
-#                     if not data_structure and batch_data:
-#                         data_structure = {key: str(type(value)) for key, value in batch_data[0].items()}
-#                     missing_values["total_records"] += len(batch_data)
-#                     missing_values["missing_dates"] += sum(1 for record in batch_data if not record.get("Lot/Serial Number/Production Date", "") or not record.get("Lot/Serial Number/Expiration Date", ""))
-#                     unique_products.update(record.get("Product/Internal Reference", "") for record in batch_data)
-#                     quantities.extend(float(record.get("Available Quantity", 0)) for record in batch_data)
-#                     quantities_total.extend(float(record.get("Quantity", 0)) for record in batch_data)
-#                     categories.update(record.get("Financial Category", "") for record in batch_data)
-#                     locations.update(record.get("Location", "") for record in batch_data)
-#                     logging.info(f"Processed batch {i} successfully")
-#                 except Exception as e:
-#                     logging.error(f"Error processing batch {i} from {batch_file}: {str(e)}")
-#                     continue
+            insights['unique_skus_count'] = len(insights['unique_skus'])
+            insights['product_ids_count'] = len(insights['product_ids'])
+            insights['product_names_count'] = len(insights['product_names'])
 
-#             # Generate final report
-#             final_report = "# Final Inventory Analysis Report\n\n"
-#             final_report += "## 1. Introduction\n"
-#             final_report += "- Purpose: Analyze inventory data from Breadfast.xlsx.\n"
-#             final_report += "- Data Source: Breadfast.xlsx\n\n"
-            
-#             final_report += "## 2. Data Structure\n"
-#             final_report += f"- Columns and Types: {json.dumps(data_structure, indent=2) if data_structure else 'Not available'}\n\n"
-            
-#             final_report += "## 3. Data Quality Assessment\n"
-#             final_report += f"- Total Records: {missing_values['total_records']}\n"
-#             final_report += f"- Missing Dates: {missing_values['missing_dates']} ({(missing_values['missing_dates'] / missing_values['total_records'] * 100):.2f}%)\n"
-#             final_report += "- Inconsistent Data: Not fully analyzed due to incomplete processing\n\n"
-            
-#             final_report += "## 4. Key Inventory Information\n"
-#             final_report += f"- Unique Products: {len(unique_products)}\n"
-#             final_report += f"- Total Available Quantity: {sum(quantities) if quantities else 0:.2f}\n"
-#             final_report += f"- Total Quantity: {sum(quantities_total) if quantities_total else 0:.2f}\n"
-#             final_report += f"- Categories: {', '.join(categories)}\n"
-#             final_report += f"- Locations: {', '.join(locations)}\n\n"
-            
-#             final_report += "## 5. Data Patterns and Statistics\n"
-#             final_report += f"- Average Available Quantity: {(sum(quantities) / len(quantities) if quantities else 0):.2f}\n"
-#             final_report += f"- Median Available Quantity: {(sorted(quantities)[len(quantities)//2] if quantities else 0):.2f}\n"
-#             final_report += f"- Average Total Quantity: {(sum(quantities_total) / len(quantities_total) if quantities_total else 0):.2f}\n"
-#             final_report += "- Trends: Not fully analyzed due to incomplete processing\n\n"
-            
-#             final_report += "## 6. Batch Reports\n"
-#             final_report += "\n".join(all_insights)
-            
-#             final_report += "## 7. Conclusion\n"
-#             final_report += "- Summary: Partial analysis completed due to processing limitations.\n"
-#             final_report += "- Recommendations: Optimize batch sizes, ensure stable LLM processing, and validate data consistency.\n"
+            insights['unique_skus'] = list(insights['unique_skus'])[:10]
+            insights['product_ids'] = list(insights['product_ids'])[:10]
+            insights['product_names'] = list(insights['product_names'])[:10]
+            insights['near_expiry_count'] = len(insights['near_expiry_products'])
 
-#             final_report_path = "results/inventory_management/data_analysis_report.md"
-#             with open(final_report_path, "w", encoding="utf-8") as f:
-#                 f.write(final_report)
-#             logging.info(f"Final report saved to {final_report_path}")
-#             return final_report
-#         except Exception as e:
-#             logging.error(f"Error in callback: {str(e)}")
-#             return f"Error in processing batches: {str(e)}"   
+            return insights
+        except Exception as e:
+            print(f"[ERROR] Exception during analysis of batch {batch_number}: {str(e)}")
+            return {'batch_number': batch_number, 'error': str(e)}
 
+    def save_batch_report(self, insights: Dict, report_path: str, batch_number: int) -> None:
+        try:
+            with open(report_path, 'w', encoding='utf-8') as f:
+                f.write(f"# Batch {batch_number} Analysis Report\n\n")
+                f.write(f"**Total Items in Batch**: {insights.get('total_items', 0)}\n")
+                f.write(f"**Unique SKUs**: {insights.get('unique_skus_count', 0)}\n")
+                f.write(f"**Unique Product IDs**: {insights.get('product_ids_count', 0)}\n")
+                f.write(f"**Unique Product Names**: {insights.get('product_names_count', 0)}\n")
+                f.write(f"**Sample SKUs**: {', '.join(insights.get('unique_skus', []))}\n")
+                f.write(f"**Sample Product IDs**: {', '.join(insights.get('product_ids', []))}\n")
+                f.write(f"**Sample Product Names**: {', '.join(insights.get('product_names', []))}\n")
+                f.write(f"\n### Missing Data\n")
+                f.write(f"- SKUs missing: {insights['missing_data']['skus']}\n")
+                f.write(f"- Product IDs missing: {insights['missing_data']['product_ids']}\n")
+                f.write(f"- Product Names missing: {insights['missing_data']['product_names']}\n")
+                if 'error' in insights:
+                    f.write(f"\n### Error\n{insights['error']}\n")
+        except Exception as e:
+            print(f"[ERROR] Failed to write batch report {report_path}: {str(e)}")
 
-# #=====================================================
+    def generate_final_report(self) -> None:
+        try:
+            with open(self.final_report_path, 'w', encoding='utf-8') as f:
+                f.write("# Final Inventory Data Analysis Report\n\n")
+                f.write(f"**Total Batches Processed**: {len(self.batch_reports)}\n")
+                f.write(f"**Total Items Processed**: {len(self.all_data)}\n\n")
 
+                all_skus = set()
+                all_product_ids = set()
+                all_product_names = set()
+                total_missing = {'skus': 0, 'product_ids': 0, 'product_names': 0}
 
+                for report in self.batch_reports:
+                    insights = report['insights']
+                    all_skus.update(insights.get('unique_skus', []))
+                    all_product_ids.update(insights.get('product_ids', []))
+                    all_product_names.update(insights.get('product_names', []))
+                    for key in total_missing:
+                        total_missing[key] += insights['missing_data'][key]
+
+                f.write("## Aggregated Insights\n")
+                f.write(f"- **Total Unique SKUs**: {len(all_skus)}\n")
+                f.write(f"- **Total Unique Product IDs**: {len(all_product_ids)}\n")
+                f.write(f"- **Total Unique Product Names**: {len(all_product_names)}\n")
+                f.write(f"- **Sample SKUs**: {', '.join(list(all_skus)[:10])}\n")
+                f.write(f"- **Sample Product IDs**: {', '.join(list(all_product_ids)[:10])}\n")
+                f.write(f"- **Sample Product Names**: {', '.join(list(all_product_names)[:10])}\n")
+                f.write("\n## Missing Data Summary\n")
+                f.write(f"- SKUs missing: {total_missing['skus']}\n")
+                f.write(f"- Product IDs missing: {total_missing['product_ids']}\n")
+                f.write(f"- Product Names missing: {total_missing['product_names']}\n")
+
+                f.write("\n## Batch Summaries\n")
+                for report in self.batch_reports:
+                    insights = report['insights']
+                    f.write(f"### Batch {report['batch_number']} ({report['file']})\n")
+                    f.write(f"- Total Items: {insights.get('total_items', 0)}\n")
+                    f.write(f"- Unique SKUs: {insights.get('unique_skus_count', 0)}\n")
+                    f.write(f"- Unique Product IDs: {insights.get('product_ids_count', 0)}\n")
+                    f.write(f"- Unique Product Names: {insights.get('product_names_count', 0)}\n")
+                    if 'error' in insights:
+                        f.write(f"- Error: {insights['error']}\n")
+        except Exception as e:
+            print(f"[ERROR] Failed to write final report: {str(e)}")
+
+    def execute(self) -> None:
+        task = self.get_task()
+        print("[INFO] Starting batch processing task...")
+        self.process_batches()
+        print("[INFO] All batch processing completed.")
