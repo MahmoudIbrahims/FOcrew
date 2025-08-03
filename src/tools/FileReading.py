@@ -1,35 +1,43 @@
 from crewai_tools import FileReadTool,DirectoryReadTool
-from .Schema import BatchFileReaderSchema
-from vertexai.preview import tokenization 
-from helpers.config import get_settings
+from .Schema import BatchFileReaderSchema,JsonBatchFileReaderSchema
 from crewai.tools import BaseTool
 from pydantic import BaseModel
 import dask.dataframe as dd
 from typing import Type
-import dask.dataframe as dd
-import tiktoken
 import pandas as pd
 import time
 import json
 import os
 import logging
-import psutil 
+
 
 
 
 logging.basicConfig(filename='batch_reader.log', level=logging.DEBUG, 
                     format='%(asctime)s %(levelname)s: %(message)s')
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('data_processing.log'),
+        logging.StreamHandler()
+    ]
+)
 
+#===============================================
 def FileTool():
     file_tool = FileReadTool()
     return file_tool
+
+#=================================================
     
 def DirectoryTool():
     directory_tool = DirectoryReadTool()
     return directory_tool
 
-
+#=================================================
 
 class BatchFileReader(BaseTool):
     name: str = "Optimized Batch File Reader"
@@ -84,7 +92,6 @@ class BatchFileReader(BaseTool):
                     elif value is None:
                         cleaned_record[key] = ""
                     else:
-                        # تحويل أي نوع آخر إلى string
                         cleaned_record[key] = str(value)
                 except Exception as e:
                     logging.warning(f"Error cleaning field {key}: {str(e)}")
@@ -220,78 +227,8 @@ class BatchFileReader(BaseTool):
             logging.error(f"Error processing file: {str(e)}")
             import traceback
             return f"Error processing file: {str(e)}\n{traceback.format_exc()}"
-        
-#======================================================================
 
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('data_processing.log'),
-        logging.StreamHandler()
-    ]
-)
-
-# class JsonBatchFileReaderSchema(BaseModel):
-#     file_path: str
-
-# class JsonBatchFileReader(BaseTool):
-#     name: str = "JSON Batch File Reader"
-#     description: str = "Reads JSON batch files and returns cleaned data for analysis."
-#     args_schema: Type[BaseModel] = JsonBatchFileReaderSchema
-
-#     def _clean_batch_data(self, batch_data: list) -> list:
-#         """Convert non-serializable types and handle missing values."""
-#         cleaned_data = []
-#         for record in batch_data:
-#             if not isinstance(record, dict):
-#                 logging.warning(f"Skipping non-dict record: {record}")
-#                 continue
-
-#             cleaned_record = {}
-#             for key, value in record.items():
-#                 try:
-#                     if isinstance(value, pd.Timestamp):
-#                         cleaned_record[key] = value.strftime("%Y-%m-%d %H:%M:%S")
-#                     elif pd.isna(value) or value is None:
-#                         cleaned_record[key] = ""
-#                     elif isinstance(value, (int, float, str, bool)):
-#                         cleaned_record[key] = value
-#                     else:
-#                         cleaned_record[key] = str(value)
-#                 except Exception as e:
-#                     logging.warning(f"Error cleaning field {key}: {str(e)}")
-#                     cleaned_record[key] = ""
-            
-#             cleaned_data.append(cleaned_record)
-#         return cleaned_data
-
-#     def _run(self, file_path: str) -> list:
-#         """Read a JSON file and return cleaned data."""
-#         try:
-#             logging.info(f"Reading JSON file: {file_path}")
-#             with open(file_path, 'r', encoding='utf-8') as f:
-#                 data = json.load(f)
-            
-#             if not isinstance(data, list):
-#                 logging.error(f"Data in {file_path} is not a list: {type(data)}")
-#                 return []
-            
-#             cleaned_data = self._clean_batch_data(data)
-#             logging.info(f"Successfully read and cleaned {len(cleaned_data)} records from {file_path}")
-#             return cleaned_data
-        
-#         except Exception as e:
-#             logging.error(f"Failed to read {file_path}: {str(e)}")
-#             return [] 
-
-#======================================================
-from typing import Type, List
-
-class JsonBatchFileReaderSchema(BaseModel):
-    file_path: str  # This should be the path to the directory that contains batch JSON files.
+#=================================================
 
 class JsonBatchFileReader(BaseTool):
     name: str = "JSON Batch File Reader"
@@ -378,3 +315,4 @@ class JsonBatchFileReader(BaseTool):
         except Exception as e:
             logging.error(f"Error reading batches from folder {folder_path}: {str(e)}")
             return []
+
