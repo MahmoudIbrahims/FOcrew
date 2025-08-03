@@ -193,6 +193,4 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
-src/temp_batches/
-
 
