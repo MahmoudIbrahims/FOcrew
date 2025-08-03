@@ -8,4 +8,8 @@ class BatchFileReaderSchema(BaseModel):
     mime_type: str = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     max_tokens_per_batch: int = 20000  
     
+    
+
+class JsonBatchFileReaderSchema(BaseModel):
+    file_path: str  # This should be the path to the directory that contains batch JSON files.
    
