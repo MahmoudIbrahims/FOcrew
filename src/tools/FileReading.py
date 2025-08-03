@@ -220,3 +220,161 @@ class BatchFileReader(BaseTool):
             logging.error(f"Error processing file: {str(e)}")
             import traceback
             return f"Error processing file: {str(e)}\n{traceback.format_exc()}"
+        
+#======================================================================
+
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('data_processing.log'),
+        logging.StreamHandler()
+    ]
+)
+
+# class JsonBatchFileReaderSchema(BaseModel):
+#     file_path: str
+
+# class JsonBatchFileReader(BaseTool):
+#     name: str = "JSON Batch File Reader"
+#     description: str = "Reads JSON batch files and returns cleaned data for analysis."
+#     args_schema: Type[BaseModel] = JsonBatchFileReaderSchema
+
+#     def _clean_batch_data(self, batch_data: list) -> list:
+#         """Convert non-serializable types and handle missing values."""
+#         cleaned_data = []
+#         for record in batch_data:
+#             if not isinstance(record, dict):
+#                 logging.warning(f"Skipping non-dict record: {record}")
+#                 continue
+
+#             cleaned_record = {}
+#             for key, value in record.items():
+#                 try:
+#                     if isinstance(value, pd.Timestamp):
+#                         cleaned_record[key] = value.strftime("%Y-%m-%d %H:%M:%S")
+#                     elif pd.isna(value) or value is None:
+#                         cleaned_record[key] = ""
+#                     elif isinstance(value, (int, float, str, bool)):
+#                         cleaned_record[key] = value
+#                     else:
+#                         cleaned_record[key] = str(value)
+#                 except Exception as e:
+#                     logging.warning(f"Error cleaning field {key}: {str(e)}")
+#                     cleaned_record[key] = ""
+            
+#             cleaned_data.append(cleaned_record)
+#         return cleaned_data
+
+#     def _run(self, file_path: str) -> list:
+#         """Read a JSON file and return cleaned data."""
+#         try:
+#             logging.info(f"Reading JSON file: {file_path}")
+#             with open(file_path, 'r', encoding='utf-8') as f:
+#                 data = json.load(f)
+            
+#             if not isinstance(data, list):
+#                 logging.error(f"Data in {file_path} is not a list: {type(data)}")
+#                 return []
+            
+#             cleaned_data = self._clean_batch_data(data)
+#             logging.info(f"Successfully read and cleaned {len(cleaned_data)} records from {file_path}")
+#             return cleaned_data
+        
+#         except Exception as e:
+#             logging.error(f"Failed to read {file_path}: {str(e)}")
+#             return [] 
+
+#======================================================
+from typing import Type, List
+
+class JsonBatchFileReaderSchema(BaseModel):
+    file_path: str  # This should be the path to the directory that contains batch JSON files.
+
+class JsonBatchFileReader(BaseTool):
+    name: str = "JSON Batch File Reader"
+    description: str = "Reads JSON batch files from a directory and returns cleaned data batch by batch for analysis."
+    args_schema: Type[BaseModel] = JsonBatchFileReaderSchema
+
+    def _clean_batch_data(self, batch_data: list) -> list:
+        """Convert non-serializable types and handle missing values."""
+        cleaned_data = []
+        for record in batch_data:
+            if not isinstance(record, dict):
+                logging.warning(f"Skipping non-dict record: {record}")
+                continue
+
+            cleaned_record = {}
+            for key, value in record.items():
+                try:
+                    if isinstance(value, pd.Timestamp):
+                        cleaned_record[key] = value.strftime("%Y-%m-%d %H:%M:%S")
+                    elif pd.isna(value) or value is None:
+                        cleaned_record[key] = ""
+                    elif isinstance(value, (int, float, str, bool)):
+                        cleaned_record[key] = value
+                    else:
+                        cleaned_record[key] = str(value)
+                except Exception as e:
+                    logging.warning(f"Error cleaning field {key}: {str(e)}")
+                    cleaned_record[key] = ""
+            
+            cleaned_data.append(cleaned_record)
+        return cleaned_data
+
+    def _run(self, file_path: str) -> list:
+        """Read a single JSON file and return cleaned data."""
+        try:
+            logging.info(f"Reading JSON file: {file_path}")
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            if not isinstance(data, list):
+                logging.error(f"Data in {file_path} is not a list: {type(data)}")
+                return []
+            
+            cleaned_data = self._clean_batch_data(data)
+            logging.info(f"Successfully read and cleaned {len(cleaned_data)} records from {file_path}")
+            return cleaned_data
+        
+        except Exception as e:
+            logging.error(f"Failed to read {file_path}: {str(e)}")
+            return []
+
+    def read_file(self, file_path: str) -> list:
+        """Simple method to read a single file (used internally or for testing)."""
+        return self._run(file_path)
+
+    def read_batches(self, folder_path: str) -> List[list]:
+        """
+        Read all JSON batch files in a directory one by one.
+        Returns a list of batches (each batch is a list of records).
+        """
+        all_batches = []
+        try:
+            files = sorted([
+                os.path.join(folder_path, file)
+                for file in os.listdir(folder_path)
+                if file.endswith('.json')
+            ])
+
+            if not files:
+                logging.warning(f"No JSON files found in directory: {folder_path}")
+                return []
+
+            logging.info(f"Found {len(files)} batch files in {folder_path}")
+
+            for i, file_path in enumerate(files):
+                logging.info(f"Reading batch {i + 1}/{len(files)}: {file_path}")
+                batch_data = self._run(file_path)
+                if batch_data:
+                    all_batches.append(batch_data)
+
+            logging.info(f"Finished reading {len(all_batches)} batches")
+            return all_batches
+
+        except Exception as e:
+            logging.error(f"Error reading batches from folder {folder_path}: {str(e)}")
+            return []
