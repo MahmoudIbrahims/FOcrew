@@ -14,6 +14,7 @@ class BaseAgent:
             backstory =backstory,
             llm=llm,
             verbose=True,
+            memory =True,
             allow_delegation=allow_delegation,
             tools= tools if tools else [],
             reasoning=reasoning,
