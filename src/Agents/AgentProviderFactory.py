@@ -94,8 +94,8 @@ class AgentProviderFactory:
                             "3. Extract key information about inventory items",
                             "4. Prepare clean data summary for further analysis",
                             "5. Identify data patterns and basic statistics",
-                            
-                            "Provide a comprehensive data summary."
+                            "6. save file in **results/data_analysis_report.md**"
+                        
                             ])
             
             Demand_ForecastingAnalyst_Agent =Demand_ForecastingAnalyst.get_agent()
@@ -105,7 +105,7 @@ class AgentProviderFactory:
             Inventory_OptimizationExpert_task =Inventory_OptimizationExpert.get_task()
             
             Inventory_AnalysisReportingSpecialist_Agent =Inventory_AnalysisReportingSpecialist.get_agent()
-            Inventory_AnalysisReportingSpecialist_task =Inventory_AnalysisReportingSpecialist.get_task()
+            Inventory_AnalysisReportingSpecialist_task =Inventory_AnalysisReportingSpecialist.get_task(results=Data_Processing_task)
             Data_VisualizationExpert_Agent = Data_VisualizationExpert.get_agent()
             Data_VisualizationExpert_task =Data_VisualizationExpert.get_task()
             
@@ -122,19 +122,20 @@ class AgentProviderFactory:
                               
                 crew = Crew(
                     agents=[Data_Processing_Agent,
-                            Demand_ForecastingAnalyst_Agent,
-                            Inventory_OptimizationExpert_Agent,
-                            Inventory_AnalysisReportingSpecialist_Agent,
-                            Data_VisualizationExpert_Agent,
-                            translation_agent
+                            # Demand_ForecastingAnalyst_Agent,
+                            # Inventory_OptimizationExpert_Agent,
+                            # Inventory_AnalysisReportingSpecialist_Agent,
+                            # Data_VisualizationExpert_Agent,
+                            # translation_agent
                             ],
                     
                     tasks=[Data_Processing_task ,
-                           Demand_ForecastingAnalyst_task,
-                           Inventory_OptimizationExpert_task,
-                           Inventory_AnalysisReportingSpecialist_task,
-                           Data_VisualizationExpert_task,
-                           translation_task],
+                        #    Demand_ForecastingAnalyst_task,
+                        #    Inventory_OptimizationExpert_task,
+                        #    Inventory_AnalysisReportingSpecialist_task,
+                        #    Data_VisualizationExpert_task,
+                        #    translation_task 
+                           ],
                             verbose=True
                                 )
                 
@@ -143,18 +144,19 @@ class AgentProviderFactory:
             elif lanuage== Languages.ENGLISH.value:
                 crew = Crew(
                         agents=[Data_Processing_Agent,
-                                Demand_ForecastingAnalyst_Agent,
-                                Inventory_OptimizationExpert_Agent,
-                                Inventory_AnalysisReportingSpecialist_Agent,
-                                Data_VisualizationExpert_Agent
+                                # Demand_ForecastingAnalyst_Agent,
+                                # Inventory_OptimizationExpert_Agent,
+                                # Inventory_AnalysisReportingSpecialist_Agent,
+                                # Data_VisualizationExpert_Agent
                                 ],
                         
                         tasks=[Data_Processing_task ,
-                            Demand_ForecastingAnalyst_task,
-                            Inventory_OptimizationExpert_task,
-                            Inventory_AnalysisReportingSpecialist_task,
-                            Data_VisualizationExpert_task],
-                                verbose=True
+                            # Demand_ForecastingAnalyst_task,
+                            # Inventory_OptimizationExpert_task,
+                            # Inventory_AnalysisReportingSpecialist_task,
+                            # Data_VisualizationExpert_task
+                            ],
+                                verbose=True,
                                     )
                 
                 result = crew.kickoff()
