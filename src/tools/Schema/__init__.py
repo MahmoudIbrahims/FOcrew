@@ -1,1 +1,2 @@
 from .FileReadingSchema import BatchFileReaderSchema,JsonBatchFileReaderSchema
+from .BatchProcessingSchema import BatchProcessorSchema
