@@ -67,6 +67,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 [report.md](src/results/Agent_marketing/marketing_analysis_english.md )
 
 ### Structure Project:
+```
 
 ├── .gitignore
 ├── LICENSE
@@ -198,6 +199,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
             └── __init__.py
         ├── __init__.py
         └── dashboard_tool.py
+```
 
 
 
