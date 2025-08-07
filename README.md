@@ -66,3 +66,138 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ### Result for Agent Marketing Stratgey:
 [report.md](src/results/Agent_marketing/marketing_analysis_english.md )
 
+### Structure Project:
+
+├── .gitignore
+├── LICENSE
+├── README.md
+├── docker
+    ├── .env.example
+    ├── .gitignore
+    ├── README.md
+    └── docker-compose.yml
+├── frontend
+    ├── .env.example
+    ├── .gitignore
+    ├── Dockerfile
+    ├── __init__.py
+    ├── package.json
+    └── src
+    │   └── components
+    │       ├── AgentRunner.js
+    │       ├── App.js
+    │       ├── FileUpload.js
+    │       ├── ReportViewer.js
+    │       └── index.js
+└── src
+    ├── .env.example
+    ├── .gitignore
+    ├── Agents
+        ├── AgentEnums.py
+        ├── AgentProvider
+        │   ├── BaseAgent.py
+        │   ├── InventoryManagment
+        │   │   ├── AnalysisReportingSpecialist.py
+        │   │   ├── DataProcessing_Agent.py
+        │   │   ├── DataVisualizationExpert.py
+        │   │   ├── DemandForecastingAnalyst.py
+        │   │   ├── InventoryOptimizationExpert.py
+        │   │   └── __init__.py
+        │   ├── MarketingStratgeyPlanner
+        │   │   ├── __init__.py
+        │   │   ├── content_agent.py
+        │   │   ├── marketing_agent.py
+        │   │   ├── swot_agent.py
+        │   │   └── translation_agent.py
+        │   └── __init__.py
+        ├── AgentProviderFactory.py
+        ├── Prompts
+        │   ├── AnalysisReportPrompt.py
+        │   └── __init__.py
+        └── __init__.py
+    ├── Controllers
+        ├── BaseController.py
+        ├── DataController.py
+        ├── ProjectController.py
+        └── __init__.py
+    ├── Dataset
+        └── Sales.xlsx
+    ├── Models
+        ├── AgentResultModel.py
+        ├── BaseDataModel.py
+        ├── FileAgentRelationModel.py
+        ├── ProjectModel.py
+        ├── UserFileModel.py
+        ├── __init__.py
+        ├── enums
+        │   ├── DataBaseEnum.py
+        │   ├── ResponseEnum.py
+        │   └── __init__.py
+        └── schema
+        │   ├── .gitignore
+        │   ├── DBSchemas
+        │       ├── AgentResult.py
+        │       ├── FOcrew_base.py
+        │       ├── FileAgentRelation.py
+        │       ├── UserFile.py
+        │       ├── __init__.py
+        │       └── project.py
+        │   ├── README.md
+        │   ├── __init__.py
+        │   ├── alembic.ini.example
+        │   └── alembic
+        │       ├── README
+        │       ├── env.py
+        │       ├── script.py.mako
+        │       └── versions
+        │           ├── 24ea267ba8b6_update_version.py
+        │           └── f1a2b85ae371_initial_commit.py
+    ├── Providers
+        ├── DataBaseProvider
+        │   ├── DBProviders
+        │   │   ├── PGDataBase.py
+        │   │   └── __init__.py
+        │   ├── DataBaseEnums.py
+        │   ├── DataBaseInterface.py
+        │   ├── DataBaseProviderFactory.py
+        │   └── __init__.py
+        ├── LLMProvider
+        │   ├── LLM.py
+        │   └── __init__.py
+        └── __init__.py
+    ├── assets
+        └── __init__.py
+    ├── backend
+        └── Dockerfile
+    ├── helpers
+        ├── __init__.py
+        └── config.py
+    ├── main.py
+    ├── requirements.txt
+    ├── results
+        ├── Agent_marketing
+        │   └── marketing_analysis_arabic.md
+        └── inventory_management
+        │   └── comprehensive_inventory_analysis_report.md
+    ├── routes
+        ├── AGRouterEnums.py
+        ├── InventoryManagmentEndpoint.py
+        ├── Prompts
+        │   ├── InventoryTemplate.py
+        │   └── __init__.py
+        ├── Schemes
+        │   ├── __init__.py
+        │   └── data.py
+        ├── UploadfileEndpoint.py
+        ├── __init__.py
+        └── base.py
+    └── tools
+        ├── FileReading.py
+        ├── Schema
+            ├── FileReadingSchema.py
+            └── __init__.py
+        ├── __init__.py
+        └── dashboard_tool.py
+
+
+
