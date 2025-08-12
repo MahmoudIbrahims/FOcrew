@@ -36,8 +36,18 @@ class DataProcessing(BaseAgent):
                 "2. Use only real data from the batch. ",
                 "3. Save intermediate results per batch. ",
                 "4. Combine into a final report. ",
-                "5. save file in **results/inventory_management/data_analysis_report.md**"
+                #"5. save file in **results/inventory_management/data_analysis_report.md**"
             ]),
             agent=self.get_agent(),
-            expected_output='results/inventory_management/data_analysis_report.md'
+            expected_output="final report markdown",
+            #'results/inventory_management/data_analysis_report.md'
+            #  tools_input={
+            # "Batch Processor": {
+            #     #"input_directory": "path/to/input",
+            #     "output_directory": "results/Mini_reports",
+            #     "final_report_path": "results/inventory_management/data_analysis_report.md"
+                
+            #                  }}
+                            
+    
         )
