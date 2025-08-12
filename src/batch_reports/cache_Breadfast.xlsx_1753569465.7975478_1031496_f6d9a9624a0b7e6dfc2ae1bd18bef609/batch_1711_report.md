@@ -1,0 +1,24 @@
+# Batch 1711 Analysis Report
+
+**Generation Time**: 2025-08-12 20:11:11
+
+**Total Items**: 5
+**Unique SKUs**: 5
+**Unique Products**: 5
+**Total Available Quantity**: 45.00
+**Near Expiry Products**: 0
+
+## Sample Data
+**Sample SKUs**: 7818147, 10968049, 12691235, 8716646, 21505272
+**Sample Products**: Oxi Powder Det Spring For Regular And Top Loading (1kg), Real Protein Lentil Chips Honey Mustard (35g), ElBawadi Clover Honey (235g), Flaminco Smoked Cheese Puffs (62-67g), Flaminco Seasoned Cheese Puffs (40-35g)
+
+## Financial Categories
+- **Food**: 3 items
+- **Home Care**: 1 items
+- **Food Cupboard 2**: 1 items
+
+## Missing Data
+- **Skus**: 0 missing
+- **Product_ids**: 0 missing
+- **Product_names**: 0 missing
+- **Barcodes**: 0 missing
