@@ -3,5 +3,5 @@ from .DemandForecastingAnalyst import DemandForecastingAnalyst
 from .InventoryOptimizationExpert import InventoryOptimizationExpert
 from .AnalysisReportingSpecialist import InventoryAnalysisReportingSpecialist
 from .DataVisualizationExpert import DataVisualizationExpert
-
+from .WriteReport import InventoryReportWriter
 from ...Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt

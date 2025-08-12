@@ -13,6 +13,7 @@ from .AgentProvider import DemandForecastingAnalyst
 from .AgentProvider import InventoryOptimizationExpert
 from .AgentProvider import InventoryAnalysisReportingSpecialist
 from .AgentProvider import DataVisualizationExpert
+from .AgentProvider import InventoryReportWriter
 
 
 
@@ -78,6 +79,7 @@ class AgentProviderFactory:
                 raise FileNotFoundError(f"Inventory file not found:{file_path}")
 
             Data_Processing =DataProcessing()
+            Inventory_ReportWriter =InventoryReportWriter()
             Demand_ForecastingAnalyst =DemandForecastingAnalyst()
             Inventory_OptimizationExpert =InventoryOptimizationExpert()
             Inventory_AnalysisReportingSpecialist =InventoryAnalysisReportingSpecialist()
@@ -87,16 +89,24 @@ class AgentProviderFactory:
             Data_Processing_task =Data_Processing.get_task()
             Data_Processing_task.description ="\n".join([
                             f"Process the inventory data file: {file_path}",
+                             "Process large inventory dataset in batches optimized for Gemini's context length. For each batch: ",
+                                "1. Use the 'Batch Processor' tool to process ALL ",
+                                "2. Use only real data from the batch. ",
+                                "3. Save intermediate results per batch. ",
+                                "4. Combine into a final report. ",
                             
-                            "Your responsibilities:",
-                            "1. Read and analyze the file structure",
-                            "2. Validate data quality and identify any issues",
-                            "3. Extract key information about inventory items",
-                            "4. Prepare clean data summary for further analysis",
-                            "5. Identify data patterns and basic statistics",
-                            
-                            "Provide a comprehensive data summary."
+                            # "Your responsibilities:",
+                            # "1. Read and analyze the file structure",
+                            # "2. Validate data quality and identify any issues",
+                            # "3. Extract key information about inventory items",
+                            # "4. Prepare clean data summary for further analysis",
+                            # "5. Identify data patterns and basic statistics",
+                            # "6. save file in **results/data_analysis_report.md**"
+                        
                             ])
+            
+            Inventory_ReportWriter_Agent =Inventory_ReportWriter.get_agent()
+            Inventory_ReportWriter_task =Inventory_ReportWriter.get_task()
             
             Demand_ForecastingAnalyst_Agent =Demand_ForecastingAnalyst.get_agent()
             Demand_ForecastingAnalyst_task =Demand_ForecastingAnalyst.get_task()
@@ -105,7 +115,7 @@ class AgentProviderFactory:
             Inventory_OptimizationExpert_task =Inventory_OptimizationExpert.get_task()
             
             Inventory_AnalysisReportingSpecialist_Agent =Inventory_AnalysisReportingSpecialist.get_agent()
-            Inventory_AnalysisReportingSpecialist_task =Inventory_AnalysisReportingSpecialist.get_task()
+            Inventory_AnalysisReportingSpecialist_task =Inventory_AnalysisReportingSpecialist.get_task(results=Data_Processing_task)
             Data_VisualizationExpert_Agent = Data_VisualizationExpert.get_agent()
             Data_VisualizationExpert_task =Data_VisualizationExpert.get_task()
             
@@ -122,19 +132,22 @@ class AgentProviderFactory:
                               
                 crew = Crew(
                     agents=[Data_Processing_Agent,
-                            Demand_ForecastingAnalyst_Agent,
-                            Inventory_OptimizationExpert_Agent,
-                            Inventory_AnalysisReportingSpecialist_Agent,
-                            Data_VisualizationExpert_Agent,
+                            # Inventory_ReportWriter_Agent,
+                            # Demand_ForecastingAnalyst_Agent,
+                            # Inventory_OptimizationExpert_Agent,
+                            # Inventory_AnalysisReportingSpecialist_Agent,
+                            # Data_VisualizationExpert_Agent,
                             translation_agent
                             ],
                     
                     tasks=[Data_Processing_task ,
-                           Demand_ForecastingAnalyst_task,
-                           Inventory_OptimizationExpert_task,
-                           Inventory_AnalysisReportingSpecialist_task,
-                           Data_VisualizationExpert_task,
-                           translation_task],
+                        #    Inventory_ReportWriter_task,
+                        #    Demand_ForecastingAnalyst_task,
+                        #    Inventory_OptimizationExpert_task,
+                        #    Inventory_AnalysisReportingSpecialist_task,
+                        #    Data_VisualizationExpert_task,
+                           translation_task 
+                           ],
                             verbose=True
                                 )
                 
@@ -143,18 +156,21 @@ class AgentProviderFactory:
             elif lanuage== Languages.ENGLISH.value:
                 crew = Crew(
                         agents=[Data_Processing_Agent,
-                                Demand_ForecastingAnalyst_Agent,
-                                Inventory_OptimizationExpert_Agent,
-                                Inventory_AnalysisReportingSpecialist_Agent,
-                                Data_VisualizationExpert_Agent
+                                # Inventory_ReportWriter_Agent,
+                                # Demand_ForecastingAnalyst_Agent,
+                                # Inventory_OptimizationExpert_Agent,
+                                # Inventory_AnalysisReportingSpecialist_Agent,
+                                # Data_VisualizationExpert_Agent
                                 ],
                         
                         tasks=[Data_Processing_task ,
-                            Demand_ForecastingAnalyst_task,
-                            Inventory_OptimizationExpert_task,
-                            Inventory_AnalysisReportingSpecialist_task,
-                            Data_VisualizationExpert_task],
-                                verbose=True
+                            # Inventory_ReportWriter_task,
+                            # Demand_ForecastingAnalyst_task,
+                            # Inventory_OptimizationExpert_task,
+                            # Inventory_AnalysisReportingSpecialist_task,
+                            # Data_VisualizationExpert_task
+                            ],
+                                verbose=True,
                                     )
                 
                 result = crew.kickoff()

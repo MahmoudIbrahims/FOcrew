@@ -51,7 +51,8 @@ expected_output_prompt=Template("\n".join([
     f"**Date:** {datetime.now().strftime('%Y-%m-%d, %H:%M')}",
     "**Prepared By:** Senior Inventory Optimization Consultant",
     "**Language:** $Language — Please write all report content, labels, and descriptions in this language.",
-    "",
+    "**Dataset:** $results",
+    ""
     "> ⚠️ Note: Ensure each analytical table includes **at least 10 products/items**, sorted by priority or impact (from most critical to least). Prioritize items based on expiry risk, financial exposure, turnover rate, or classification weight.",
     "",
     "## 🔷 Executive Summary",
@@ -120,6 +121,9 @@ expected_output_prompt=Template("\n".join([
     "- Do not output raw data — only professional insights.",
     "- Format all tables using markdown with `|` separators.",
     "- Maintain consulting-level tone throughout the report.",
-    "- Use real-world business vocabulary and focus on executive action."
+    "- Use real-world business vocabulary and focus on executive action.",
+    "- use the dataset this is results by Agent data processing.",
+    #"- do not use data fake but use the dataset and full the report."
+    
 ]))
 
