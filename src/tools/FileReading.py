@@ -9,6 +9,7 @@ import time
 import json
 import os
 import logging
+from pathlib import Path
 
 
 logging.basicConfig(filename='batch_reader.log', level=logging.DEBUG, 
@@ -42,12 +43,19 @@ class BatchFileReader(BaseTool):
         except:
             return f"{os.path.basename(file_path)}_no_stat"
     
-    def _check_existing_batches(self, cache_key: str) -> list:
-        """check existing"""
-        cache_dir = f"temp_batches/{cache_key}"
-        if not os.path.exists(cache_dir):
+    # def _check_existing_batches(self, output_directory:str ,cache_key: str) -> list:
+    #     """check existing"""
+    #     cache_dir = f"temp_batches/{cache_key}"
+    #     if not os.path.exists(cache_dir):
+    #         return []
+    
+
+    def _check_existing_batches(self, output_directory: str, cache_key: str) -> list:
+        """Check existing"""
+        cache_dir = Path(output_directory) / cache_key
+        if not cache_dir.exists():
             return []
-        
+
         batch_files = []
         batch_index = 0
         while True:
@@ -157,10 +165,11 @@ class BatchFileReader(BaseTool):
         
         return batches
 
-    def _save_batch(self, batch_data: list, batch_index: int, cache_key: str):
+    def _save_batch(self, batch_data: list, batch_index: int, cache_key: str,output_directory: str):
         """save batch"""
         try:
-            cache_dir = f"temp_batches/{cache_key}"
+            # cache_dir = f"temp_batches/{cache_key}"
+            cache_dir = Path(output_directory) / cache_key
             os.makedirs(cache_dir, exist_ok=True)
             batch_file = f"{cache_dir}/batch_{batch_index}.json"
             
@@ -173,14 +182,17 @@ class BatchFileReader(BaseTool):
             logging.error(f"Error saving batch {batch_index}: {str(e)}")
             raise
 
-    def _run(self, file_path: str, num_batches: int = 20, sleep_time: int = 0, 
+    def _run(self, file_path: str, num_batches: int = 50, sleep_time: int = 0, 
              mime_type: str = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
-             max_tokens_per_batch: int = 20000):  
+             max_tokens_per_batch: int = 10000,output_directory: str="results/Mini_Batches"):  
         try:
             cache_key = self._get_cache_key(file_path)
             logging.info(f"Processing file: {file_path} with cache key: {cache_key}")
             
-            existing_batches = self._check_existing_batches(cache_key)
+            if not os.path.exists(output_directory):
+                os.makedirs(output_directory, exist_ok=True)
+            
+            existing_batches = self._check_existing_batches(output_directory,cache_key)
             if existing_batches:
                 logging.info(f"Using {len(existing_batches)} existing batch files")
                 return existing_batches
@@ -201,7 +213,7 @@ class BatchFileReader(BaseTool):
             
             result = []
             for i, batch in enumerate(batches):
-                batch_file = self._save_batch(batch, i, cache_key)
+                batch_file = self._save_batch(batch, i, cache_key,output_directory)
                 result.append(batch_file)
                 
                 if i % 100 == 0:
