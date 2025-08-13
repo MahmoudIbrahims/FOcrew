@@ -1,14 +1,13 @@
 # Final Inventory Data Analysis Report
 
-**Generation Time**: 2025-08-13 04:17:15
+**Generation Time**: 2025-08-13 04:32:16
 
 **Total Items Processed**: 9274
 
 ## Aggregated Insights
 | Metric | Value |
 |--------|-------|
-| Total Unique SKUs | 1085 |
-| Total Unique Products | 1086 |
+| Total Unique Products | 1057 |
 | Total Available Quantity | 3568212.00 |
 | Total Near Expiry Products During Next Month | 572 |
 

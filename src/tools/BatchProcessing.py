@@ -353,7 +353,6 @@ class BatchProcessor(BaseTool):
             f.write("## Aggregated Insights\n")
             f.write("| Metric | Value |\n")
             f.write("|--------|-------|\n")
-            f.write(f"| Total Unique SKUs | {len(all_skus)} |\n")
             f.write(f"| Total Unique Products | {len(all_products)} |\n")
             f.write(f"| Total Available Quantity | {total_quantity:.2f} |\n")
             f.write(f"| Total Near Expiry Products During Next Month | {total_near_expiry} |\n\n")
