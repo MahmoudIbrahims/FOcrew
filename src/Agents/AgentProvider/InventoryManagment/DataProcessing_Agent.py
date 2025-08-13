@@ -31,23 +31,23 @@ class DataProcessing(BaseAgent):
     def get_task(self):
         return Task(
             description="".join([
-                "Process large inventory dataset in batches optimized for Gemini's context length. For each batch: ",
-                "1. Use the 'Batch Processor' tool to process ALL ",
-                "2. Use only real data from the batch. ",
-                "3. Save intermediate results per batch. ",
-                "4. Combine into a final report. ",
-                #"5. save file in **results/inventory_management/data_analysis_report.md**"
-            ]),
+                            f"Process the inventory data file:$file_path",
+                             "Process large inventory dataset in batches optimized for Gemini's context length. For each batch: ",
+                                "1. Read the file Excel or CSV and split it into manageable batches. The `Optimized Batch File Reader` tool_1 save the results inside **results/Mini_Batches**",
+                                "2. Read batch by batch to use `JsonBatchFileReader` tool_2",
+                                "3. Use the `Batch Processor` tool_3 to process ALL and save resuts for this tool inside path **results/Mini_reports**",
+                                "4. Use only real data from the batch. ",
+                                "5. Save intermediate results per batch. ",
+                                "6. Combine into a final report. ",
+                                "## save the final report inside path **results/inventory_management/Analysis_Report.md**"
+                            ]),
+                # "Process large inventory dataset in batches optimized for Gemini's context length. For each batch: ",
+                # "1. Use the 'Batch Processor' tool to process ALL ",
+                # "2. Use only real data from the batch. ",
+                # "3. Save intermediate results per batch. ",
+                # "4. Combine into a final report. ",
+            
             agent=self.get_agent(),
-            expected_output="final report markdown",
-            #'results/inventory_management/data_analysis_report.md'
-            #  tools_input={
-            # "Batch Processor": {
-            #     #"input_directory": "path/to/input",
-            #     "output_directory": "results/Mini_reports",
-            #     "final_report_path": "results/inventory_management/data_analysis_report.md"
-                
-            #                  }}
+            expected_output="final report markdown"
                             
-    
         )

@@ -1,12 +1,13 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 
 
 class BatchFileReaderSchema(BaseModel):
     file_path: str
-    num_batches: int = 15  
+    num_batches: int = 50 #15  
     sleep_time: int = 0    
     mime_type: str = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    max_tokens_per_batch: int = 20000  
+    max_tokens_per_batch: int = 10000  
+    output_directory: str = Field(default="results/Mini_Batches",description="Directory to save batch Json")
     
     
 
