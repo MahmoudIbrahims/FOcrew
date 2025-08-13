@@ -40,13 +40,7 @@ class DataProcessing(BaseAgent):
                                 "5. Save intermediate results per batch. ",
                                 "6. Combine into a final report. ",
                                 "## save the final report inside path **results/inventory_management/Analysis_Report.md**"
-                            ]),
-                # "Process large inventory dataset in batches optimized for Gemini's context length. For each batch: ",
-                # "1. Use the 'Batch Processor' tool to process ALL ",
-                # "2. Use only real data from the batch. ",
-                # "3. Save intermediate results per batch. ",
-                # "4. Combine into a final report. ",
-            
+                            ]), 
             agent=self.get_agent(),
             expected_output="final report markdown"
                             
