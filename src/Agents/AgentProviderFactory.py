@@ -79,6 +79,7 @@ class AgentProviderFactory:
                 raise FileNotFoundError(f"Inventory file not found:{file_path}")
 
             Data_Processing =DataProcessing()
+            Data_Visualization =DataVisualizationExpert()
         
             Data_Processing_Agent =Data_Processing.get_agent()
             Data_Processing_task =Data_Processing.get_task()
@@ -94,20 +95,34 @@ class AgentProviderFactory:
                                 "## save the final report inside path **results/inventory_management/Analysis_Report.md**"
                             ])
             
+            
+            Data_Visualization_Agent =Data_Visualization.get_agent()
+            Data_Visualization_tesk =Data_Visualization.get_task()
+            Data_Visualization_tesk.description ="\n".join([
+                        f"Process the inventory data file: {file_path}",  
+                        "1. Use the `MarkdownTableReader` tool to read and clean all data from the file. ",
+                        "2. Generate a profiling HTML report from dataset ",
+                        "3. Save the profiling report in the same directory as the markdown file with `_profile.html` suffix. ",
+                        "## finally save the report HTML in **'results/Dashboard'**"
+                
+                                            ])
+            
             if lanuage== Languages.ARABIC.value:
                               
                 crew = Crew(
-                    agents=[Data_Processing_Agent],
+                    agents=[Data_Processing_Agent,Data_Visualization_Agent
+                            ],
                     
-                    tasks=[Data_Processing_task],verbose=True)
+                    tasks=[Data_Processing_task,Data_Visualization_tesk
+                           ],verbose=True)
                 
                 result = crew.kickoff()
                     
             elif lanuage== Languages.ENGLISH.value:
                 crew = Crew(
-                        agents=[Data_Processing_Agent],
+                        agents=[Data_Processing_Agent,Data_Visualization_Agent],
                         
-                        tasks=[Data_Processing_task],verbose=True)
+                        tasks=[Data_Processing_task,Data_Visualization_tesk],verbose=True)
                 
                 result = crew.kickoff()
                 
