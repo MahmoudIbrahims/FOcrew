@@ -15,6 +15,5 @@ psycopg2==2.9.10
 python-multipart==0.0.20
 openpyxl==3.1.5
 dask==2025.7.0
-vertexai==1.71.1
-sentencepiece==0.2.0
+ydata-profiling==4.16.1
 

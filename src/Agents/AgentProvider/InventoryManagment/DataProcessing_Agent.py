@@ -42,6 +42,7 @@ class DataProcessing(BaseAgent):
                                 "## save the final report inside path **results/inventory_management/Analysis_Report.md**"
                             ]), 
             agent=self.get_agent(),
-            expected_output="final report markdown"
+            expected_output="final report markdown",
+            output_key="md_report_path"
                             
         )
