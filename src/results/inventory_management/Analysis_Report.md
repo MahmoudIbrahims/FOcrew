@@ -1,15 +1,15 @@
 # Final Inventory Data Analysis Report
 
-**Generation Time**: 2025-08-18 17:04:11
+**Generation Time**: 2025-08-19 18:47:31
 
 **Total Items Processed**: 9274
 
 ## Aggregated Insights
 | Metric | Value |
 |--------|-------|
-| Total Unique Products | 1061 |
+| Total Unique Products | 1097 |
 | Total Available Quantity | 3568212.00 |
-| Total Near Expiry Products During Next Month | 605 |
+| Total Near Expiry Products During Next Month | 609 |
 
 ## Financial Categories
 | category | count |
@@ -71,9 +71,48 @@
 # Advanced Analysis
 
 ## Expired/Removed Before Today
-**Total Expired/Removed:** 390 items
+**Total Expired/Removed:** 406 items
 | Internal Reference | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|
+| 249876 | Juhayna Zabado Strawberry (220ml) | 2025-08-19 16:00:00 | 2025-08-12 16:00:00 | 120.0 |
+| 529017 | Juhayna Rayeb Milk (1L) | 2025-08-19 14:00:00 | 2025-08-07 14:00:00 | 12.0 |
+| 1509728 | Almarai Greek Yogurt Plain 2% Fat (170g) | 2025-08-25 14:00:00 | 2025-08-19 14:00:00 | 576.0 |
+| 1509703 | Almarai Greek Yogurt Plain 5% Fat (170g) | 2025-08-25 14:00:00 | 2025-08-19 14:00:00 | 48.0 |
+| 249862 | Juhayna Rayeb Green Tea & Lemon (220ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 507.0 |
+| 249855 | Juhayna Rayeb Lite (220ml) | 2025-08-19 13:00:00 | 2025-08-12 13:00:00 | 552.0 |
+| 249849 | Juhayna Rayeb Milk (220ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 287.0 |
+| 249870 | Juhayna Zabado Mango (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 60.0 |
+| 249875 | Juhayna Zabado Strawberry (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 132.0 |
+| 249859 | Juhayna Rayeb Green Tea & Lemon (440ml) | 2025-08-19 13:00:00 | 2025-08-12 13:00:00 | 204.0 |
+| 249857 | Juhayna Rayeb Light (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 204.0 |
+| 249850 | Juhayna Rayeb Milk (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 780.0 |
+| 1077032 | Domty White Cheese Low Salt Natural Fat (Plastic) (700g) | 2025-08-19 12:00:00 | 2025-08-07 12:00:00 | 96.0 |
+| 11892059 | Danone Hipro Mixed Berries (260g) | 2025-09-06 12:00:00 | 2025-08-19 12:00:00 | 36.0 |
+| 1293187 | Danone Hipro Strawberry (260g) | 2025-09-06 12:00:00 | 2025-08-19 12:00:00 | 239.0 |
+| 16677459 | Yopo Cookies & Cream Greek Yogurt (145g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 70.0 |
+| 2660402 | Yopo Flip Granola Chocolate Greek Yogurt (145g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 96.0 |
+| 7562448 | Danette Caramel Mini Pudding (100g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 192.0 |
+| 1180627 | Danette Chocolate Pudding (100g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 912.0 |
+| 249933 | Almarai Treats Mango Yogurt (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 264.0 |
+| 2109707 | Danone Greek Yogurt Light (170g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 108.0 |
+| 1004001 | Juhayna Natural Yogurt 5+1 (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 888.0 |
+| 3508305 | Juhayna Natural Yogurt Lite Offer 9+3 Free (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 48.0 |
+| 1162919 | Juhayna Natural Yogurt Offer 9+3 (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 29.0 |
+| 16611996 | Juhayna Yogurt Stirred Plain (105g) | 2025-08-19 11:00:00 | 2025-08-12 11:00:00 | 912.0 |
+| 31695553 | Yopolis PRO Salted Caramel (165g) | 2025-09-06 10:00:00 | 2025-08-19 10:00:00 | 96.0 |
+| 529017 | Juhayna Rayeb Milk (1L) | 2025-08-19 10:00:00 | 2025-08-07 10:00:00 | 150.0 |
+| 1562076 | Smoke House Smoked Chicken Breast (150g) | 2025-09-06 09:00:00 | 2025-08-19 09:00:00 | 135.0 |
+| 1562042 | Smoke House Smoked Roastbeef (150g) | 2025-09-06 09:00:00 | 2025-08-19 09:00:00 | 128.0 |
+| 1562062 | Smoke House Smoked Turkey Breast (150g) | 2025-09-06 09:00:00 | 2025-08-19 09:00:00 | 180.0 |
+| 8579985 | Almarai Treats Strawberry Yogurt Offer 3+1 Free (105g) | 2025-08-19 09:00:00 | 2025-08-07 09:00:00 | 18.0 |
+| 249920 | Almarai Natural Yogurt (105g) | 2025-08-19 09:00:00 | 2025-08-12 09:00:00 | 432.0 |
+| 249906 | Almarai Natural Yogurt (170g) | 2025-08-19 09:00:00 | 2025-08-12 09:00:00 | 144.0 |
+| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 03:00:00 | 2025-07-14 03:00:00 | 11.0 |
+| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 03:00:00 | 2025-07-14 03:00:00 | 1.0 |
+| 11919174 | Seasoned Spicery Chipotle Chicken (70g) | 2025-10-31 00:00:00 | 2025-08-19 01:00:00 | 9.0 |
+| 5649662 | Breadfast Fava Beans (400g) | 2025-09-24 00:00:00 | 2025-08-19 00:00:00 | 1.0 |
+| 21809103 | ASN Protein Bar Gluten Free Cinnamon (70g) | 2025-09-24 00:00:00 | 2025-08-19 00:00:00 | 6.0 |
+| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 00:00:00 | 2025-07-14 00:00:00 | 4.0 |
 | 37038100 | Juhayna Premium Pudding Caramel Toffee (150g) | 2025-08-18 14:00:00 | 2025-08-02 14:00:00 | 1.0 |
 | 601358 | AlMarai Yo Go Strawberry Yoghurt Drink (220ml) | 2025-08-25 14:00:00 | 2025-08-18 14:00:00 | 96.0 |
 | 249929 | Almarai Treats Strawberry Yogurt (105g) | 2025-08-25 14:00:00 | 2025-08-18 14:00:00 | 719.0 |
@@ -226,7 +265,6 @@
 | 601355 | AlMarai Rayeb (220ml) | 2025-08-20 09:00:00 | 2025-08-13 09:00:00 | 96.0 |
 | 601355 | AlMarai Rayeb (220ml) | 2025-08-20 09:00:00 | 2025-08-13 09:00:00 | 96.0 |
 | 31446144 | Juhayna Labneh Plain (500g) | 2025-08-30 16:00:00 | 2025-08-12 16:00:00 | 96.0 |
-| 249876 | Juhayna Zabado Strawberry (220ml) | 2025-08-19 16:00:00 | 2025-08-12 16:00:00 | 120.0 |
 | 16611996 | Juhayna Yogurt Stirred Plain (105g) | 2025-08-12 16:00:00 | 2025-08-05 16:00:00 | 51.0 |
 | 33184939 | Lychee Real Orange Juice without pulp (900ml) | 2025-08-12 15:00:00 | 2025-08-04 15:00:00 | 30.0 |
 | 33184556 | Lychee Real Orange Juice with pulp (350ml) | 2025-08-12 15:00:00 | 2025-08-04 15:00:00 | 516.0 |
@@ -235,8 +273,6 @@
 | 31695553 | Yopolis PRO Salted Caramel (165g) | 2025-08-30 15:00:00 | 2025-08-12 15:00:00 | 48.0 |
 | 37038100 | Juhayna Premium Pudding Caramel Toffee (150g) | 2025-08-28 14:00:00 | 2025-08-12 14:00:00 | 216.0 |
 | 2660402 | Yopo Flip Granola Chocolate Greek Yogurt (145g) | 2025-08-30 14:00:00 | 2025-08-12 14:00:00 | 37.0 |
-| 249855 | Juhayna Rayeb Lite (220ml) | 2025-08-19 13:00:00 | 2025-08-12 13:00:00 | 552.0 |
-| 249859 | Juhayna Rayeb Green Tea & Lemon (440ml) | 2025-08-19 13:00:00 | 2025-08-12 13:00:00 | 204.0 |
 | 249859 | Juhayna Rayeb Green Tea & Lemon (440ml) | 2025-08-12 12:00:00 | 2025-07-31 12:00:00 | 192.0 |
 | 27191899 | Juhayna Greek Yogurt Apple Pie (180gm) | 2025-08-12 11:00:00 | 2025-08-04 11:00:00 | 480.0 |
 | 1292061 | Juhayna Greek Yogurt Mixed Berries (180g) | 2025-08-12 11:00:00 | 2025-08-07 11:00:00 | 624.0 |
@@ -247,11 +283,8 @@
 | 21461889 | Danone Greek Yogurt Strawberry (170g) | 2025-08-30 11:00:00 | 2025-08-12 11:00:00 | 24.0 |
 | 32261016 | Simply wood furniture cleaner (550ml) | 2025-08-30 11:00:00 | 2025-08-12 11:00:00 | 88.0 |
 | 32261016 | Simply wood furniture cleaner (550ml) | 2025-08-30 11:00:00 | 2025-08-12 11:00:00 | 560.0 |
-| 16611996 | Juhayna Yogurt Stirred Plain (105g) | 2025-08-19 11:00:00 | 2025-08-12 11:00:00 | 912.0 |
 | 7562448 | Danette Caramel Mini Pudding (100g) | 2025-08-30 10:00:00 | 2025-08-12 10:00:00 | 217.0 |
 | 1293187 | Danone Hipro Strawberry (260g) | 2025-08-30 10:00:00 | 2025-08-12 10:00:00 | 125.0 |
-| 249920 | Almarai Natural Yogurt (105g) | 2025-08-19 09:00:00 | 2025-08-12 09:00:00 | 432.0 |
-| 249906 | Almarai Natural Yogurt (170g) | 2025-08-19 09:00:00 | 2025-08-12 09:00:00 | 144.0 |
 | 446927 | Juhayna Greek Yogurt 7% Fat Extra (180g) | 2025-08-23 15:00:00 | 2025-08-11 15:00:00 | 480.0 |
 | 1292030 | Juhayna Greek Yogurt Strawberry (180g) | 2025-08-11 15:00:00 | 2025-08-03 15:00:00 | 240.0 |
 | 1004001 | Juhayna Natural Yogurt 5+1 (105g) | 2025-08-23 15:00:00 | 2025-08-11 15:00:00 | 712.0 |
@@ -371,22 +404,8 @@
 | 18141340 | Halwani Sesame Pure Tahina Sauce Jar (120g) | 2025-09-13 00:00:00 | 2025-08-08 00:00:00 | 15.0 |
 | 12088235 | Juhayna Mix Strawberry Yogurt Offer 5+1 Free (105g) | 2025-08-07 15:00:00 | 2025-08-04 15:00:00 | 52.0 |
 | 12551185 | Juhayna Mixed Berries Fruit yogurt (105gm) | 2025-08-07 15:00:00 | 2025-08-04 15:00:00 | 96.0 |
-| 529017 | Juhayna Rayeb Milk (1L) | 2025-08-19 14:00:00 | 2025-08-07 14:00:00 | 12.0 |
 | 38973957 | Almarai YoGo Mango (220gm) | 2025-08-07 14:00:00 | 2025-08-07 14:00:00 | 84.0 |
-| 249862 | Juhayna Rayeb Green Tea & Lemon (220ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 507.0 |
-| 249849 | Juhayna Rayeb Milk (220ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 287.0 |
-| 249870 | Juhayna Zabado Mango (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 60.0 |
-| 249875 | Juhayna Zabado Strawberry (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 132.0 |
-| 249857 | Juhayna Rayeb Light (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 204.0 |
-| 249850 | Juhayna Rayeb Milk (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 780.0 |
-| 1077032 | Domty White Cheese Low Salt Natural Fat (Plastic) (700g) | 2025-08-19 12:00:00 | 2025-08-07 12:00:00 | 96.0 |
-| 249933 | Almarai Treats Mango Yogurt (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 264.0 |
-| 1004001 | Juhayna Natural Yogurt 5+1 (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 888.0 |
-| 3508305 | Juhayna Natural Yogurt Lite Offer 9+3 Free (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 48.0 |
-| 1162919 | Juhayna Natural Yogurt Offer 9+3 (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 29.0 |
-| 529017 | Juhayna Rayeb Milk (1L) | 2025-08-19 10:00:00 | 2025-08-07 10:00:00 | 150.0 |
 | 1907027 | Juhayna Greek Yogurt French Vanilla Bean (180g) | 2025-08-07 10:00:00 | 2025-08-02 10:00:00 | 720.0 |
-| 8579985 | Almarai Treats Strawberry Yogurt Offer 3+1 Free (105g) | 2025-08-19 09:00:00 | 2025-08-07 09:00:00 | 18.0 |
 | 3168328 | AL Asil Corn Oil (2.25L) | 2025-10-18 01:00:00 | 2025-08-07 01:00:00 | 1.0 |
 | 10802726 | Nutzzi Roasted Almonds salted (100g) | 2025-10-01 01:00:00 | 2025-08-07 01:00:00 | 1.0 |
 | 12551182 | Juhayna Mango Fruit Yogurt (105gm) | 2025-08-06 15:00:00 | 2025-08-01 15:00:00 | 93.0 |
@@ -427,11 +446,8 @@
 | 3124647 | Lite Bite Honey Squeeze Black Seed (425g) | 2025-09-30 00:00:00 | 2025-07-19 00:00:00 | 1.0 |
 | CONS-824 | Label Roll 100mm * 150mm | 2028-07-15 13:00:00 | 2025-07-16 13:00:00 | 40.0 |
 | CONS-746 | Printer Ribbon | 2028-07-15 13:00:00 | 2025-07-16 13:00:00 | 24.0 |
-| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 03:00:00 | 2025-07-14 03:00:00 | 11.0 |
-| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 03:00:00 | 2025-07-14 03:00:00 | 1.0 |
 | 2524593 | Herbal Essences Hello Hydration Conditioner Coconut (360ml) | 2025-10-31 00:00:00 | 2025-07-14 01:00:00 | 1.0 |
 | 1379723 | Nivea Men Cream (150ml) | 2025-10-31 00:00:00 | 2025-07-14 01:00:00 | 1.0 |
-| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 00:00:00 | 2025-07-14 00:00:00 | 4.0 |
 | CONS0001-A | Stretch Roll | 2025-12-22 18:00:00 | 2025-07-09 19:00:00 | 2410.0 |
 | CONS0009-A | A4 Paper | 2026-01-02 15:31:41 | 2025-07-06 16:31:41 | 280.0 |
 | 1061748 | Abu Auf Quinoa White (400g) | 2025-10-06 00:00:00 | 2025-06-28 00:00:00 | 4.0 |
@@ -466,9 +482,23 @@
 | CONS-533 | Tape Gun | 2028-01-30 11:00:00 | 2025-01-30 11:00:00 | 4.0 |
 
 ## Near expiry/removal During Next 5 days
-**Total of Near expiry/removal within 5 days:** 178 items
+**Total of Near expiry/removal within 5 days:** 153 items
 | Internal Reference | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|
+| CONS0020-A | Staples Box | 2025-08-24 14:00:00 | 2025-08-24 14:00:00 | 9.0 |
+| 35581958 | Cheetos Pops Chilli Sour Cream (57g) | 2025-08-24 12:00:00 | 2025-08-24 12:00:00 | 589.0 |
+| 35581958 | Cheetos Pops Chilli Sour Cream (57g) | 2025-08-24 12:00:00 | 2025-08-24 12:00:00 | 482.0 |
+| 35581958 | Cheetos Pops Chilli Sour Cream (57g) | 2025-08-24 12:00:00 | 2025-08-24 12:00:00 | 580.0 |
+| 37038100 | Juhayna Premium Pudding Caramel Toffee (150g) | 2025-08-24 12:00:00 | 2025-08-08 12:00:00 | 360.0 |
+| 35581957 | Cheetos Pops Pepperoni & Cheese Madness (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 781.0 |
+| 35581957 | Cheetos Pops Pepperoni & Cheese Madness (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 1080.0 |
+| 35581956 | Cheetos Pops Chilli Sour Cream (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 101.0 |
+| 35581956 | Cheetos Pops Chilli Sour Cream (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 960.0 |
+| 35581956 | Cheetos Pops Chilli Sour Cream (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 960.0 |
+| 31121618 | Hohos Cream Family Cake (Piece) | 2025-09-05 10:00:00 | 2025-08-24 10:00:00 | 64.0 |
+| 31121618 | Hohos Cream Family Cake (Piece) | 2025-09-05 10:00:00 | 2025-08-24 10:00:00 | 432.0 |
+| 31121618 | Hohos Cream Family Cake (Piece) | 2025-09-05 10:00:00 | 2025-08-24 10:00:00 | 360.0 |
+| 17172807 | Hero Baby LF Formula Milk (400g) | 2025-11-05 02:00:00 | 2025-08-24 03:00:00 | 1.0 |
 | 446927 | Juhayna Greek Yogurt 7% Fat Extra (180g) | 2025-08-23 15:00:00 | 2025-08-11 15:00:00 | 480.0 |
 | 249848 | Juhayna Natural Yogurt (105g) | 2025-08-23 15:00:00 | 2025-08-16 15:00:00 | 72.0 |
 | 1004001 | Juhayna Natural Yogurt 5+1 (105g) | 2025-08-23 15:00:00 | 2025-08-11 15:00:00 | 712.0 |
@@ -608,50 +638,25 @@
 | 1138370 | Almarai Natural Yogurt Offer 5+1 Free (105g) | 2025-08-20 09:00:00 | 2025-08-11 09:00:00 | 128.0 |
 | 2102758 | Almarai Natural Yogurt Offer 9+3 Free (105g) | 2025-08-20 09:00:00 | 2025-08-11 09:00:00 | 248.0 |
 | 11917806 | Seasoned Spicery Biryani Blend (70g) | 2025-11-01 00:00:00 | 2025-08-20 01:00:00 | 1.0 |
-| 249876 | Juhayna Zabado Strawberry (220ml) | 2025-08-19 16:00:00 | 2025-08-12 16:00:00 | 120.0 |
-| 529017 | Juhayna Rayeb Milk (1L) | 2025-08-19 14:00:00 | 2025-08-07 14:00:00 | 12.0 |
-| 1509728 | Almarai Greek Yogurt Plain 2% Fat (170g) | 2025-08-25 14:00:00 | 2025-08-19 14:00:00 | 576.0 |
-| 1509703 | Almarai Greek Yogurt Plain 5% Fat (170g) | 2025-08-25 14:00:00 | 2025-08-19 14:00:00 | 48.0 |
-| 249862 | Juhayna Rayeb Green Tea & Lemon (220ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 507.0 |
-| 249855 | Juhayna Rayeb Lite (220ml) | 2025-08-19 13:00:00 | 2025-08-12 13:00:00 | 552.0 |
-| 249849 | Juhayna Rayeb Milk (220ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 287.0 |
-| 249870 | Juhayna Zabado Mango (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 60.0 |
-| 249875 | Juhayna Zabado Strawberry (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 132.0 |
-| 249859 | Juhayna Rayeb Green Tea & Lemon (440ml) | 2025-08-19 13:00:00 | 2025-08-12 13:00:00 | 204.0 |
-| 249857 | Juhayna Rayeb Light (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 204.0 |
-| 249850 | Juhayna Rayeb Milk (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 780.0 |
-| 1077032 | Domty White Cheese Low Salt Natural Fat (Plastic) (700g) | 2025-08-19 12:00:00 | 2025-08-07 12:00:00 | 96.0 |
-| 11892059 | Danone Hipro Mixed Berries (260g) | 2025-09-06 12:00:00 | 2025-08-19 12:00:00 | 36.0 |
-| 1293187 | Danone Hipro Strawberry (260g) | 2025-09-06 12:00:00 | 2025-08-19 12:00:00 | 239.0 |
-| 16677459 | Yopo Cookies & Cream Greek Yogurt (145g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 70.0 |
-| 2660402 | Yopo Flip Granola Chocolate Greek Yogurt (145g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 96.0 |
-| 7562448 | Danette Caramel Mini Pudding (100g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 192.0 |
-| 1180627 | Danette Chocolate Pudding (100g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 912.0 |
-| 249933 | Almarai Treats Mango Yogurt (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 264.0 |
-| 2109707 | Danone Greek Yogurt Light (170g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 108.0 |
-| 1004001 | Juhayna Natural Yogurt 5+1 (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 888.0 |
-| 3508305 | Juhayna Natural Yogurt Lite Offer 9+3 Free (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 48.0 |
-| 1162919 | Juhayna Natural Yogurt Offer 9+3 (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 29.0 |
-| 16611996 | Juhayna Yogurt Stirred Plain (105g) | 2025-08-19 11:00:00 | 2025-08-12 11:00:00 | 912.0 |
-| 31695553 | Yopolis PRO Salted Caramel (165g) | 2025-09-06 10:00:00 | 2025-08-19 10:00:00 | 96.0 |
-| 529017 | Juhayna Rayeb Milk (1L) | 2025-08-19 10:00:00 | 2025-08-07 10:00:00 | 150.0 |
-| 1562076 | Smoke House Smoked Chicken Breast (150g) | 2025-09-06 09:00:00 | 2025-08-19 09:00:00 | 135.0 |
-| 1562042 | Smoke House Smoked Roastbeef (150g) | 2025-09-06 09:00:00 | 2025-08-19 09:00:00 | 128.0 |
-| 1562062 | Smoke House Smoked Turkey Breast (150g) | 2025-09-06 09:00:00 | 2025-08-19 09:00:00 | 180.0 |
-| 8579985 | Almarai Treats Strawberry Yogurt Offer 3+1 Free (105g) | 2025-08-19 09:00:00 | 2025-08-07 09:00:00 | 18.0 |
-| 249920 | Almarai Natural Yogurt (105g) | 2025-08-19 09:00:00 | 2025-08-12 09:00:00 | 432.0 |
-| 249906 | Almarai Natural Yogurt (170g) | 2025-08-19 09:00:00 | 2025-08-12 09:00:00 | 144.0 |
-| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 03:00:00 | 2025-07-14 03:00:00 | 11.0 |
-| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 03:00:00 | 2025-07-14 03:00:00 | 1.0 |
-| 11919174 | Seasoned Spicery Chipotle Chicken (70g) | 2025-10-31 00:00:00 | 2025-08-19 01:00:00 | 9.0 |
-| 5649662 | Breadfast Fava Beans (400g) | 2025-09-24 00:00:00 | 2025-08-19 00:00:00 | 1.0 |
-| 21809103 | ASN Protein Bar Gluten Free Cinnamon (70g) | 2025-09-24 00:00:00 | 2025-08-19 00:00:00 | 6.0 |
-| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 00:00:00 | 2025-07-14 00:00:00 | 4.0 |
 
 ## Near expiry/removal During Next 15 days
-**Total of Near expiry/removal within 15 days:** 317 items
+**Total of Near expiry/removal within 15 days:** 285 items
 | Internal Reference | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|
+| CONS0020-A | Staples Box | 2025-08-24 14:00:00 | 2025-08-24 14:00:00 | 9.0 |
+| 35581958 | Cheetos Pops Chilli Sour Cream (57g) | 2025-08-24 12:00:00 | 2025-08-24 12:00:00 | 589.0 |
+| 35581958 | Cheetos Pops Chilli Sour Cream (57g) | 2025-08-24 12:00:00 | 2025-08-24 12:00:00 | 482.0 |
+| 35581958 | Cheetos Pops Chilli Sour Cream (57g) | 2025-08-24 12:00:00 | 2025-08-24 12:00:00 | 580.0 |
+| 37038100 | Juhayna Premium Pudding Caramel Toffee (150g) | 2025-08-24 12:00:00 | 2025-08-08 12:00:00 | 360.0 |
+| 35581957 | Cheetos Pops Pepperoni & Cheese Madness (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 781.0 |
+| 35581957 | Cheetos Pops Pepperoni & Cheese Madness (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 1080.0 |
+| 35581956 | Cheetos Pops Chilli Sour Cream (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 101.0 |
+| 35581956 | Cheetos Pops Chilli Sour Cream (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 960.0 |
+| 35581956 | Cheetos Pops Chilli Sour Cream (24g) | 2025-08-24 11:00:00 | 2025-08-24 11:00:00 | 960.0 |
+| 31121618 | Hohos Cream Family Cake (Piece) | 2025-09-05 10:00:00 | 2025-08-24 10:00:00 | 64.0 |
+| 31121618 | Hohos Cream Family Cake (Piece) | 2025-09-05 10:00:00 | 2025-08-24 10:00:00 | 432.0 |
+| 31121618 | Hohos Cream Family Cake (Piece) | 2025-09-05 10:00:00 | 2025-08-24 10:00:00 | 360.0 |
+| 17172807 | Hero Baby LF Formula Milk (400g) | 2025-11-05 02:00:00 | 2025-08-24 03:00:00 | 1.0 |
 | 446927 | Juhayna Greek Yogurt 7% Fat Extra (180g) | 2025-08-23 15:00:00 | 2025-08-11 15:00:00 | 480.0 |
 | 249848 | Juhayna Natural Yogurt (105g) | 2025-08-23 15:00:00 | 2025-08-16 15:00:00 | 72.0 |
 | 1004001 | Juhayna Natural Yogurt 5+1 (105g) | 2025-08-23 15:00:00 | 2025-08-11 15:00:00 | 712.0 |
@@ -791,45 +796,6 @@
 | 1138370 | Almarai Natural Yogurt Offer 5+1 Free (105g) | 2025-08-20 09:00:00 | 2025-08-11 09:00:00 | 128.0 |
 | 2102758 | Almarai Natural Yogurt Offer 9+3 Free (105g) | 2025-08-20 09:00:00 | 2025-08-11 09:00:00 | 248.0 |
 | 11917806 | Seasoned Spicery Biryani Blend (70g) | 2025-11-01 00:00:00 | 2025-08-20 01:00:00 | 1.0 |
-| 249876 | Juhayna Zabado Strawberry (220ml) | 2025-08-19 16:00:00 | 2025-08-12 16:00:00 | 120.0 |
-| 529017 | Juhayna Rayeb Milk (1L) | 2025-08-19 14:00:00 | 2025-08-07 14:00:00 | 12.0 |
-| 1509728 | Almarai Greek Yogurt Plain 2% Fat (170g) | 2025-08-25 14:00:00 | 2025-08-19 14:00:00 | 576.0 |
-| 1509703 | Almarai Greek Yogurt Plain 5% Fat (170g) | 2025-08-25 14:00:00 | 2025-08-19 14:00:00 | 48.0 |
-| 249862 | Juhayna Rayeb Green Tea & Lemon (220ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 507.0 |
-| 249855 | Juhayna Rayeb Lite (220ml) | 2025-08-19 13:00:00 | 2025-08-12 13:00:00 | 552.0 |
-| 249849 | Juhayna Rayeb Milk (220ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 287.0 |
-| 249870 | Juhayna Zabado Mango (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 60.0 |
-| 249875 | Juhayna Zabado Strawberry (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 132.0 |
-| 249859 | Juhayna Rayeb Green Tea & Lemon (440ml) | 2025-08-19 13:00:00 | 2025-08-12 13:00:00 | 204.0 |
-| 249857 | Juhayna Rayeb Light (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 204.0 |
-| 249850 | Juhayna Rayeb Milk (440ml) | 2025-08-19 13:00:00 | 2025-08-07 13:00:00 | 780.0 |
-| 1077032 | Domty White Cheese Low Salt Natural Fat (Plastic) (700g) | 2025-08-19 12:00:00 | 2025-08-07 12:00:00 | 96.0 |
-| 11892059 | Danone Hipro Mixed Berries (260g) | 2025-09-06 12:00:00 | 2025-08-19 12:00:00 | 36.0 |
-| 1293187 | Danone Hipro Strawberry (260g) | 2025-09-06 12:00:00 | 2025-08-19 12:00:00 | 239.0 |
-| 16677459 | Yopo Cookies & Cream Greek Yogurt (145g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 70.0 |
-| 2660402 | Yopo Flip Granola Chocolate Greek Yogurt (145g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 96.0 |
-| 7562448 | Danette Caramel Mini Pudding (100g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 192.0 |
-| 1180627 | Danette Chocolate Pudding (100g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 912.0 |
-| 249933 | Almarai Treats Mango Yogurt (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 264.0 |
-| 2109707 | Danone Greek Yogurt Light (170g) | 2025-09-06 11:00:00 | 2025-08-19 11:00:00 | 108.0 |
-| 1004001 | Juhayna Natural Yogurt 5+1 (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 888.0 |
-| 3508305 | Juhayna Natural Yogurt Lite Offer 9+3 Free (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 48.0 |
-| 1162919 | Juhayna Natural Yogurt Offer 9+3 (105g) | 2025-08-19 11:00:00 | 2025-08-07 11:00:00 | 29.0 |
-| 16611996 | Juhayna Yogurt Stirred Plain (105g) | 2025-08-19 11:00:00 | 2025-08-12 11:00:00 | 912.0 |
-| 31695553 | Yopolis PRO Salted Caramel (165g) | 2025-09-06 10:00:00 | 2025-08-19 10:00:00 | 96.0 |
-| 529017 | Juhayna Rayeb Milk (1L) | 2025-08-19 10:00:00 | 2025-08-07 10:00:00 | 150.0 |
-| 1562076 | Smoke House Smoked Chicken Breast (150g) | 2025-09-06 09:00:00 | 2025-08-19 09:00:00 | 135.0 |
-| 1562042 | Smoke House Smoked Roastbeef (150g) | 2025-09-06 09:00:00 | 2025-08-19 09:00:00 | 128.0 |
-| 1562062 | Smoke House Smoked Turkey Breast (150g) | 2025-09-06 09:00:00 | 2025-08-19 09:00:00 | 180.0 |
-| 8579985 | Almarai Treats Strawberry Yogurt Offer 3+1 Free (105g) | 2025-08-19 09:00:00 | 2025-08-07 09:00:00 | 18.0 |
-| 249920 | Almarai Natural Yogurt (105g) | 2025-08-19 09:00:00 | 2025-08-12 09:00:00 | 432.0 |
-| 249906 | Almarai Natural Yogurt (170g) | 2025-08-19 09:00:00 | 2025-08-12 09:00:00 | 144.0 |
-| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 03:00:00 | 2025-07-14 03:00:00 | 11.0 |
-| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 03:00:00 | 2025-07-14 03:00:00 | 1.0 |
-| 11919174 | Seasoned Spicery Chipotle Chicken (70g) | 2025-10-31 00:00:00 | 2025-08-19 01:00:00 | 9.0 |
-| 5649662 | Breadfast Fava Beans (400g) | 2025-09-24 00:00:00 | 2025-08-19 00:00:00 | 1.0 |
-| 21809103 | ASN Protein Bar Gluten Free Cinnamon (70g) | 2025-09-24 00:00:00 | 2025-08-19 00:00:00 | 6.0 |
-| 23410504 | Breadfast Mango Burst Chocolate (50g) | 2025-08-19 00:00:00 | 2025-07-14 00:00:00 | 4.0 |
 
 ## Urgent Reorder (Out of Stock)
 **Total of Urgent Reorder Items:** 2521 items

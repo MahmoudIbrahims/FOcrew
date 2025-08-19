@@ -4,8 +4,6 @@ from Providers import ProviderLLM
 from tools.FileReading import BatchFileReader,JsonBatchFileReader
 from tools.BatchProcessing import BatchProcessor
 
-
-
 class DataProcessing(BaseAgent):
     def __init__(self):
         provider = ProviderLLM()
