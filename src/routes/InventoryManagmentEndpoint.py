@@ -10,17 +10,41 @@ from Models.schema.DBSchemas import AgentResult
 from .Schemes.data import ProcessRequest
 from .Enums.BasicsEnums import UsageType
 from .Enums.BasicsEnums import Languages 
-from .Enums.InventorymanagmentEnums import InventorManagmentEunms 
+from .Enums.InventorymanagmentEnums import InventorManagmentEunms ,PathResults
 from Models.enums import ResponseSignal
 from crewai import Crew
 from fastapi.responses import JSONResponse
 import uuid
+import os
+from datetime import datetime
+from pandas import Timestamp
 
 
 agent_router = APIRouter(
     prefix ="/api/v1/agent",
     tags =["api_v1","agent"],
 )
+
+
+def convert_to_json_serializable(obj):
+    if isinstance(obj, (datetime, Timestamp)):
+        return obj.isoformat()
+    elif isinstance(obj, (int, float, str, bool)) or obj is None:
+        return obj
+    elif isinstance(obj, list):
+        return [convert_to_json_serializable(item) for item in obj]
+    elif isinstance(obj, dict):
+        return {k: convert_to_json_serializable(v) for k, v in obj.items()}
+    return str(obj)
+
+
+def read_file_content(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return file.read()
+    except Exception as e:
+        return f"Error reading file {file_path}: {str(e)}"
+
 
 @agent_router.post('/inventory/{project_id}')
 async def inventory_agent(request : Request ,project_id:int,Process_Request:ProcessRequest):
@@ -55,16 +79,18 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
             status_code=status.HTTP_404_NOT_FOUND,
             content={"message": "No uploaded file found for this project"}
         )
+    
+    full_data = convert_to_json_serializable(latest_file.full_data)
         
     Data_Processing =DataProcessing()
     Data_Processing_Agent =Data_Processing.get_agent()
     Data_Processing_task =Data_Processing.get_task()
-    Data_Processing_task.description =Data_processing_prompt.safe_substitute(full_data=latest_file.full_data)
+    Data_Processing_task.description =Data_processing_prompt.safe_substitute(full_data=full_data)
     
     Data_Visualization =DataVisualizationExpert()
     Data_Visualization_Agent =Data_Visualization.get_agent()
     Data_Visualization_task =Data_Visualization.get_task()
-    Data_Visualization_task.description =Visualization_Prompt.safe_substitute(full_data=latest_file.full_data)
+    Data_Visualization_task.description =Visualization_Prompt.safe_substitute(full_data=full_data)
 
     if Process_Request.Language== Languages.ARABIC.value:
                               
@@ -79,9 +105,18 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
                 
         result = crew.kickoff()
         
+        analysis_report_content =read_file_content(PathResults.ANALYSIS_REPORT_PATH.value) if os.path.exists(PathResults.ANALYSIS_REPORT_PATH.value) else "Analysis report not found"
+        profiling_report_content =read_file_content(PathResults.PROFILLING_REPORT_PATH.value) if os.path.exists(PathResults.PROFILLING_REPORT_PATH.value) else "Profiling report not found"
+
+        combined_result = {
+            "crew_result": str(result),
+            "analysis_report": analysis_report_content,
+            "profiling_report": profiling_report_content
+        }
+        
         agent_result = AgentResult(
                     result_uuid=uuid.uuid4(),
-                    result_data=str(result), 
+                    result_data=combined_result, 
                     project_id=project_id,
                     agent_name=InventorManagmentEunms.AGENT_NAME.value,
                     status=InventorManagmentEunms.STATUS.value
@@ -103,7 +138,7 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
                 content ={
                     "signal" : ResponseSignal.RESPONSE_SUCCESS.value,
                     "agent name":str(agent.agent_name),
-                    "results" : str(agent.result_data),
+                    "results" : combined_result,
                     "created_at":str(agent_Relation.created_at)
                     
                 }
