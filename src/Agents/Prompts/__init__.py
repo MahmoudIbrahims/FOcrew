@@ -1,1 +1,3 @@
 from .AnalysisReportPrompt import description_prompt, expected_output_prompt
+from .DataprocessingPrompt import Data_processing_prompt
+from .VisualizationPrompt import Visualization_Prompt

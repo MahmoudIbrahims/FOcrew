@@ -2,18 +2,17 @@ import os
 from crewai import Crew
 from .AgentEnums import AgentName ,Languages
 
-## marketingstratgeyplanner
+#=========== marketing stratgey planner============
 from .AgentProvider import SWOTAnalyst
 from .AgentProvider import MarketingStrategist
 from .AgentProvider import  ContentPlanner
 from .AgentProvider import TranslationEnglishArabic
-## InventoryManagment
+#==============Inventory Managment===================
 from .AgentProvider import DataProcessing
-from .AgentProvider import DemandForecastingAnalyst
-from .AgentProvider import InventoryOptimizationExpert
-from .AgentProvider import InventoryAnalysisReportingSpecialist
 from .AgentProvider import DataVisualizationExpert
-from .AgentProvider import InventoryReportWriter
+#==========Prompts Inventory Managment===============
+from .Prompts.DataprocessingPrompt import Data_processing_prompt
+from .Prompts.VisualizationPrompt import Visualization_Prompt
 
 
 
@@ -83,29 +82,31 @@ class AgentProviderFactory:
         
             Data_Processing_Agent =Data_Processing.get_agent()
             Data_Processing_task =Data_Processing.get_task()
-            Data_Processing_task.description ="\n".join([
-                            f"Process the inventory data file: {file_path}",
-                             "Process large inventory dataset in batches optimized for Gemini's context length. For each batch: ",
-                                "1. Read the file Excel or CSV and split it into manageable batches. The `Optimized Batch File Reader` tool_1 save the results inside **results/Mini_Batches**",
-                                "2. Read batch by batch to use `JsonBatchFileReader` tool_2",
-                                "3. Use the `Batch Processor` tool_3 to process ALL and save resuts for this tool inside path **results/Mini_reports**",
-                                "4. Use only real data from the batch. ",
-                                "5. Save intermediate results per batch. ",
-                                "6. Combine into a final report. ",
-                                "## save the final report inside path **results/inventory_management/Analysis_Report.md**"
-                            ])
+            Data_Processing_task.description = Data_processing_prompt.safe_substitute(file_path =file_path)
+            # "\n".join([
+            #                 f"Process the inventory data file: {file_path}",
+            #                  "Process large inventory dataset in batches optimized for Gemini's context length. For each batch: ",
+            #                     "1. Read the file Excel or CSV and split it into manageable batches. The `Optimized Batch File Reader` tool_1 save the results inside **results/Mini_Batches**",
+            #                     "2. Read batch by batch to use `JsonBatchFileReader` tool_2",
+            #                     "3. Use the `Batch Processor` tool_3 to process ALL and save resuts for this tool inside path **results/Mini_reports**",
+            #                     "4. Use only real data from the batch. ",
+            #                     "5. Save intermediate results per batch. ",
+            #                     "6. Combine into a final report. ",
+            #                     "## save the final report inside path **results/inventory_management/Analysis_Report.md**"
+            #                 ])
             
             
             Data_Visualization_Agent =Data_Visualization.get_agent()
             Data_Visualization_tesk =Data_Visualization.get_task()
-            Data_Visualization_tesk.description ="\n".join([
-                        f"Process the inventory data file: {file_path}",  
-                        "1. Use the `MarkdownTableReader` tool to read and clean all data from the file. ",
-                        "2. Generate a profiling HTML report from dataset ",
-                        "3. Save the profiling report in the same directory as the markdown file with `_profile.html` suffix. ",
-                        "## finally save the report HTML in **'results/Dashboard'**"
+            Data_Visualization_tesk.description =Visualization_Prompt.safe_substitute(file_path =file_path)
+            # "\n".join([
+            #             f"Process the inventory data file: {file_path}",  
+            #             "1. Use the `MarkdownTableReader` tool to read and clean all data from the file. ",
+            #             "2. Generate a profiling HTML report from dataset ",
+            #             "3. Save the profiling report in the same directory as the markdown file with `_profile.html` suffix. ",
+            #             "## finally save the report HTML in **'results/Dashboard'**"
                 
-                                            ])
+            #                                 ])
             
             if lanuage== Languages.ARABIC.value:
                               
