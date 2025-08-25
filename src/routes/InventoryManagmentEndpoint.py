@@ -77,8 +77,9 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
     if not latest_file:
         return JSONResponse(
             status_code=status.HTTP_404_NOT_FOUND,
-            content={"message": "No uploaded file found for this project"}
-        )
+            content={
+                "message": ResponseSignal.RESPONSE_NOT_UPLOADED_FILE.value}
+                 )
     
     full_data = convert_to_json_serializable(latest_file.full_data)
         

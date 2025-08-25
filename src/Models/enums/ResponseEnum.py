@@ -14,6 +14,8 @@ class ResponseSignal(Enum):
     PROJECT_NOT_FOUND_ERROR ="project_not_found"
     RESPONSE_FAILED ="response_failed"
     RESPONSE_SUCCESS="file_uploaded_success"
+    RESPONSE_NOT_UPLOADED_FILE="No uploaded file found for this project"
+    
    
     
     
