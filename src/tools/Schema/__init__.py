@@ -1,2 +1,3 @@
 from .FileReadingSchema import BatchFileReaderSchema,JsonBatchFileReaderSchema
 from .BatchProcessingSchema import BatchProcessorSchema
+from .SendEmailSchema import WebhookSchema

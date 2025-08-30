@@ -10,6 +10,7 @@ from .AgentProvider import TranslationEnglishArabic
 #==============Inventory Managment===================
 from .AgentProvider import DataProcessing
 from .AgentProvider import DataVisualizationExpert
+from .AgentProvider import ReportSenderAgent
 #==========Prompts Inventory Managment===============
 from .Prompts.DataprocessingPrompt import Data_processing_prompt
 from .Prompts.VisualizationPrompt import Visualization_Prompt
@@ -79,6 +80,7 @@ class AgentProviderFactory:
 
             Data_Processing =DataProcessing()
             Data_Visualization =DataVisualizationExpert()
+            Report_Sender = ReportSenderAgent()
         
             Data_Processing_Agent =Data_Processing.get_agent()
             Data_Processing_task =Data_Processing.get_task()
@@ -87,23 +89,27 @@ class AgentProviderFactory:
             Data_Visualization_Agent =Data_Visualization.get_agent()
             Data_Visualization_tesk =Data_Visualization.get_task()
             Data_Visualization_tesk.description =Visualization_Prompt.safe_substitute(file_path =file_path)
+            
+            
+            Report_Sender_Agent =Report_Sender.get_agent()
+            Report_Sender_tesk =Report_Sender.get_task()
           
             if lanuage== Languages.ARABIC.value:
                               
                 crew = Crew(
-                    agents=[Data_Processing_Agent,Data_Visualization_Agent
+                    agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Sender_Agent
                             ],
                     
-                    tasks=[Data_Processing_task,Data_Visualization_tesk
+                    tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Sender_tesk
                            ],verbose=True)
                 
                 result = crew.kickoff()
                     
             elif lanuage== Languages.ENGLISH.value:
                 crew = Crew(
-                        agents=[Data_Processing_Agent,Data_Visualization_Agent],
+                        agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Sender_Agent],
                         
-                        tasks=[Data_Processing_task,Data_Visualization_tesk],verbose=True)
+                        tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Sender_tesk],verbose=True)
                 
                 result = crew.kickoff()
                 
