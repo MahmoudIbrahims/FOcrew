@@ -1,2 +1,3 @@
 from .DataProcessing_Agent import DataProcessing
 from .DataVisualizationExpert import DataVisualizationExpert
+from .SendEmail_Agent import ReportSenderAgent

@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     INDUSTRY_NAME:str
     LANGUAGE_LITERAL:List[str]=None
     LANGUAGE:str
-    
+    webhook_url:str
     
     
     class Config:
