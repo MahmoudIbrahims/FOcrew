@@ -10,10 +10,12 @@ from .AgentProvider import TranslationEnglishArabic
 #==============Inventory Managment===================
 from .AgentProvider import DataProcessing
 from .AgentProvider import DataVisualizationExpert
+from .AgentProvider import ReportGeneratorAgent
 from .AgentProvider import ReportSenderAgent
 #==========Prompts Inventory Managment===============
 from .Prompts.DataprocessingPrompt import Data_processing_prompt
 from .Prompts.VisualizationPrompt import Visualization_Prompt
+from .Prompts.MarkdownToPDFReportPrompt import description_prompt
 
 
 
@@ -21,7 +23,7 @@ class AgentProviderFactory:
     def __init__(self,config : dict ):  
         self.config =config 
     
-    def create(self, Crew_Name: str ,lanuage:str ,file_path:str):
+    def create(self, Crew_Name: str ,lanuage:str ,file_path:str,logo_company:str):
         
         if Crew_Name == AgentName.MARKETING_STRATGEY_PLANNER.value:
             SWOT_Analyst = SWOTAnalyst()
@@ -80,6 +82,7 @@ class AgentProviderFactory:
 
             Data_Processing =DataProcessing()
             Data_Visualization =DataVisualizationExpert()
+            Report_GeneratorAgent =ReportGeneratorAgent()
             Report_Sender = ReportSenderAgent()
         
             Data_Processing_Agent =Data_Processing.get_agent()
@@ -90,6 +93,9 @@ class AgentProviderFactory:
             Data_Visualization_tesk =Data_Visualization.get_task()
             Data_Visualization_tesk.description =Visualization_Prompt.safe_substitute(file_path =file_path)
             
+            Report_Generator_Agent =Report_GeneratorAgent.get_agent()
+            Report_Generator_task =Report_GeneratorAgent.get_task()
+            Report_Generator_task.description =description_prompt.safe_substitute(logo_company=logo_company)
             
             Report_Sender_Agent =Report_Sender.get_agent()
             Report_Sender_tesk =Report_Sender.get_task()
@@ -97,19 +103,19 @@ class AgentProviderFactory:
             if lanuage== Languages.ARABIC.value:
                               
                 crew = Crew(
-                    agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Sender_Agent
+                    agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Generator_Agent,Report_Sender_Agent
                             ],
                     
-                    tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Sender_tesk
+                    tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Generator_task,Report_Sender_tesk
                            ],verbose=True)
                 
                 result = crew.kickoff()
                     
             elif lanuage== Languages.ENGLISH.value:
                 crew = Crew(
-                        agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Sender_Agent],
+                        agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Generator_Agent,Report_Sender_Agent],
                         
-                        tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Sender_tesk],verbose=True)
+                        tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Generator_task,Report_Sender_tesk],verbose=True)
                 
                 result = crew.kickoff()
                 

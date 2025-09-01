@@ -25,10 +25,10 @@ class ReportSenderAgent(BaseAgent):
     def get_task(self):
         return Task(
             description="\n".join([
-                "Take the final generated report (Markdown or summary).",
+                "Take the pdf analysis file (default: results/inventory_management/report.pdf).",
                 "1. Use the `Send Report to Zapier` tool.",
                 "2. Pass a suitable subject (like 'Inventory Report').",
-                "3. Pass the report body text or summary.",
+                "3. Pass the report body pdf or text or summary.",
                 "This will trigger Zapier → Gmail and send it to managers automatically."
             ]),
             agent=self.get_agent(),

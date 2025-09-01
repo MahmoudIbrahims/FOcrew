@@ -1,5 +1,7 @@
 from .AgentProvider import DataProcessing
 from .AgentProvider import DataVisualizationExpert
+from .AgentProvider import ReportGeneratorAgent
+from .AgentProvider import ReportSenderAgent
 #______________________________________________________________
 from .AgentProvider import TranslationEnglishArabic
 from .Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt
