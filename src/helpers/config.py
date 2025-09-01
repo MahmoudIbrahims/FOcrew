@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     INDUSTRY_NAME:str
     LANGUAGE_LITERAL:List[str]=None
     LANGUAGE:str
+    LOGO_COMPANY:str=None
     webhook_url:str
     
     

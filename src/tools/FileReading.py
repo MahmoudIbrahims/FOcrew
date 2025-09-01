@@ -42,13 +42,7 @@ class BatchFileReader(BaseTool):
             return f"{os.path.basename(file_path)}_{stat.st_mtime}_{stat.st_size}"
         except:
             return f"{os.path.basename(file_path)}_no_stat"
-    
-    # def _check_existing_batches(self, output_directory:str ,cache_key: str) -> list:
-    #     """check existing"""
-    #     cache_dir = f"temp_batches/{cache_key}"
-    #     if not os.path.exists(cache_dir):
-    #         return []
-    
+        
 
     def _check_existing_batches(self, output_directory: str, cache_key: str) -> list:
         """Check existing"""
