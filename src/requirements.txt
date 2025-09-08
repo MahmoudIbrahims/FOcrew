@@ -17,4 +17,5 @@ openpyxl==3.1.5
 dask==2025.7.0
 ydata-profiling==4.16.1
 weasyprint==66.0
+PyPDF2==3.0.1
 
