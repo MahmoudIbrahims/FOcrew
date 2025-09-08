@@ -14,8 +14,6 @@ class MarkdownToPDFReport(BaseTool):
     description: str = "Converts a Markdown file into a styled PDF report with logo, cover page, table of contents, and cleaned tables."
     args_schema: Type[BaseModel] = MarkdownToPDFSchema
     
-    
-    
     def _run(
         self,
         file_path: str = "results/inventory_management/Analysis_Report.md",
