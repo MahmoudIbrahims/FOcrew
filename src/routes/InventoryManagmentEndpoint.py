@@ -1,9 +1,10 @@
-from fastapi import APIRouter ,status,Request,UploadFile,File
+from fastapi import APIRouter ,status,Request,Depends
 from Models.ProjectModel import ProjectModel
 from Models.AgentResultModel import AgentResultModel
 from Models.FileAgentRelationModel import FileAgentRelationModel
 from Agents.Prompts import (Data_processing_prompt,description_prompt,
                                                  Visualization_Prompt)
+from helpers.config import get_settings, Settings
 from Models.UserFileModel import UserFileModel
 from Agents import DataProcessing,DataVisualizationExpert,ReportGeneratorAgent
 from Models.schema.DBSchemas import AgentResult  
@@ -61,7 +62,8 @@ def read_pdf(file_path:str):
     
 
 @agent_router.post('/inventory/{project_id}')
-async def inventory_agent(request : Request ,project_id:int,Process_Request:ProcessRequest):
+async def inventory_agent(request : Request ,project_id:int,Process_Request:ProcessRequest,
+                          app_settings: Settings = Depends(get_settings)):
     
     userfile_model =await UserFileModel.create_instance(
          db_client = request.app.db_client
@@ -111,7 +113,7 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
     ReportGenerator =ReportGeneratorAgent()
     ReportGenerator_Agent =ReportGenerator.get_agent()
     ReportGenerator_task =ReportGenerator.get_task()
-    # ReportGenerator_task.description =description_prompt.safe_substitute(logo_company=logo_company)
+    ReportGenerator_task.description =description_prompt.safe_substitute(logo_company=app_settings.LOGO_COMPANY)
 
     if Process_Request.Language== Languages.ARABIC.value:
                               
