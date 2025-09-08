@@ -59,8 +59,8 @@ cp .env.example .env
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-#### Result for Agent inventory managment:
-[report.md](src/results/inventory_management/Analysis_Report.md)
+#### Result for Agent inventory managment 
+[report.md](src/results/inventory_management/report.pdf)
 
 
 ### Result for Agent Marketing Stratgey:
