@@ -8,3 +8,4 @@ class InventorManagmentEunms(Enum):
 class PathResults(Enum):
     ANALYSIS_REPORT_PATH ="results/inventory_management/Analysis_Report.md"
     PROFILLING_REPORT_PATH = "results/Dashboard/Profiling_Report.html"
+    REPORT_PDF ="results/inventory_management/report.pdf"

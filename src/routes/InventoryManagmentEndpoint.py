@@ -1,11 +1,11 @@
-from fastapi import APIRouter ,status,Request
+from fastapi import APIRouter ,status,Request,UploadFile,File
 from Models.ProjectModel import ProjectModel
 from Models.AgentResultModel import AgentResultModel
 from Models.FileAgentRelationModel import FileAgentRelationModel
-from Agents.Prompts import (Data_processing_prompt,
+from Agents.Prompts import (Data_processing_prompt,description_prompt,
                                                  Visualization_Prompt)
 from Models.UserFileModel import UserFileModel
-from Agents import DataProcessing,DataVisualizationExpert
+from Agents import DataProcessing,DataVisualizationExpert,ReportGeneratorAgent
 from Models.schema.DBSchemas import AgentResult  
 from .Schemes.data import ProcessRequest
 from .Enums.BasicsEnums import UsageType
@@ -18,6 +18,7 @@ import uuid
 import os
 from datetime import datetime
 from pandas import Timestamp
+import PyPDF2
 
 
 agent_router = APIRouter(
@@ -45,6 +46,19 @@ def read_file_content(file_path):
     except Exception as e:
         return f"Error reading file {file_path}: {str(e)}"
 
+
+def read_pdf(file_path:str):
+    reader = PyPDF2.PdfReader(file_path)
+    text_content = ""
+
+    for page in reader.pages:
+        text_content += page.extract_text() or ""
+
+    return {
+        "filename": file_path,
+        "content": text_content
+    }
+    
 
 @agent_router.post('/inventory/{project_id}')
 async def inventory_agent(request : Request ,project_id:int,Process_Request:ProcessRequest):
@@ -92,15 +106,21 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
     Data_Visualization_Agent =Data_Visualization.get_agent()
     Data_Visualization_task =Data_Visualization.get_task()
     Data_Visualization_task.description =Visualization_Prompt.safe_substitute(full_data=full_data)
+    
+    
+    ReportGenerator =ReportGeneratorAgent()
+    ReportGenerator_Agent =ReportGenerator.get_agent()
+    ReportGenerator_task =ReportGenerator.get_task()
+    # ReportGenerator_task.description =description_prompt.safe_substitute(logo_company=logo_company)
 
     if Process_Request.Language== Languages.ARABIC.value:
                               
         crew = Crew(
                     agents=[Data_Processing_Agent,
-                            Data_Visualization_Agent],
+                            Data_Visualization_Agent,ReportGenerator_Agent],
                     
                     tasks=[Data_Processing_task ,
-                           Data_Visualization_task],
+                           Data_Visualization_task,ReportGenerator_task],
                             verbose=True
                                 )
                 
@@ -108,11 +128,13 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
         
         analysis_report_content =read_file_content(PathResults.ANALYSIS_REPORT_PATH.value) if os.path.exists(PathResults.ANALYSIS_REPORT_PATH.value) else "Analysis report not found"
         profiling_report_content =read_file_content(PathResults.PROFILLING_REPORT_PATH.value) if os.path.exists(PathResults.PROFILLING_REPORT_PATH.value) else "Profiling report not found"
-
+        report_pdf =read_pdf(PathResults.REPORT_PDF.value) if os.path.exists(PathResults.REPORT_PDF.value) else "report pdf not found"
+        
         combined_result = {
-            "crew_result": str(result),
-            "analysis_report": analysis_report_content,
-            "profiling_report": profiling_report_content
+            # "crew_result": str(result),
+            # "analysis_report": analysis_report_content,
+            # "profiling_report": profiling_report_content,
+            "report_pdf":report_pdf
         }
         
         agent_result = AgentResult(

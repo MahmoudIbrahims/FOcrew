@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "aead81f2-6477-4e7b-b632-e2f35205e087",
+		"name": "Focrew",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43336729"
+	},
+	"item": [
+		{
+			"name": "health-check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Api}}/health/v1/",
+					"host": [
+						"{{Api}}"
+					],
+					"path": [
+						"health",
+						"v1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload-File",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Win/Desktop/FOcrew/src/Dataset/Breadfast.xlsx"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Api}}/api/v1/data/upload/1",
+					"host": [
+						"{{Api}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"data",
+						"upload",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agent-Inventory-Management",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Language\" : \"Arabic\",\r\n    \"COMPANY_NAME\":\"Breadfast\",\r\n    \"INDUSTRY_NAME\":\"online grocery delivery service\",\r\n    \"do_reset\" : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Api}}/api/v1/agent/inventory/1",
+					"host": [
+						"{{Api}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"agent",
+						"inventory",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Api",
+			"value": "localhost:8000",
+			"type": "string"
+		}
+	]
+}
