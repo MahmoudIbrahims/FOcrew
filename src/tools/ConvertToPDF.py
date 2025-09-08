@@ -5,17 +5,22 @@ from pydantic import BaseModel
 from markdown_it import MarkdownIt
 from weasyprint import HTML
 from bs4 import BeautifulSoup
+from datetime import datetime
 from .Schema.MarkdownToPDFSchema import MarkdownToPDFSchema
 
-#Tool
+
 class MarkdownToPDFReport(BaseTool):
     name: str = "Markdown to PDF Report Generator"
-    description: str = "Converts a Markdown file into a styled PDF report with logo and cleaned tables."
+    description: str = "Converts a Markdown file into a styled PDF report with logo, cover page, table of contents, and cleaned tables."
     args_schema: Type[BaseModel] = MarkdownToPDFSchema
-
-    def _run(self, file_path: str ="results/inventory_management/Analysis_Report.md",
-            logo_path: str = None,
-            output_pdf: str = "results/inventory_management/report.pdf") -> Dict[str, str]:
+    
+    
+    
+    def _run(
+        self,
+        file_path: str = "results/inventory_management/Analysis_Report.md",
+        output_pdf: str = "results/inventory_management/report.pdf"
+    ) -> Dict[str, str]:
         try:
             # 1. Read Markdown file
             with open(file_path, "r", encoding="utf-8") as f:
@@ -25,7 +30,7 @@ class MarkdownToPDFReport(BaseTool):
             md = MarkdownIt().enable("table")
             html_content = md.render(markdown_text)
 
-            # 3. Clean tables (normalize column counts & merge if needed)
+            # 3. Clean tables (normalize column counts only, no merging)
             soup = BeautifulSoup(html_content, "html.parser")
 
             for table in soup.find_all("table"):
@@ -44,26 +49,30 @@ class MarkdownToPDFReport(BaseTool):
                             empty_cell.string = "\u00A0"
                             row.append(empty_cell)
 
-            tables = soup.find_all("table")
-            i = 0
-            while i < len(tables) - 1:
-                current = tables[i]
-                nxt = tables[i + 1]
+            # --- 4. Build Table of Contents (TOC) ---
+            toc_items = []
+            headers = soup.find_all(["h1", "h2", "h3"])
+            for i, header in enumerate(headers):
+                anchor_id = f"section-{i}"
+                header["id"] = anchor_id
+                indent = "20px" if header.name == "h2" else ("40px" if header.name == "h3" else "0px")
+                toc_items.append(f'<div style="margin-left:{indent}"><a href="#{anchor_id}">{header.text}</a></div>')
 
-                current_cols = len(current.find("tr").find_all(["td", "th"])) if current.find("tr") else 0
-                next_cols = len(nxt.find("tr").find_all(["td", "th"])) if nxt.find("tr") else 0
+            toc_html = """
+            <div class="toc">
+                <h2>Table of Contents</h2>
+                {}
+            </div>
+            <div style="page-break-after: always;"></div>
+            """.format("\n".join(toc_items))
 
-                if current_cols == next_cols and current_cols > 0:
-                    for row in nxt.find_all("tr"):
-                        current.append(row.extract())
-                    nxt.decompose()
-                    tables = soup.find_all("table")
-                else:
-                    i += 1
-
+            # Update HTML content after cleaning and TOC
             html_content = str(soup)
 
-            # 4. Inject logo + styling
+            # Current date
+            report_date = datetime.now().strftime("%B %d, %Y")
+
+            # 5. Create full HTML with cover + TOC + report
             html_with_logo = f"""
             <html>
             <head>
@@ -80,19 +89,59 @@ class MarkdownToPDFReport(BaseTool):
                 table {{
                     width: 100%;
                     border-collapse: collapse;
-                    margin-bottom: 20px;
+                    margin: 20px 0;
                     table-layout: auto;
+                    border: 1px solid #444;
+                    font-size: 12px;
                 }}
                 th, td {{
                     border: 1px solid #444;
-                    padding: 8px;
+                    padding: 6px;
                     text-align: left;
                     word-wrap: break-word;
                     white-space: normal;
                     vertical-align: top;
+                    page-break-inside: avoid;
                 }}
                 th {{
                     background: #f4f4f4;
+                }}
+                tr:nth-child(even) {{
+                    background: #fafafa;
+                }}
+                .cover {{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    text-align: center;
+                }}
+                .cover img {{
+                    height: 100px;
+                    margin-bottom: 20px;
+                }}
+                .cover h1 {{
+                    font-size: 36px;
+                    margin-bottom: 20px;
+                }}
+                .cover p {{
+                    font-size: 16px;
+                    color: #555;
+                }}
+                .toc {{
+                    margin-top: 40px;
+                }}
+                .toc h2 {{
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                }}
+                .toc a {{
+                    text-decoration: none;
+                    color: #2c3e50;
+                }}
+                .toc a:hover {{
+                    text-decoration: underline;
                 }}
                 .header {{
                     display: flex;
@@ -112,8 +161,21 @@ class MarkdownToPDFReport(BaseTool):
             </style>
             </head>
             <body>
+                <!-- Cover Page -->
+                <div class="cover">
+                    '<img src="../docs/logo.png" alt="Company Logo">' 
+                    <h1>Inventory Report</h1>
+                    <p>Date: {report_date}</p>
+                </div>
+
+                <div style="page-break-after: always;"></div>
+
+                <!-- TOC -->
+                {toc_html}
+
+                <!-- Report Content -->
                 <div class="header">
-                    <img src="{logo_path}" alt="Company Logo">
+                    '<img src="../docs/logo.png" alt="Company Logo">' 
                     <h1>Inventory Report</h1>
                 </div>
 
@@ -126,7 +188,7 @@ class MarkdownToPDFReport(BaseTool):
             </html>
             """
 
-            # 5. Export as PDF
+            # 6. Export as PDF
             HTML(string=html_with_logo, base_url=".").write_pdf(output_pdf)
 
             logging.info(f"PDF report generated at: {output_pdf}")
