@@ -103,19 +103,19 @@ class AgentProviderFactory:
             if lanuage== Languages.ARABIC.value:
                               
                 crew = Crew(
-                    agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Generator_Agent,Report_Sender_Agent
+                    agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Generator_Agent
                             ],
                     
-                    tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Generator_task,Report_Sender_tesk
+                    tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Generator_task
                            ],verbose=True)
                 
                 result = crew.kickoff()
                     
             elif lanuage== Languages.ENGLISH.value:
                 crew = Crew(
-                        agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Generator_Agent,Report_Sender_Agent],
+                        agents=[Data_Processing_Agent,Data_Visualization_Agent,Report_Generator_Agent],
                         
-                        tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Generator_task,Report_Sender_tesk],verbose=True)
+                        tasks=[Data_Processing_task,Data_Visualization_tesk,Report_Generator_task],verbose=True)
                 
                 result = crew.kickoff()
                 

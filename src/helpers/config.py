@@ -30,7 +30,8 @@ class Settings(BaseSettings):
     LANGUAGE:str
     LOGO_COMPANY:str=None
     webhook_url:str
-    
+    GMAIL_USER:str
+    GMAIL_APP_PASSWORD:str
     
     class Config:
         env_file =".env"
