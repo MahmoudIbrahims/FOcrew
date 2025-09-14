@@ -12,7 +12,6 @@ import traceback
 import hashlib
 
 
-
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -53,20 +52,20 @@ class BatchProcessor(BaseTool):
         final_report_path: str = "results/inventory_management/data_analysis_report.md"
     ) -> str:
 
-        """Process all batch files and generate reports.
-        Simple Analysis:
+        """
+        Process all batch files and generate reports.
+        
+        * Simple Analysis:
             aggregated insights
-            Top Financial Categories
+            Financial Categories
             Data Quality Issues
-            Batch Processing Summary
-            Failed Batches
             
-        Advanced questions:
-            Near expiry or removal within 6 months
-            Urgent reorder
-            Duplicate SKUs
-          
-    """
+        * Advanced questions:
+            Expired/Removed Before Today
+            Near expiry/removal During Next 5 days
+            Near expiry/removal During Next 15 days
+      
+                """
         
         try:
             # Setup logging
@@ -184,96 +183,7 @@ class BatchProcessor(BaseTool):
             logger.error(f"BatchProcessor failed: {str(e)}")
             traceback.print_exc()
             return f"ERROR: BatchProcessor failed: {str(e)}"
-    
-    # def _analyze_batch(self, batch_data: List[Dict], batch_number: int) -> Dict:
-    #     """Analyze a single batch of data."""
-    #     try:
-    #         insights = {
-    #             'batch_number': batch_number,
-    #             'total_items': len(batch_data),
-    #             'unique_skus': set(),
-    #             'product_ids': set(),
-    #             'product_names': set(),
-    #             'missing_data': {'skus': 0, 'product_ids': 0, 'product_names': 0, 'barcodes': 0},
-    #             'financial_categories': {},
-    #             'locations': {},
-    #             'total_available_quantity': 0.0,
-    #             'near_expiry_products': []
-    #         }
-            
-    #         current_date = datetime.now()
-            
-    #         for item in batch_data:
-    #             if not isinstance(item, dict):
-    #                 continue
-                
-    #             # SKU Analysis
-    #             sku = item.get('Product/Internal Reference')
-    #             if sku:
-    #                 insights['unique_skus'].add(str(sku))
-    #             else:
-    #                 insights['missing_data']['skus'] += 1
-                
-    #             # Product ID (same as SKU)
-    #             product_id = item.get('Product/Internal Reference')
-    #             if product_id:
-    #                 insights['product_ids'].add(str(product_id))
-    #             else:
-    #                 insights['missing_data']['product_ids'] += 1
-                
-    #             # Product Name
-    #             product_name = item.get('Product/Name')
-    #             if product_name:
-    #                 insights['product_names'].add(str(product_name))
-    #             else:
-    #                 insights['missing_data']['product_names'] += 1
-                
-    #             # Barcode
-    #             if not item.get('Product/Barcode'):
-    #                 insights['missing_data']['barcodes'] += 1
-                
-    #             # Financial Category
-    #             category = item.get('Product/Financial Category', 'Unknown')
-    #             insights['financial_categories'][category] = insights['financial_categories'].get(category, 0) + 1
-                
-    #             # Location
-    #             location = item.get('Location', 'Unknown')
-    #             insights['locations'][location] = insights['locations'].get(location, 0) + 1
-                
-    #             # Quantity
-    #             try:
-    #                 quantity = float(item.get('Available Quantity', 0.0))
-    #                 insights['total_available_quantity'] += quantity
-    #             except (TypeError, ValueError):
-    #                 pass
-                
-    #             # Expiry Analysis
-    #             expiry_date = item.get('Lot/Serial Number/Expiration Date')
-    #             if expiry_date:
-    #                 try:
-    #                     expiry = datetime.strptime(expiry_date, '%Y-%m-%d %H:%M:%S')
-    #                     if expiry < current_date + timedelta(days=30):
-    #                         insights['near_expiry_products'].append({
-    #                             'sku': sku,
-    #                             'name': product_name,
-    #                             'expiry_date': expiry_date
-    #                         })
-    #                 except ValueError:
-    #                     pass
-            
-    #         # Convert sets to counts and samples
-    #         insights['unique_skus_count'] = len(insights['unique_skus'])
-    #         insights['product_ids_count'] = len(insights['product_ids'])
-    #         insights['product_names_count'] = len(insights['product_names'])
-    #         insights['unique_skus'] = list(insights['unique_skus'])[:10]
-    #         insights['product_ids'] = list(insights['product_ids'])[:10]
-    #         insights['product_names'] = list(insights['product_names'])[:10]
-    #         insights['near_expiry_count'] = len(insights['near_expiry_products'])
-            
-    #         return insights
-            
-    #     except Exception as e:
-    #         return {'batch_number': batch_number, 'error': str(e)}
+        
     
     def _analyze_batch(self, batch_data: List[Dict], batch_number: int) -> Dict:
         """Analyze a single batch of data."""
@@ -422,47 +332,9 @@ class BatchProcessor(BaseTool):
             all_locations = {}
             total_quantity = 0.0
             total_near_expiry = 0
-            total_missing = {'skus': 0, 'product_ids': 0, 'product_names': 0, 'barcodes': 0}
-
-            # for report in batch_reports:
-            #     insights = report['insights']
-            #     if 'error' not in insights:
-            #         all_skus.update(insights.get('unique_skus', []))
-            #         all_products.update(insights.get('product_names', []))
-
-            #         for cat, count in insights.get('financial_categories', {}).items():
-            #             all_categories[cat] = all_categories.get(cat, 0) + count
-
-            #         for loc, count in insights.get('locations', {}).items():
-            #             all_locations[loc] = all_locations.get(loc, 0) + count
-
-            #         total_quantity += insights.get('total_available_quantity', 0.0)
-            #         total_near_expiry += insights.get('near_expiry_count', 0)
-
-            #         missing = insights.get('missing_data', {})
-            #         for key in total_missing:
-            #             total_missing[key] += missing.get(key, 0)
-                        
-            # # Aggregated Insights
-            # f.write("## Aggregated Insights\n")
-            # f.write("| Metric | Value |\n")
-            # f.write("|--------|-------|\n")
-            # f.write(f"| Total Unique Products | {len(all_products)} |\n")
-            # f.write(f"| Total Available Quantity | {total_quantity:.2f} |\n")
-            # f.write(f"| Total Near Expiry Products During Next Month | {total_near_expiry} |\n\n")
-
-            # # Top categories
-            # f.write("## Financial Categories\n")
-            # f.write("| category | count |\n")
-            # f.write("|--------|-------|\n")
-            # sorted_categories = sorted(all_categories.items(), key=lambda x: x[1], reverse=True)
-    
-            # for category, count in sorted_categories:
-            #     f.write(f"| {category}  | {count} items |\n")
-            
-            
+            total_missing = {'skus': 0, 'product_ids': 0, 'product_names': 0, 'barcodes': 0}  
             all_categories = {}
-
+            
             for report in batch_reports:
                 insights = report['insights']
                 if 'error' not in insights:
@@ -600,110 +472,6 @@ class BatchProcessor(BaseTool):
                     quantity = item.get("Available Quantity", "N/A")
                     Category =item.get("Product/Financial Category", "N/A")
                     f.write(f"| {sku} | {Category} | {name} | {exp_date} | {rem_date} | {quantity} |\n")
-                    
-#=============================================================================================
-    
-            expiry_During_15_day = [
-            item for item in all_data
-            if (
-                (
-                    (d := parse_date(item.get("Lot/Serial Number/Expiration Date"))) 
-                    and current_date <= d <= current_date + timedelta(days=15)
-                )
-                or (
-                    (d := parse_date(item.get("Lot/Serial Number/Removal Date"))) 
-                    and current_date <= d <= current_date + timedelta(days=15)
-                )
-            )
-            and (item.get("Available Quantity") not in (0, 0.0, None))
-            ]
-
-            # Sort by the earliest future date (expiry or removal)
-            sorted_expiry_During_15_day = sorted(
-                expiry_During_15_day,
-                key=lambda x: min(
-                    d for d in [
-                        parse_date(x.get("Lot/Serial Number/Expiration Date")),
-                        parse_date(x.get("Lot/Serial Number/Removal Date"))
-                    ] if d is not None and d >= current_date
-                ),
-                reverse=True
-            )
-
-            f.write(f"\n## Near expiry/removal During Next 15 days\n")
-            f.write(f"**Total of Near expiry/removal within 15 days:** {len(sorted_expiry_During_15_day)} items\n")
-
-            if sorted_expiry_During_15_day:
-                f.write("| Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |\n")
-                f.write("|------|--------------|----------------|--------------|------------------|------------------|\n")
-                for item in sorted_expiry_During_15_day:
-                    sku = item.get("Product/Internal Reference", "N/A")
-                    name = item.get("Product/Name", "N/A")
-                    exp_date = item.get("Lot/Serial Number/Expiration Date", "N/A")
-                    rem_date = item.get("Lot/Serial Number/Removal Date", "N/A")
-                    quantity = item.get("Available Quantity", "N/A")
-                    Category = item.get("Product/Financial Category", "N/A")
-                    f.write(f"| {sku} | {Category} | {name} | {exp_date} | {rem_date} | {quantity} |\n")
-                    
-#==================================================================================================
-        # Q11: Urgent reorder (Available Quantity = 0)
-            # urgent_reorder = [
-            #     item for item in all_data
-            #     if item.get("Available Quantity") in (0, 0.0, None)
-            # ]
-
-            # sorted_urgent_reorder = sorted(
-            #     urgent_reorder,
-            #     key=lambda x: x.get("Lot/Serial Number/Expiration Date", ""),
-            #     reverse=False
-            # )
-
-            # f.write(f"\n## Urgent Reorder (Out of Stock)\n")
-            # f.write(f"**Total of Urgent Reorder Items:** {len(sorted_urgent_reorder)} items\n")
-
-            # if sorted_urgent_reorder:
-            #     f.write("| Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |\n")
-            #     f.write("|------|--------------|----------------|--------------|------------------|------------------|\n")
-            #     for item in sorted_urgent_reorder:
-            #         sku = item.get("Product/Internal Reference", "N/A")
-            #         name = item.get("Product/Name", "N/A")
-            #         exp_date = item.get("Lot/Serial Number/Expiration Date", "N/A")
-            #         rem_date = item.get("Lot/Serial Number/Removal Date", "N/A")
-            #         quantity = item.get("Available Quantity", "N/A")
-            #         Category =item.get("Product/Financial Category", "N/A")
-            #         f.write(f"| {sku} | {Category} | {name} | {exp_date} | {rem_date} | {quantity} |\n")
-                    
-#=====================================================================================      
-            # def Convert_date(date_str):
-            #     """Try parsing date from multiple common formats; return None if it fails."""
-            #     if not date_str:
-            #         return None
-            #     for fmt in ('%Y-%m-%d %H:%M:%S', '%Y-%m-%d', '%d/%m/%Y', '%Y/%m/%d'):
-            #         try:
-            #             return datetime.strptime(date_str, fmt)
-            #         except:
-            #             pass
-            #     return None
-
-            # sku_counts = {}
-            # for item in all_data:
-            #     sku = item.get("Product/Internal Reference")
-            #     prod_date = Convert_date(item.get("Lot/Serial Number/Expiration Date"))
-
-            #     if sku:
-            #         sku_clean = sku.strip().upper()
-            #         key = (sku_clean, prod_date)
-            #         sku_counts[key] = sku_counts.get(key, 0) + 1
-
-            # dup_skus = {key: count for key, count in sku_counts.items() if count > 1}
-            # dup_skus_sort = sorted(dup_skus.items(), key=lambda x: x[1], reverse=True)
-
-            # top_10_dup_skus = dup_skus_sort[:10]
-            # f.write("## Top 10 Duplicate SKUs\n")
-            # f.write("| Internal Reference | Expiration Date | Duplicated |\n")
-            # f.write("|--------------------|-----------------|------------|\n")
-            # for (sku, prod_date), count in top_10_dup_skus:
-            #     f.write(f"| {sku} | {prod_date or 'N/A'} | {count} items |\n")
-
+                      
 
 #====================================Final Report ===================================
