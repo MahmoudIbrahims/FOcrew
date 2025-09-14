@@ -17,7 +17,9 @@ class MarkdownToPDFReport(BaseTool):
     def _run(
         self,
         file_path: str = "results/inventory_management/Analysis_Report.md",
-        output_pdf: str = "results/inventory_management/report.pdf"
+        output_pdf: str = "results/inventory_management/report.pdf",
+        logo_path: str ="/mnt/c/Users/Win/Desktop/FOcrew/docs/logo.png"
+        
     ) -> Dict[str, str]:
         try:
             # 1. Read Markdown file

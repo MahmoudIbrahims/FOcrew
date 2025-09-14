@@ -20,6 +20,9 @@ import os
 from datetime import datetime
 from pandas import Timestamp
 import PyPDF2
+import tempfile
+import pandas as pd
+from pandas import json_normalize
 
 
 agent_router = APIRouter(
@@ -38,6 +41,49 @@ def convert_to_json_serializable(obj):
     elif isinstance(obj, dict):
         return {k: convert_to_json_serializable(v) for k, v in obj.items()}
     return str(obj)
+
+
+def save_json_to_file(data, suffix=".csv"):
+    """
+    Converts any type of JSON-like data (flat, nested, or even a DataFrame)
+    into a temporary CSV or Excel file depending on the suffix.
+    Returns the file path.
+    """
+
+    # Case 1: Data is already a DataFrame
+    if isinstance(data, pd.DataFrame):
+        df = data
+
+    # Case 2: Data is a list of dicts (flat or nested)
+    elif isinstance(data, list) and all(isinstance(row, dict) for row in data):
+        try:
+            df = pd.DataFrame(data)
+        except Exception:
+            df = json_normalize(data)
+
+        # Flatten nested dict/list columns if needed
+        if any(df.applymap(lambda x: isinstance(x, (dict, list))).any()):
+            df = json_normalize(data)
+
+    # Case 3: Data is a single dict
+    elif isinstance(data, dict):
+        df = json_normalize([data])
+
+    # Case 4: Any other type → wrap into a DataFrame
+    else:
+        df = pd.DataFrame([{"value": str(data)}])
+
+    # Create a temporary file
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+
+    # Save as Excel or CSV depending on suffix
+    if suffix.lower() == ".xlsx":
+        df.to_excel(temp_file.name, index=False)
+    else:  # default to CSV
+        df.to_csv(temp_file.name, index=False, encoding="utf-8-sig")
+
+    return temp_file.name
+
 
 
 def read_file_content(file_path):
@@ -98,16 +144,26 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
                  )
     
     full_data = convert_to_json_serializable(latest_file.full_data)
+    
+    
+    excel_path = save_json_to_file(full_data, suffix=".xlsx")
+    
+    # temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".csv")
+    # df = pd.DataFrame(full_data)
+    # df.to_csv(temp_file.name, index=False, encoding="utf-8-sig")
+
+    # file_path = temp_file.name
+    
         
     Data_Processing =DataProcessing()
     Data_Processing_Agent =Data_Processing.get_agent()
     Data_Processing_task =Data_Processing.get_task()
-    Data_Processing_task.description =Data_processing_prompt.safe_substitute(full_data=full_data)
+    Data_Processing_task.description =Data_processing_prompt.safe_substitute(file_path=excel_path)
     
     Data_Visualization =DataVisualizationExpert()
     Data_Visualization_Agent =Data_Visualization.get_agent()
     Data_Visualization_task =Data_Visualization.get_task()
-    Data_Visualization_task.description =Visualization_Prompt.safe_substitute(full_data=full_data)
+    Data_Visualization_task.description =Visualization_Prompt.safe_substitute(file_path=excel_path)
     
     
     ReportGenerator =ReportGeneratorAgent()
@@ -133,9 +189,9 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
         report_pdf =read_pdf(PathResults.REPORT_PDF.value) if os.path.exists(PathResults.REPORT_PDF.value) else "report pdf not found"
         
         combined_result = {
-            # "crew_result": str(result),
-            # "analysis_report": analysis_report_content,
-            # "profiling_report": profiling_report_content,
+            "crew_result": str(result),
+            "analysis_report": analysis_report_content,
+            "profiling_report": profiling_report_content,
             "report_pdf":report_pdf
         }
         
