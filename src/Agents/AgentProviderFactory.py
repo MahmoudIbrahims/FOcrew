@@ -16,6 +16,7 @@ from .AgentProvider import ReportSenderAgent
 from .Prompts.DataprocessingPrompt import Data_processing_prompt
 from .Prompts.VisualizationPrompt import Visualization_Prompt
 from .Prompts.MarkdownToPDFReportPrompt import description_prompt
+from .Prompts.SendEmailprompt import SendEmail_prompt
 
 
 
@@ -23,7 +24,7 @@ class AgentProviderFactory:
     def __init__(self,config : dict ):  
         self.config =config 
     
-    def create(self, Crew_Name: str ,lanuage:str ,file_path:str,logo_company:str):
+    def create(self, Crew_Name: str ,lanuage:str ,file_path:str,logo_company:str,Managers:str):
         
         if Crew_Name == AgentName.MARKETING_STRATGEY_PLANNER.value:
             SWOT_Analyst = SWOTAnalyst()
@@ -99,6 +100,7 @@ class AgentProviderFactory:
             
             Report_Sender_Agent =Report_Sender.get_agent()
             Report_Sender_tesk =Report_Sender.get_task()
+            Report_Sender_tesk.description =SendEmail_prompt.safe_substitute(manager=Managers)
           
             if lanuage== Languages.ARABIC.value:
                               

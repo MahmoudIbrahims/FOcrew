@@ -7,3 +7,4 @@ from .AgentProvider import TranslationEnglishArabic
 from .Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt
 from .Prompts.VisualizationPrompt import Visualization_Prompt
 from .Prompts.DataprocessingPrompt import Data_processing_prompt
+from .Prompts.SendEmailprompt import SendEmail_prompt

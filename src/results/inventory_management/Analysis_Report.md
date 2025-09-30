@@ -1,6 +1,6 @@
 # Final Inventory Data Analysis Report
 
-**Generation Time**: 2025-09-30 20:31:58
+**Generation Time**: 2025-10-01 02:35:19
 
 **Total Items Processed**: 12030
 
@@ -65,9 +65,10 @@
 # Advanced Analysis
 
 ## Expired/Removed Before Today
-**Total Expired/Removed:** 204 items
+**Total Expired/Removed:** 205 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 3168328 | Commodities | AL Asil Corn Oil (2.25L) | 2025-12-12 00:00:00 | 2025-10-01 01:00:00 | 1 |
 | 21614339 | Food | Pringles Potato Chips Hot Sweet Chili (160g) | 2025-10-30 15:00:00 | 2025-09-30 15:00:00 | 738 |
 | 20007409 | Snacks | Todo Chocolate Cupcake Filled With Chocolate 8Pcs (Box) | 2025-10-12 14:00:00 | 2025-09-30 14:00:00 | 10 |
 | 16873084 | Snacks | Todo Chocolate Cupcake filled With Chocolate (Piece) | 2025-10-12 14:00:00 | 2025-09-30 14:00:00 | 280 |
@@ -277,6 +278,7 @@
 **Total of Near expiry/removal within 5 days:** 76 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 16586657 | Food Cupboard 2 | Corona Jelly Powder Strawberry (70g) | 2025-12-02 00:00:00 | 2025-10-06 01:00:00 | 11 |
 | 7562448 | Yogurt | Danette Caramel Mini Pudding (100g) | 2025-10-23 10:00:00 | 2025-10-05 10:00:00 | 96 |
 | 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-23 10:00:00 | 2025-10-05 10:00:00 | 909 |
 | 24232772 | Yogurt | Yopolis Double Zero Mixed Berries (150g) | 2025-10-23 09:00:00 | 2025-10-05 09:00:00 | 156 |
@@ -352,4 +354,3 @@
 | 21465397 | Yogurt | Danone Greek Mixed Berries (110g) | 2025-10-19 11:00:00 | 2025-10-01 11:00:00 | -6 |
 | 578306 | Milk | Lamar Chocolate Milk (1L) | 2025-10-19 10:00:00 | 2025-10-01 10:00:00 | 7 |
 | 39722950 | Yogurt | Danone Plain Yogurt 12 Cups (85g) | 2025-10-01 03:00:00 | 2025-09-20 03:00:00 | 112 |
-| 3168328 | Commodities | AL Asil Corn Oil (2.25L) | 2025-12-12 00:00:00 | 2025-10-01 01:00:00 | 1 |
