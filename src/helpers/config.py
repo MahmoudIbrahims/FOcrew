@@ -32,6 +32,7 @@ class Settings(BaseSettings):
     webhook_url:str
     GMAIL_USER:str
     GMAIL_APP_PASSWORD:str
+    MANAGER:str
     
     class Config:
         env_file =".env"
