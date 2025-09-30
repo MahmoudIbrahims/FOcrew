@@ -67,7 +67,7 @@ class SendEmailTool(BaseTool):
     description: str = "Send CrewAI results + optional PDF directly via Gmail SMTP"
     args_schema: Type[BaseModel] = EmailSchema
 
-    def _run(self, to: str ="mostafaabddalla856@gmail.com", 
+    def _run(self, to: str ="mahmoudibrahimsalman@gmail.com",  # mostafaabddalla856@gmail.com
              subject: str = "Inventory Report by FOcrew", 
              body: str = """
              Dear manager 
