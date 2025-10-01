@@ -29,9 +29,10 @@ class Settings(BaseSettings):
     LANGUAGE_LITERAL:List[str]=None
     LANGUAGE:str
     LOGO_COMPANY:str=None
-    webhook_url:str
+    
     GMAIL_USER:str
     GMAIL_APP_PASSWORD:str
+    MANAGER_LITERAL:List[str]=None
     MANAGER:str
     
     class Config:
