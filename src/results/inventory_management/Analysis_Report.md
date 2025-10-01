@@ -1,6 +1,6 @@
 # Final Inventory Data Analysis Report
 
-**Generation Time**: 2025-10-01 15:54:42
+**Generation Time**: 2025-10-01 16:34:13
 
 **Total Items Processed**: 12030
 
@@ -65,9 +65,10 @@
 # Advanced Analysis
 
 ## Expired/Removed Before Today
-**Total Expired/Removed:** 218 items
+**Total Expired/Removed:** 219 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 4705403 | Yogurt | Almarai Greek Yogurt Spoonable Berries (170g) | 2025-10-10 16:00:00 | 2025-10-01 16:00:00 | 186 |
 | 10550206 | Yogurt | Almarai Treats Strawberry Yogurt (150g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 240 |
 | 249930 | Yogurt | Almarai Treats Strawberry Tarte Yogurt (105g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 101 |
 | 16873488 | Snacks | Todo Red Velvet Cupcake filled With Cream Cheese (Piece) | 2025-10-13 14:00:00 | 2025-10-01 14:00:00 | 224 |
@@ -288,7 +289,7 @@
 | CONS-533 | All / Consumables | Tape Gun | 2028-01-30 11:00:00 | 2025-01-30 11:00:00 | 4 |
 
 ## Near expiry/removal During Next 5 days
-**Total of Near expiry/removal within 5 days:** 78 items
+**Total of Near expiry/removal within 5 days:** 77 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
 | 37038102 | Yogurt | Juhayna Premium Pudding Frappuccino (150g) | 2025-10-06 15:00:00 | 2025-09-20 15:00:00 | 193 |
@@ -368,4 +369,3 @@
 | 2820330 | Centralized Fresh | Sara's Jar 2% Fat Labneh With Palestinian Zaatar (250g) | 2025-10-11 13:00:00 | 2025-10-02 13:00:00 | 124 |
 | 2820329 | Centralized Fresh | Sara's Jar 2% Fat Plain Labneh (250g) | 2025-10-11 13:00:00 | 2025-10-02 13:00:00 | 75 |
 | 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-02 11:00:00 | 2025-09-20 11:00:00 | 14 |
-| 4705403 | Yogurt | Almarai Greek Yogurt Spoonable Berries (170g) | 2025-10-10 16:00:00 | 2025-10-01 16:00:00 | 186 |
