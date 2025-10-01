@@ -1,6 +1,6 @@
 # Final Inventory Data Analysis Report
 
-**Generation Time**: 2025-10-01 02:35:19
+**Generation Time**: 2025-10-01 15:54:42
 
 **Total Items Processed**: 12030
 
@@ -65,9 +65,25 @@
 # Advanced Analysis
 
 ## Expired/Removed Before Today
-**Total Expired/Removed:** 205 items
+**Total Expired/Removed:** 218 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 10550206 | Yogurt | Almarai Treats Strawberry Yogurt (150g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 240 |
+| 249930 | Yogurt | Almarai Treats Strawberry Tarte Yogurt (105g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 101 |
+| 16873488 | Snacks | Todo Red Velvet Cupcake filled With Cream Cheese (Piece) | 2025-10-13 14:00:00 | 2025-10-01 14:00:00 | 224 |
+| 20007587 | Snacks | Todo Red Velvet Cupcake Filled With Cream Cheese 8Pcs (Box) | 2025-10-13 14:00:00 | 2025-10-01 14:00:00 | 45 |
+| 7562448 | Yogurt | Danette Caramel Mini Pudding (100g) | 2025-10-19 13:00:00 | 2025-10-01 13:00:00 | 50 |
+| 1497728 | Frozen Meals | Koki Chichen Crunchy Meal Spicy + Fries (12 pieces)  | 2025-10-19 13:00:00 | 2025-10-01 13:00:00 | 20 |
+| 6175585 | Yogurt | Yopo Flip Strawberry Crumble Yogurt (145g) | 2025-10-19 12:00:00 | 2025-10-01 12:00:00 | 37 |
+| 2076853 | Yogurt | Yopo Flip Peanut Butter & Granola Nut Greek Yogurt (145g) | 2025-10-19 12:00:00 | 2025-10-01 12:00:00 | 144 |
+| 2660402 | Yogurt | Yopo Flip Granola Chocolate Greek Yogurt (145g) | 2025-10-19 12:00:00 | 2025-10-01 12:00:00 | 48 |
+| 299405 | Milk | Lamar Banana Milk (200ml) | 2025-10-19 12:00:00 | 2025-10-01 12:00:00 | 22 |
+| 16873488 | Snacks | Todo Red Velvet Cupcake filled With Cream Cheese (Piece) | 2025-10-13 11:00:00 | 2025-10-01 11:00:00 | 160 |
+| 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-19 11:00:00 | 2025-10-01 11:00:00 | 45 |
+| 37038102 | Yogurt | Juhayna Premium Pudding Frappuccino (150g) | 2025-10-17 11:00:00 | 2025-10-01 11:00:00 | 264 |
+| 21465397 | Yogurt | Danone Greek Mixed Berries (110g) | 2025-10-19 11:00:00 | 2025-10-01 11:00:00 | -6 |
+| 578306 | Milk | Lamar Chocolate Milk (1L) | 2025-10-19 10:00:00 | 2025-10-01 10:00:00 | 7 |
+| 39722950 | Yogurt | Danone Plain Yogurt 12 Cups (85g) | 2025-10-01 03:00:00 | 2025-09-20 03:00:00 | 112 |
 | 3168328 | Commodities | AL Asil Corn Oil (2.25L) | 2025-12-12 00:00:00 | 2025-10-01 01:00:00 | 1 |
 | 21614339 | Food | Pringles Potato Chips Hot Sweet Chili (160g) | 2025-10-30 15:00:00 | 2025-09-30 15:00:00 | 738 |
 | 20007409 | Snacks | Todo Chocolate Cupcake Filled With Chocolate 8Pcs (Box) | 2025-10-12 14:00:00 | 2025-09-30 14:00:00 | 10 |
@@ -201,10 +217,7 @@
 | 16611997 | Yogurt | Juhayna Yogurt Stirred Light (105g) | 2025-10-02 14:00:00 | 2025-09-20 14:00:00 | 108 |
 | 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-02 11:00:00 | 2025-09-20 11:00:00 | 14 |
 | 13191664 | Snacks | Oreo Chocolate Creme Filled Biscuit - 6 Cookies (43.75g) | 2025-10-17 04:00:00 | 2025-09-20 04:00:00 | 1 |
-| 39722950 | Yogurt | Danone Plain Yogurt 12 Cups (85g) | 2025-10-01 03:00:00 | 2025-09-20 03:00:00 | 112 |
 | 30785596 | Frozen Starters, cheese & FV | Olio Cheddar Sambousak (250g) | 2025-10-07 16:00:00 | 2025-09-19 16:00:00 | 7 |
-| 10550206 | Yogurt | Almarai Treats Strawberry Yogurt (150g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 240 |
-| 249930 | Yogurt | Almarai Treats Strawberry Tarte Yogurt (105g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 101 |
 | 1129022 | Milk and Juice | Juhayna Oriental Carob (1L) | 2025-10-15 18:00:00 | 2025-09-18 18:00:00 | 3 |
 | 13167512 | Food Cupboard 2 | Hollivee Citrus Honey Squeeze Panda (500g) | 2025-11-30 02:00:00 | 2025-09-18 03:00:00 | 9 |
 | 17837317 | Food Cupboard 2 | Seasoned Spicery Pink Himalayan Salt (140g) | 2025-11-30 00:00:00 | 2025-09-18 01:00:00 | 11 |
@@ -275,9 +288,27 @@
 | CONS-533 | All / Consumables | Tape Gun | 2028-01-30 11:00:00 | 2025-01-30 11:00:00 | 4 |
 
 ## Near expiry/removal During Next 5 days
-**Total of Near expiry/removal within 5 days:** 76 items
+**Total of Near expiry/removal within 5 days:** 78 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 37038102 | Yogurt | Juhayna Premium Pudding Frappuccino (150g) | 2025-10-06 15:00:00 | 2025-09-20 15:00:00 | 193 |
+| 601306 | Yogurt | AlMarai Yo Go Peach Yoghurt Drink (440ml) | 2025-10-06 15:00:00 | 2025-10-06 15:00:00 | 8 |
+| 249927 | Yogurt | Almarai Treats Berries Yogurt (105g) | 2025-10-06 15:00:00 | 2025-09-24 15:00:00 | 180 |
+| 249930 | Yogurt | Almarai Treats Strawberry Tarte Yogurt (105g) | 2025-10-06 15:00:00 | 2025-09-24 15:00:00 | 192 |
+| 601358 | Yogurt | AlMarai Yo Go Strawberry Yoghurt Drink (220ml) | 2025-10-06 14:00:00 | 2025-09-24 14:00:00 | 130 |
+| 601306 | Yogurt | AlMarai Yo Go Peach Yoghurt Drink (440ml) | 2025-10-06 14:00:00 | 2025-10-06 14:00:00 | 17 |
+| 1138370 | Yogurt | Almarai Natural Yogurt Offer 5+1 Free (105g) | 2025-10-06 14:00:00 | 2025-09-24 14:00:00 | 793 |
+| 1138428 | Yogurt | Almarai Natural Yogurt Lite Offer 5+1 Free (105g) | 2025-10-06 14:00:00 | 2025-09-24 14:00:00 | 52 |
+| 10550206 | Yogurt | Almarai Treats Strawberry Yogurt (150g) | 2025-10-06 14:00:00 | 2025-09-24 14:00:00 | 108 |
+| 32596712 | Yogurt | Danone Light Yogurt Save 2 EGP (160g) | 2025-10-06 11:00:00 | 2025-09-24 11:00:00 | 32 |
+| 16611997 | Yogurt | Juhayna Yogurt Stirred Light (105g) | 2025-10-06 11:00:00 | 2025-09-24 11:00:00 | 144 |
+| 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-24 11:00:00 | 2025-10-06 11:00:00 | 288 |
+| 7562448 | Yogurt | Danette Caramel Mini Pudding (100g) | 2025-10-24 11:00:00 | 2025-10-06 11:00:00 | 84 |
+| 42096155 | Yogurt | Dango Strawberry 4 Cups (85gm) | 2025-10-06 10:00:00 | 2025-10-06 10:00:00 | 48 |
+| 5147758 | Yogurt | Danone Hipro Cookies & Cream (260g) | 2025-10-24 10:00:00 | 2025-10-06 10:00:00 | 120 |
+| 1293187 | Yogurt | Danone Hipro Strawberry (260g) | 2025-10-24 10:00:00 | 2025-10-06 10:00:00 | 264 |
+| 6175585 | Yogurt | Yopo Flip Strawberry Crumble Yogurt (145g) | 2025-10-24 09:00:00 | 2025-10-06 09:00:00 | 431 |
+| 17475117 | Beauty | Rimmel Stay Glossy - Stay My Rose | 2025-11-30 02:00:00 | 2025-10-06 03:00:00 | 1 |
 | 16586657 | Food Cupboard 2 | Corona Jelly Powder Strawberry (70g) | 2025-12-02 00:00:00 | 2025-10-06 01:00:00 | 11 |
 | 7562448 | Yogurt | Danette Caramel Mini Pudding (100g) | 2025-10-23 10:00:00 | 2025-10-05 10:00:00 | 96 |
 | 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-23 10:00:00 | 2025-10-05 10:00:00 | 909 |
@@ -338,19 +369,3 @@
 | 2820329 | Centralized Fresh | Sara's Jar 2% Fat Plain Labneh (250g) | 2025-10-11 13:00:00 | 2025-10-02 13:00:00 | 75 |
 | 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-02 11:00:00 | 2025-09-20 11:00:00 | 14 |
 | 4705403 | Yogurt | Almarai Greek Yogurt Spoonable Berries (170g) | 2025-10-10 16:00:00 | 2025-10-01 16:00:00 | 186 |
-| 10550206 | Yogurt | Almarai Treats Strawberry Yogurt (150g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 240 |
-| 249930 | Yogurt | Almarai Treats Strawberry Tarte Yogurt (105g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 101 |
-| 16873488 | Snacks | Todo Red Velvet Cupcake filled With Cream Cheese (Piece) | 2025-10-13 14:00:00 | 2025-10-01 14:00:00 | 224 |
-| 20007587 | Snacks | Todo Red Velvet Cupcake Filled With Cream Cheese 8Pcs (Box) | 2025-10-13 14:00:00 | 2025-10-01 14:00:00 | 45 |
-| 7562448 | Yogurt | Danette Caramel Mini Pudding (100g) | 2025-10-19 13:00:00 | 2025-10-01 13:00:00 | 50 |
-| 1497728 | Frozen Meals | Koki Chichen Crunchy Meal Spicy + Fries (12 pieces)  | 2025-10-19 13:00:00 | 2025-10-01 13:00:00 | 20 |
-| 6175585 | Yogurt | Yopo Flip Strawberry Crumble Yogurt (145g) | 2025-10-19 12:00:00 | 2025-10-01 12:00:00 | 37 |
-| 2076853 | Yogurt | Yopo Flip Peanut Butter & Granola Nut Greek Yogurt (145g) | 2025-10-19 12:00:00 | 2025-10-01 12:00:00 | 144 |
-| 2660402 | Yogurt | Yopo Flip Granola Chocolate Greek Yogurt (145g) | 2025-10-19 12:00:00 | 2025-10-01 12:00:00 | 48 |
-| 299405 | Milk | Lamar Banana Milk (200ml) | 2025-10-19 12:00:00 | 2025-10-01 12:00:00 | 22 |
-| 16873488 | Snacks | Todo Red Velvet Cupcake filled With Cream Cheese (Piece) | 2025-10-13 11:00:00 | 2025-10-01 11:00:00 | 160 |
-| 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-19 11:00:00 | 2025-10-01 11:00:00 | 45 |
-| 37038102 | Yogurt | Juhayna Premium Pudding Frappuccino (150g) | 2025-10-17 11:00:00 | 2025-10-01 11:00:00 | 264 |
-| 21465397 | Yogurt | Danone Greek Mixed Berries (110g) | 2025-10-19 11:00:00 | 2025-10-01 11:00:00 | -6 |
-| 578306 | Milk | Lamar Chocolate Milk (1L) | 2025-10-19 10:00:00 | 2025-10-01 10:00:00 | 7 |
-| 39722950 | Yogurt | Danone Plain Yogurt 12 Cups (85g) | 2025-10-01 03:00:00 | 2025-09-20 03:00:00 | 112 |
