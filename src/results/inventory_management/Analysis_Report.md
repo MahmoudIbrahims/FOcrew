@@ -1,6 +1,6 @@
 # Final Inventory Data Analysis Report
 
-**Generation Time**: 2025-10-01 16:34:13
+**Generation Time**: 2025-10-02 13:11:23
 
 **Total Items Processed**: 12030
 
@@ -65,9 +65,12 @@
 # Advanced Analysis
 
 ## Expired/Removed Before Today
-**Total Expired/Removed:** 219 items
+**Total Expired/Removed:** 221 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 2820330 | Centralized Fresh | Sara's Jar 2% Fat Labneh With Palestinian Zaatar (250g) | 2025-10-11 13:00:00 | 2025-10-02 13:00:00 | 124 |
+| 2820329 | Centralized Fresh | Sara's Jar 2% Fat Plain Labneh (250g) | 2025-10-11 13:00:00 | 2025-10-02 13:00:00 | 75 |
+| 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-02 11:00:00 | 2025-09-20 11:00:00 | 14 |
 | 4705403 | Yogurt | Almarai Greek Yogurt Spoonable Berries (170g) | 2025-10-10 16:00:00 | 2025-10-01 16:00:00 | 186 |
 | 10550206 | Yogurt | Almarai Treats Strawberry Yogurt (150g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 240 |
 | 249930 | Yogurt | Almarai Treats Strawberry Tarte Yogurt (105g) | 2025-10-01 14:00:00 | 2025-09-19 14:00:00 | 101 |
@@ -216,7 +219,6 @@
 | 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-03 10:00:00 | 2025-09-21 10:00:00 | 72 |
 | 37038102 | Yogurt | Juhayna Premium Pudding Frappuccino (150g) | 2025-10-06 15:00:00 | 2025-09-20 15:00:00 | 193 |
 | 16611997 | Yogurt | Juhayna Yogurt Stirred Light (105g) | 2025-10-02 14:00:00 | 2025-09-20 14:00:00 | 108 |
-| 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-02 11:00:00 | 2025-09-20 11:00:00 | 14 |
 | 13191664 | Snacks | Oreo Chocolate Creme Filled Biscuit - 6 Cookies (43.75g) | 2025-10-17 04:00:00 | 2025-09-20 04:00:00 | 1 |
 | 30785596 | Frozen Starters, cheese & FV | Olio Cheddar Sambousak (250g) | 2025-10-07 16:00:00 | 2025-09-19 16:00:00 | 7 |
 | 1129022 | Milk and Juice | Juhayna Oriental Carob (1L) | 2025-10-15 18:00:00 | 2025-09-18 18:00:00 | 3 |
@@ -289,9 +291,36 @@
 | CONS-533 | All / Consumables | Tape Gun | 2028-01-30 11:00:00 | 2025-01-30 11:00:00 | 4 |
 
 ## Near expiry/removal During Next 5 days
-**Total of Near expiry/removal within 5 days:** 77 items
+**Total of Near expiry/removal within 5 days:** 101 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 30399714 | Snacks | Molto King Chocolate And Hazelnut (120g) | 2025-10-19 13:00:00 | 2025-10-07 13:00:00 | 12 |
+| 1138370 | Yogurt | Almarai Natural Yogurt Offer 5+1 Free (105g) | 2025-10-07 12:00:00 | 2025-09-25 12:00:00 | 616 |
+| 249862 | Yogurt | Juhayna Rayeb Green Tea & Lemon (220ml) | 2025-10-07 11:00:00 | 2025-09-28 11:00:00 | 621 |
+| 249850 | Yogurt | Juhayna Rayeb Milk (440ml) | 2025-10-07 11:00:00 | 2025-09-25 11:00:00 | 112 |
+| 16611996 | Yogurt | Juhayna Yogurt Stirred Plain (105g) | 2025-10-07 11:00:00 | 2025-09-28 11:00:00 | 768 |
+| 529017 | Yogurt | Juhayna Rayeb Milk (1L) | 2025-10-07 11:00:00 | 2025-09-25 11:00:00 | 191 |
+| 16611997 | Yogurt | Juhayna Yogurt Stirred Light (105g) | 2025-10-07 11:00:00 | 2025-09-25 11:00:00 | 240 |
+| 601306 | Yogurt | AlMarai Yo Go Peach Yoghurt Drink (440ml) | 2025-10-07 11:00:00 | 2025-10-07 11:00:00 | 48 |
+| 2102758 | Yogurt | Almarai Natural Yogurt Offer 9+3 Free (105g) | 2025-10-07 11:00:00 | 2025-09-25 11:00:00 | 62 |
+| 249922 | Yogurt | Almarai Natural Yogurt Lite (105g) | 2025-10-07 11:00:00 | 2025-09-25 11:00:00 | 4 |
+| 10550206 | Yogurt | Almarai Treats Strawberry Yogurt (150g) | 2025-10-07 11:00:00 | 2025-09-25 11:00:00 | 96 |
+| 2658670 | Centralized Fresh | Domty Low Salt Cheese (400g) | 2025-10-07 11:00:00 | 2025-09-25 11:00:00 | 1048 |
+| 21465395 | Yogurt | Danone Greek Plain (110g) | 2025-10-25 11:00:00 | 2025-10-07 11:00:00 | 12 |
+| 9255948 | Yogurt | Danette Vanilla Pudding (100g) | 2025-10-25 11:00:00 | 2025-10-07 11:00:00 | 288 |
+| 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-25 11:00:00 | 2025-10-07 11:00:00 | 576 |
+| 7562448 | Yogurt | Danette Caramel Mini Pudding (100g) | 2025-10-25 11:00:00 | 2025-10-07 11:00:00 | 240 |
+| 249876 | Yogurt | Juhayna Zabado Strawberry (220ml) | 2025-10-07 10:00:00 | 2025-09-25 10:00:00 | 408 |
+| 249864 | Yogurt | Juhayna Zabado Peach (220ml) | 2025-10-07 10:00:00 | 2025-09-25 10:00:00 | 360 |
+| 249872 | Yogurt | Juhayna Zabado Berry (220ml) | 2025-10-07 10:00:00 | 2025-09-25 10:00:00 | 230 |
+| 249849 | Yogurt | Juhayna Rayeb Milk (220ml) | 2025-10-07 10:00:00 | 2025-09-25 10:00:00 | 432 |
+| 249855 | Yogurt | Juhayna Rayeb Lite (220ml) | 2025-10-07 10:00:00 | 2025-09-25 10:00:00 | 384 |
+| 249859 | Yogurt | Juhayna Rayeb Green Tea & Lemon (440ml) | 2025-10-07 10:00:00 | 2025-09-25 10:00:00 | 612 |
+| 42096275 | Yogurt | Dango Strawberry 6 Cups (85gm) | 2025-10-07 10:00:00 | 2025-10-07 10:00:00 | 64 |
+| 11892059 | Yogurt | Danone Hipro Mixed Berries (260g) | 2025-10-25 10:00:00 | 2025-10-07 10:00:00 | 264 |
+| 16677459 | Yogurt | Yopo Cookies & Cream Greek Yogurt (145g) | 2025-10-25 09:00:00 | 2025-10-07 09:00:00 | 312 |
+| 24232772 | Yogurt | Yopolis Double Zero Mixed Berries (150g) | 2025-10-25 09:00:00 | 2025-10-07 09:00:00 | 216 |
+| 31695553 | Yogurt | Yopolis PRO Salted Caramel (165g) | 2025-10-25 09:00:00 | 2025-10-07 09:00:00 | 216 |
 | 37038102 | Yogurt | Juhayna Premium Pudding Frappuccino (150g) | 2025-10-06 15:00:00 | 2025-09-20 15:00:00 | 193 |
 | 601306 | Yogurt | AlMarai Yo Go Peach Yoghurt Drink (440ml) | 2025-10-06 15:00:00 | 2025-10-06 15:00:00 | 8 |
 | 249927 | Yogurt | Almarai Treats Berries Yogurt (105g) | 2025-10-06 15:00:00 | 2025-09-24 15:00:00 | 180 |
@@ -366,6 +395,3 @@
 | 23341920 | Snacks | Time Wafer Master Rolls With Cappuccino Cream (65g) | 2025-11-26 00:00:00 | 2025-10-03 01:00:00 | 21 |
 | 16611996 | Yogurt | Juhayna Yogurt Stirred Plain (105g) | 2025-10-02 14:00:00 | 2025-09-23 14:00:00 | 125 |
 | 16611997 | Yogurt | Juhayna Yogurt Stirred Light (105g) | 2025-10-02 14:00:00 | 2025-09-20 14:00:00 | 108 |
-| 2820330 | Centralized Fresh | Sara's Jar 2% Fat Labneh With Palestinian Zaatar (250g) | 2025-10-11 13:00:00 | 2025-10-02 13:00:00 | 124 |
-| 2820329 | Centralized Fresh | Sara's Jar 2% Fat Plain Labneh (250g) | 2025-10-11 13:00:00 | 2025-10-02 13:00:00 | 75 |
-| 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-02 11:00:00 | 2025-09-20 11:00:00 | 14 |
