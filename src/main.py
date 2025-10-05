@@ -22,7 +22,7 @@ async def startup_span():
     Agent_provider_factory = AgentProviderFactory(settings.Config)
     app.Agent_client = Agent_provider_factory.create(Crew_Name=settings.AGENT_NAME,lanuage=settings.LANGUAGE,
                                                      file_path=settings.DATA_PATH,logo_company=settings.LOGO_COMPANY,
-                                                     Managers =settings.MANAGER 
+                                                     Managers =settings.MANAGERS
                                                      )
     
     db_provider_factory = DataBaseProviderFactory(settings.Config ,db_client=app.db_client)
