@@ -100,7 +100,7 @@ class AgentProviderFactory:
             
             Report_Sender_Agent =Report_Sender.get_agent()
             Report_Sender_tesk =Report_Sender.get_task()
-            Report_Sender_tesk.description =SendEmail_prompt.safe_substitute(manager=Managers)
+            Report_Sender_tesk.description =SendEmail_prompt.safe_substitute(managers=Managers)
           
             if lanuage== Languages.ARABIC.value:
                               
