@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     GMAIL_USER:str
     GMAIL_APP_PASSWORD:str
     MANAGER_LITERAL:List[str]=None
-    MANAGER:str
+    MANAGERS: str
     
     class Config:
         env_file =".env"
