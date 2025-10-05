@@ -6,5 +6,5 @@ SendEmail_prompt =Template("\n".join([
                 "1. Use the `Send Report via Gmail` tool.",
                 "2. Pass a suitable subject (like 'Inventory Report').",
                 "3. Pass the report body pdf or text or summary.",
-                "4. sent to $manager"
+                "4. sent to $managers"
                                   ]))     
