@@ -25,10 +25,15 @@ class SendEmailTool(BaseTool):
         settings = get_settings()
         sender = settings.GMAIL_USER      
         password = settings.GMAIL_APP_PASSWORD
+        
+        if isinstance(to, str):
+            to_list = [email.strip() for email in to.split(",") if email.strip()]
+        else:
+            to_list = to 
     
         msg = MIMEMultipart()
         msg['From'] = formataddr(("FOcrew Team", sender))
-        msg['To'] = to
+        msg['To'] =", ".join(to_list)
         msg['Subject'] = subject
         body = Body_template.safe_substitute()   
         msg.attach(MIMEText(body, 'plain'))
