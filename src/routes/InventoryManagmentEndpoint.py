@@ -1,5 +1,5 @@
-from Agents.Prompts import Data_processing_prompt,description_prompt,Visualization_Prompt
-from Agents import DataProcessing,DataVisualizationExpert,ReportGeneratorAgent
+from Agents.Prompts import Data_processing_prompt,description_prompt,Visualization_Prompt,SendEmail_prompt
+from Agents import DataProcessing,DataVisualizationExpert,ReportGeneratorAgent,ReportSenderAgent
 from .Enums.InventorymanagmentEnums import InventorManagmentEunms
 from fastapi import APIRouter ,status,Request,Depends
 from helpers.config import get_settings, Settings
@@ -23,10 +23,6 @@ agent_router = APIRouter(
 async def inventory_agent(request : Request ,project_id:int,Process_Request:ProcessRequest,
                           app_settings: Settings = Depends(get_settings)):
     
-    userfile_model =await UserFileModel.create_instance(
-         db_client = request.app.db_client
-                     )
-
     project_model = await ProjectModel.create_instance( 
         db_client = request.app.db_client
         
@@ -35,6 +31,10 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
     model = await project_model.get_project_or_create_one(
                 project_id = project_id
                 )
+    
+    userfile_model =await UserFileModel.create_instance(
+        db_client = request.app.db_client
+                    )
     
     latest_file = await userfile_model.get_latest_user_file_by_project(
                  project_id =model.project_id
@@ -63,14 +63,20 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
     ReportGenerator_task =ReportGenerator.get_task()
     ReportGenerator_task.description =description_prompt.safe_substitute(logo_company=app_settings.LOGO_COMPANY)
 
+    Report_Sender = ReportSenderAgent()
+    Report_Sender_Agent =Report_Sender.get_agent()
+    Report_Sender_tesk =Report_Sender.get_task()
+    Report_Sender_tesk.description =SendEmail_prompt.safe_substitute(managers=Process_Request.Managers)
+    
+    
     if Process_Request.Language== Languages.ARABIC.value:
                               
         crew = Crew(
                     agents=[Data_Processing_Agent,
-                            Data_Visualization_Agent,ReportGenerator_Agent],
+                            Data_Visualization_Agent,ReportGenerator_Agent,Report_Sender_Agent],
                     
                     tasks=[Data_Processing_task ,
-                           Data_Visualization_task,ReportGenerator_task],
+                           Data_Visualization_task,ReportGenerator_task,Report_Sender_tesk],
                             verbose=True
                                 )
                 
