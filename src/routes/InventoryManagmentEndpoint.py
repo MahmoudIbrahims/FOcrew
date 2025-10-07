@@ -10,15 +10,10 @@ from .Schemes.data import ProcessRequest
 from .Enums.BasicsEnums import UsageType
 from .Enums.BasicsEnums import Languages 
 from Models.enums import ResponseSignal
-from datetime import datetime
-from pandas import Timestamp
-from pandas import json_normalize
 from crewai import Crew
 import pandas as pd
-import uuid
-import os
 import PyPDF2
-import tempfile
+
 
 agent_router = APIRouter(
     prefix ="/api/v1/agent",
@@ -106,6 +101,7 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
         return JSONResponse(
                 content ={
                     "signal" : ResponseSignal.RESPONSE_SUCCESS.value,
+                    "Agent_name":InventorManagmentEunms.AGENT_NAME.value,
                     "created_at":str(latest_file.updated_at)
                     
                 }

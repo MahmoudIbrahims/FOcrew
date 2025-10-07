@@ -30,9 +30,7 @@ class UserFileModel(BaseDataModel):
         file_type,
         file_size,
         file_path,
-        project_id,
-        full_data,
-        storage_method="database"
+        project_id
     ):
         async with self.db_client() as session:
             async with session.begin():
@@ -47,9 +45,7 @@ class UserFileModel(BaseDataModel):
                         file_type=file_type,
                         file_size=file_size,
                         file_path=file_path,
-                        project_id=project_id,
-                        full_data=full_data,
-                        storage_method=storage_method,
+                        project_id=project_id
                     )
                     user_file = await self.create_user_file(new_file)
 

@@ -1,6 +1,6 @@
 # Final Inventory Data Analysis Report
 
-**Generation Time**: 2025-10-07 18:18:13
+**Generation Time**: 2025-10-07 19:03:45
 
 **Total Items Processed**: 12030
 
@@ -352,9 +352,10 @@
 | CONS-533 | All / Consumables | Tape Gun | 2028-01-30 11:00:00 | 2025-01-30 11:00:00 | 4 |
 
 ## Near expiry/removal During Next 5 days
-**Total of Near expiry/removal within 5 days:** 69 items
+**Total of Near expiry/removal within 5 days:** 70 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 24390540 | Food | Jaguar Wonder Pops Sweet Corn (45-55g) | 2025-10-30 19:00:00 | 2025-10-12 19:00:00 | 32 |
 | 39457247 | Frozen Desserts and Ice Cream | Smoochy Lemon Mint Mochi Ice Cream (192g) | 2025-10-30 16:00:00 | 2025-10-12 16:00:00 | 2471 |
 | 39457248 | Frozen Desserts and Ice Cream | Smoochy Pina Colada Mochi Ice Cream (192g) | 2025-10-30 16:00:00 | 2025-10-12 16:00:00 | 1164 |
 | 1293187 | Yogurt | Danone Hipro Strawberry (260g) | 2025-10-12 15:00:00 | 2025-09-24 15:00:00 | 46 |
