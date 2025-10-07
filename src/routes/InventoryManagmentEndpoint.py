@@ -1,6 +1,6 @@
 from Agents.Prompts import Data_processing_prompt,description_prompt,Visualization_Prompt
 from Agents import DataProcessing,DataVisualizationExpert,ReportGeneratorAgent
-from .Enums.InventorymanagmentEnums import InventorManagmentEunms ,PathResults
+from .Enums.InventorymanagmentEnums import InventorManagmentEunms
 from fastapi import APIRouter ,status,Request,Depends
 from helpers.config import get_settings, Settings
 from Models.ProjectModel import ProjectModel
@@ -10,15 +10,8 @@ from .Schemes.data import ProcessRequest
 from .Enums.BasicsEnums import UsageType
 from .Enums.BasicsEnums import Languages 
 from Models.enums import ResponseSignal
-from datetime import datetime
-from pandas import Timestamp
-from pandas import json_normalize
 from crewai import Crew
 import pandas as pd
-import uuid
-import os
-import PyPDF2
-import tempfile
 
 agent_router = APIRouter(
     prefix ="/api/v1/agent",
@@ -26,18 +19,6 @@ agent_router = APIRouter(
 )
 
 
-def read_pdf(file_path:str):
-    reader = PyPDF2.PdfReader(file_path)
-    text_content = ""
-
-    for page in reader.pages:
-        text_content += page.extract_text() or ""
-
-    return {
-        "filename": file_path,
-        "content": text_content
-    }
-    
 @agent_router.post('/inventory/{project_id}')
 async def inventory_agent(request : Request ,project_id:int,Process_Request:ProcessRequest,
                           app_settings: Settings = Depends(get_settings)):
@@ -95,18 +76,11 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
                 
         result = crew.kickoff()
         
-        # report_pdf =read_pdf(PathResults.REPORT_PDF.value) if os.path.exists(PathResults.REPORT_PDF.value) else "report pdf not found"
-        
-        # combined_result = {
-
-        #     "report_pdf":report_pdf
-        # }
-        
-        
         return JSONResponse(
                 content ={
                     "signal" : ResponseSignal.RESPONSE_SUCCESS.value,
-                    "created_at":str(latest_file.updated_at)
+                    "Agent_name":InventorManagmentEunms.AGENT_NAME.value,
+                    "created_at":str(latest_file.created_at)
                     
                 }
         )
