@@ -5,5 +5,6 @@ class ProcessRequest(BaseModel):
     Language :    str =None 
     COMPANY_NAME: str =None
     INDUSTRY_NAME:str =None
+    Managers:str =None
     do_reset : Optional[int] = 0
     
