@@ -1,0 +1,7 @@
+# Ignore build and static folders from language stats
+/build/* linguist-vendored
+/dist/* linguist-vendored
+/docs/* linguist-vendored
+
+# Force Python to be counted correctly
+*.py linguist-language=Python
