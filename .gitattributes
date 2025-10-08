@@ -2,7 +2,7 @@
 /build/* linguist-vendored
 /dist/* linguist-vendored
 /docs/* linguist-vendored
-./src/results/Dashboard/* linguist-vendored
+/src/results/Dashboard/* linguist-vendored
 
 # Force Python to be counted correctly
 *.py linguist-language=Python
