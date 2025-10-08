@@ -1,0 +1,35 @@
+[project]
+name = "FOcrew"
+version = "0.1.0"
+description = "Future-Oriented Crew — AI-driven Multi-Agent System for business automation, analytics, and intelligent decision-making."
+authors = [{ name = "Mahmoud Ibrahim", email = "mahmoudibrahimabdelfattah48@gmail.com" }]
+requires-python = ">=3.10"
+readme = "README.md"
+license = { file = "LICENSE" }
+
+dependencies = [
+    "fastapi==0.110.2",
+    "uvicorn[standard]==0.29.0",
+    "crewai==0.130.0",
+    "crewai-tools==0.47.1",
+    "langchain==0.3.26",
+    "langchain-core==0.3.66",
+    "langchain-community==0.3.26",
+    "pydantic-settings==2.4.0",
+    "SQLAlchemy==2.0.36",
+    "alembic==1.14.1",
+    "asyncpg==0.30.0",
+    "psycopg2==2.9.10",
+    "plotly==6.1.2",
+    "pyyaml==6.0.2",
+    "openpyxl==3.1.5",
+    "dask==2024.9.1",
+    "ydata-profiling==4.16.1",
+    "weasyprint==66.0",
+    "PyPDF2==3.0.1",
+    "python-multipart==0.0.20"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
