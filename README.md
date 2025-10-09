@@ -1,14 +1,3 @@
-![Image](https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604)
-
-
-<h1 align="center">
-  🌟 FOcrew
-</h1>
-
-<p align="center">
-  <strong>Future-Oriented Crew</strong><br>
-</p>
-
 <div align="center">
   <img src="https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604" 
        alt="FOcrew Logo" 
