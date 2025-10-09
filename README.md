@@ -1,14 +1,16 @@
-<div align="center">
+<!-- <div align="center">
   <img src="https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604" 
        alt="FOcrew Logo" 
        width="200" 
        style="border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 20px;" />
-</div>
+</div> -->
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604" 
+       alt="FOcrew Logo" width="250"/>
+</p>
 
 <p align="center"><strong>Future-Oriented Crew</strong></p>
-
-## What is FOcrew?
-
 
 ## What is FOcrew?
 
