@@ -5,7 +5,6 @@
        style="border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 20px;" />
 </div>
 
-<h1 align="center">🌟 FOcrew</h1>
 <p align="center"><strong>Future-Oriented Crew</strong></p>
 
 ## What is FOcrew?
