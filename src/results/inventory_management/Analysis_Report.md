@@ -1,6 +1,6 @@
 # Final Inventory Data Analysis Report
 
-**Generation Time**: 2025-10-08 17:03:22
+**Generation Time**: 2025-10-10 01:20:31
 
 **Total Items Processed**: 12030
 
@@ -33,26 +33,26 @@
 | Frozen Meals | 27 |
 | Frozen Sea & Dog Foods | 16 |
 | Frozen Centralized | 15 |
-| BFC - Beans | 14 |
 | Frozen Pastries | 14 |
+| BFC - Beans | 14 |
 | Stationary & Games | 14 |
 | Water | 14 |
 | All / Consumables / Cons - Cleaning | 12 |
 | All / Consumables / Cons - Operations | 6 |
 | All / Consumables | 4 |
 | Stationary | 3 |
-| Nonfood | 3 |
 | BFC - Capsules | 3 |
 | Electronics | 3 |
+| Nonfood | 3 |
 | All / Consumables / Cons - Misc | 2 |
 | All / ASTS / Tools | 2 |
 | Units | 2 |
 | Bags | 2 |
 | Packaging | 1 |
 | Furniture and Fixtures | 1 |
+| Milk and Juice | 1 |
 | Pallets | 1 |
 | Cartons | 1 |
-| Milk and Juice | 1 |
 
 ## Data Quality Issues
 | Colunm Name | missing Count |
@@ -65,9 +65,20 @@
 # Advanced Analysis
 
 ## Expired/Removed Before Today
-**Total Expired/Removed:** 289 items
+**Total Expired/Removed:** 297 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 5649697 | Food Cupboard | Breadfast Brown Lentils (400g) | 2025-11-15 00:00:00 | 2025-10-10 01:00:00 | 2 |
+| 31446164 | Snacks | Abu Auf Hazelnut in Shell (250g) | 2026-01-17 17:00:00 | 2025-10-09 18:00:00 | 10 |
+| 31446164 | Snacks | Abu Auf Hazelnut in Shell (250g) | 2026-01-17 17:00:00 | 2025-10-09 18:00:00 | 1 |
+| 1077032 | Centralized Fresh | Domty White Cheese Low Salt Natural Fat (Plastic) (700g) | 2025-10-09 18:00:00 | 2025-09-27 18:00:00 | 13 |
+| 17896843 | Frozen Desserts and Ice Cream | Kold Gelato Sundae Vanilla Caramel (500ml) | 2025-11-14 13:00:00 | 2025-10-09 14:00:00 | 5 |
+| 17896838 | Frozen Desserts and Ice Cream | Kold Gelato Vanilla (500ml) | 2025-11-14 12:00:00 | 2025-10-09 13:00:00 | 1 |
+| 249906 | Yogurt | Almarai Natural Yogurt (170g) | 2025-10-09 13:00:00 | 2025-09-30 13:00:00 | 1723 |
+| 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-09 11:00:00 | 2025-09-27 11:00:00 | 96 |
+| 42096275 | Yogurt | Dango Strawberry 6 Cups (85gm) | 2025-10-09 11:00:00 | 2025-10-09 11:00:00 | 144 |
+| 5649662 | Food Cupboard | Breadfast Fava Beans (400g) | 2025-11-14 00:00:00 | 2025-10-09 01:00:00 | 2 |
+| 5649966 | Food Cupboard | Breadfast Bulgur (400g) | 2025-11-14 00:00:00 | 2025-10-09 01:00:00 | 2 |
 | 31122077 | Snacks | Hohos Uncoated Strawberry Family Cake (Piece) | 2025-10-20 17:00:00 | 2025-10-08 17:00:00 | 72 |
 | 31122077 | Snacks | Hohos Uncoated Strawberry Family Cake (Piece) | 2025-10-20 17:00:00 | 2025-10-08 17:00:00 | 576 |
 | 1138428 | Yogurt | Almarai Natural Yogurt Lite Offer 5+1 Free (105g) | 2025-10-08 12:00:00 | 2025-09-26 12:00:00 | 112 |
@@ -211,7 +222,6 @@
 | 21614339 | Food | Pringles Potato Chips Hot Sweet Chili (160g) | 2025-10-30 15:00:00 | 2025-09-30 15:00:00 | 738 |
 | 20007409 | Snacks | Todo Chocolate Cupcake Filled With Chocolate 8Pcs (Box) | 2025-10-12 14:00:00 | 2025-09-30 14:00:00 | 10 |
 | 16873084 | Snacks | Todo Chocolate Cupcake filled With Chocolate (Piece) | 2025-10-12 14:00:00 | 2025-09-30 14:00:00 | 280 |
-| 249906 | Yogurt | Almarai Natural Yogurt (170g) | 2025-10-09 13:00:00 | 2025-09-30 13:00:00 | 1723 |
 | 7562448 | Yogurt | Danette Caramel Mini Pudding (100g) | 2025-10-18 11:00:00 | 2025-09-30 11:00:00 | 144 |
 | 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-18 11:00:00 | 2025-09-30 11:00:00 | 1056 |
 | 42096155 | Yogurt | Dango Strawberry 4 Cups (85gm) | 2025-09-30 11:00:00 | 2025-09-30 11:00:00 | 24 |
@@ -235,9 +245,6 @@
 | 16873084 | Snacks | Todo Chocolate Cupcake filled With Chocolate (Piece) | 2025-10-11 11:00:00 | 2025-09-29 11:00:00 | 56 |
 | 2660402 | Yogurt | Yopo Flip Granola Chocolate Greek Yogurt (145g) | 2025-10-17 10:00:00 | 2025-09-29 10:00:00 | 149 |
 | 2076853 | Yogurt | Yopo Flip Peanut Butter & Granola Nut Greek Yogurt (145g) | 2025-10-17 10:00:00 | 2025-09-29 10:00:00 | 18 |
-| 25688624 | Beauty | Essentials Bronze Body Shine - Sunkissed "Shade 1" | 2025-09-29 00:00:00 | 2025-09-29 00:00:00 | 13 |
-| 25688628 | Beauty | Essentials Bronze Body Shine - Honey Bronze "Shade 2" | 2025-09-29 00:00:00 | 2025-09-29 00:00:00 | 8 |
-| 25790954 | Beauty | Lip Gloss Temptation - Rosewood (7ml) | 2025-09-29 00:00:00 | 2025-08-24 00:00:00 | 1 |
 | 25688624 | Beauty | Essentials Bronze Body Shine - Sunkissed "Shade 1" | 2025-09-29 00:00:00 | 2025-09-29 00:00:00 | 2 |
 | 25690645 | Beauty | Essentials Lip Paint - Caramel "Shade 13" | 2025-09-29 00:00:00 | 2025-09-29 00:00:00 | 4 |
 | 25790954 | Beauty | Lip Gloss Temptation - Rosewood (7ml) | 2025-09-29 00:00:00 | 2025-08-24 00:00:00 | 1 |
@@ -245,6 +252,9 @@
 | 25790954 | Beauty | Lip Gloss Temptation - Rosewood (7ml) | 2025-09-29 00:00:00 | 2025-08-24 00:00:00 | 5 |
 | 25688628 | Beauty | Essentials Bronze Body Shine - Honey Bronze "Shade 2" | 2025-09-29 00:00:00 | 2025-09-29 00:00:00 | 3 |
 | 25690645 | Beauty | Essentials Lip Paint - Caramel "Shade 13" | 2025-09-29 00:00:00 | 2025-09-29 00:00:00 | 3 |
+| 25688624 | Beauty | Essentials Bronze Body Shine - Sunkissed "Shade 1" | 2025-09-29 00:00:00 | 2025-09-29 00:00:00 | 13 |
+| 25688628 | Beauty | Essentials Bronze Body Shine - Honey Bronze "Shade 2" | 2025-09-29 00:00:00 | 2025-09-29 00:00:00 | 8 |
+| 25790954 | Beauty | Lip Gloss Temptation - Rosewood (7ml) | 2025-09-29 00:00:00 | 2025-08-24 00:00:00 | 1 |
 | 2658670 | Centralized Fresh | Domty Low Salt Cheese (400g) | 2025-10-10 18:00:00 | 2025-09-28 18:00:00 | 400 |
 | 1077032 | Centralized Fresh | Domty White Cheese Low Salt Natural Fat (Plastic) (700g) | 2025-10-10 18:00:00 | 2025-09-28 18:00:00 | 800 |
 | 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-16 16:00:00 | 2025-09-28 16:00:00 | 1008 |
@@ -271,11 +281,9 @@
 | 30433886 | Centralized Fresh | Katilo White Cheese Low Salt (500g) | 2025-10-10 11:00:00 | 2025-09-28 11:00:00 | 171 |
 | 1293187 | Yogurt | Danone Hipro Strawberry (260g) | 2025-10-16 10:00:00 | 2025-09-28 10:00:00 | 71 |
 | 9754929 | Centralized Fresh | Reefy Double Cream (200ml) | 2025-09-28 03:00:00 | 2025-09-20 03:00:00 | 3 |
-| 1077032 | Centralized Fresh | Domty White Cheese Low Salt Natural Fat (Plastic) (700g) | 2025-10-09 18:00:00 | 2025-09-27 18:00:00 | 13 |
 | 22270490 | Frozen Breaded Chicken, Sausage & Burgers | ReallyGood Herbed Chicken Pane (400g) | 2025-10-15 14:00:00 | 2025-09-27 14:00:00 | 1 |
 | 10550206 | Yogurt | Almarai Treats Strawberry Yogurt (150g) | 2025-09-27 13:00:00 | 2025-09-15 13:00:00 | 248 |
 | 30522222 | Food Cupboard 2 | Heinz Tuna Chunks In Sunflower Oil (185gm) | 2025-09-27 11:00:00 | 2025-09-27 11:00:00 | 21 |
-| 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-09 11:00:00 | 2025-09-27 11:00:00 | 96 |
 | 26003814 | Food Cupboard | Wadi Food White Vinegar Pack Of 3 Save 20% (1L) | 2025-11-01 14:00:00 | 2025-09-26 15:00:00 | 1 |
 | 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-14 09:00:00 | 2025-09-26 09:00:00 | 862 |
 | 2515168 | Food Cupboard | Dayma Red Lentils (1kg) | 2025-11-01 00:00:00 | 2025-09-26 01:00:00 | 2 |
@@ -296,8 +304,8 @@
 | 17837317 | Food Cupboard 2 | Seasoned Spicery Pink Himalayan Salt (140g) | 2025-11-30 00:00:00 | 2025-09-18 01:00:00 | 11 |
 | 28098346 | Food Cupboard | Temmy's Whole Grain Honey Star (250g) | 2025-10-22 00:00:00 | 2025-09-16 00:00:00 | 9 |
 | 251970 | Food Cupboard 2 | Imtenan Spring Blossom Honey (250g) | 2025-09-15 13:00:00 | 2025-09-15 13:00:00 | 25 |
-| 32995136 | Beauty | Yves Saint Laurent Libre EDP For Her Gift Set (90ml + Lash Clash Mascara) | 2025-12-31 15:00:00 | 2025-09-13 16:00:00 | 15 |
 | 32995136 | Beauty | Yves Saint Laurent Libre EDP For Her Gift Set (90ml + Lash Clash Mascara) | 2025-12-31 15:00:00 | 2025-09-13 16:00:00 | 3 |
+| 32995136 | Beauty | Yves Saint Laurent Libre EDP For Her Gift Set (90ml + Lash Clash Mascara) | 2025-12-31 15:00:00 | 2025-09-13 16:00:00 | 15 |
 | 32995136 | Beauty | Yves Saint Laurent Libre EDP For Her Gift Set (90ml + Lash Clash Mascara) | 2025-12-31 09:00:00 | 2025-09-13 10:00:00 | 2 |
 | 2775396 | Food Cupboard 2 | Pico Black Seed Honey (350g) | 2025-11-20 00:00:00 | 2025-09-09 01:00:00 | 8 |
 | 21851989 | Food Cupboard | Temmy's Honey Pops (375g) | 2025-10-14 14:00:00 | 2025-09-08 14:00:00 | 1 |
@@ -359,9 +367,18 @@
 | CONS-533 | All / Consumables | Tape Gun | 2028-01-30 11:00:00 | 2025-01-30 11:00:00 | 4 |
 
 ## Near expiry/removal During Next 5 days
-**Total of Near expiry/removal within 5 days:** 61 items
+**Total of Near expiry/removal within 5 days:** 59 items
 | Internal Reference | Category | Product Name | Expiration Date | Removal Date | Available Quantity |
 |------|--------------|----------------|--------------|------------------|------------------|
+| 23317217 | Food Cupboard 2 | Flying Goose Sriracha Hot Chili Sauce (730ml) | 2025-12-27 00:00:00 | 2025-10-15 01:00:00 | 5 |
+| 331030 | Milk | Juhayna Full Cream Milk (1L) | 2025-11-01 23:00:00 | 2025-10-15 00:00:00 | 5 |
+| 17475117 | Beauty | Rimmel Stay Glossy - Stay My Rose | 2026-01-31 16:00:00 | 2025-10-14 17:00:00 | 1 |
+| 21611941 | Food | Pringles Potato Chips Mexican Chili And Lime (160g) | 2025-11-13 14:00:00 | 2025-10-14 15:00:00 | 235 |
+| 21851989 | Food Cupboard | Temmy's Honey Pops (375g) | 2025-10-14 14:00:00 | 2025-09-08 14:00:00 | 1 |
+| 21463625 | Chocolates Warehouse | Simply Milk Chocolate (35g) | 2026-05-05 13:00:00 | 2025-10-14 13:00:00 | 40 |
+| 41958712 | Centralized Fresh | Virgilio Mascarpone Cheese (500 gm) | 2025-10-14 12:00:00 | 2025-10-14 12:00:00 | 180 |
+| 1180627 | Yogurt | Danette Chocolate Pudding (100g) | 2025-10-14 09:00:00 | 2025-09-26 09:00:00 | 862 |
+| 1561983 | Centralized Fresh | Smoke House Smoked Beef Brisket (150g) | 2025-10-23 09:00:00 | 2025-10-14 09:00:00 | 12 |
 | 434677 | Food Cupboard | Rehana Egyptian Lobia (500g) | 2025-11-18 14:00:00 | 2025-10-13 15:00:00 | 1 |
 | 16873488 | Snacks | Todo Red Velvet Cupcake filled With Cream Cheese (Piece) | 2025-10-13 14:00:00 | 2025-10-01 14:00:00 | 224 |
 | 20007587 | Snacks | Todo Red Velvet Cupcake Filled With Cream Cheese 8Pcs (Box) | 2025-10-13 14:00:00 | 2025-10-01 14:00:00 | 45 |
@@ -373,8 +390,8 @@
 | 1293187 | Yogurt | Danone Hipro Strawberry (260g) | 2025-10-12 15:00:00 | 2025-09-24 15:00:00 | 46 |
 | 20007409 | Snacks | Todo Chocolate Cupcake Filled With Chocolate 8Pcs (Box) | 2025-10-12 14:00:00 | 2025-09-30 14:00:00 | 10 |
 | 16873084 | Snacks | Todo Chocolate Cupcake filled With Chocolate (Piece) | 2025-10-12 14:00:00 | 2025-09-30 14:00:00 | 280 |
-| 26801505 | Food Cupboard | Kiddo Strawberry Pillow (250g) | 2025-11-17 00:00:00 | 2025-10-12 01:00:00 | 8 |
 | 4928768 | Personal Care 2 | Pro-V Daily Care Nourishing Condintioner (360ml) | 2026-01-28 00:00:00 | 2025-10-12 01:00:00 | 4 |
+| 26801505 | Food Cupboard | Kiddo Strawberry Pillow (250g) | 2025-11-17 00:00:00 | 2025-10-12 01:00:00 | 8 |
 | 1005905 | Snacks | Twinkies Icing Vanilla (41.5g) | 2025-10-23 18:00:00 | 2025-10-11 18:00:00 | 996 |
 | 2056444 | Snacks | Twinkies Icing Vanilla Cake Filled With Vanilla Cream Box (12 Pcs) | 2025-10-23 18:00:00 | 2025-10-11 18:00:00 | 18 |
 | 24390538 | Food | Jaguar Wonder Pops Cheese Parmesan Pesto (38-48g) | 2025-10-29 15:00:00 | 2025-10-11 15:00:00 | 150 |
@@ -395,16 +412,16 @@
 | 249913 | Yogurt | Almarai Natural Yogurt Lite (170g) | 2025-10-10 16:00:00 | 2025-09-28 16:00:00 | 360 |
 | 601306 | Yogurt | AlMarai Yo Go Peach Yoghurt Drink (440ml) | 2025-10-10 16:00:00 | 2025-10-10 16:00:00 | 48 |
 | 601358 | Yogurt | AlMarai Yo Go Strawberry Yoghurt Drink (220ml) | 2025-10-10 16:00:00 | 2025-09-28 16:00:00 | 480 |
+| 19083744 | Food | Funday Popcorn Chocolate And Toffee (60g) | 2025-11-11 13:00:00 | 2025-10-10 14:00:00 | 1 |
 | 1138428 | Yogurt | Almarai Natural Yogurt Lite Offer 5+1 Free (105g) | 2025-10-10 14:00:00 | 2025-09-28 14:00:00 | 104 |
 | 29006420 | Centralized Fresh | Avanti Greek Cottage Cheese (450gm) | 2025-10-10 14:00:00 | 2025-09-28 14:00:00 | 9 |
-| 19083744 | Food | Funday Popcorn Chocolate And Toffee (60g) | 2025-11-11 13:00:00 | 2025-10-10 14:00:00 | 1 |
+| 34531076 | Snacks | Breadfast Muddy Bites - Milk Chocolate (100g) | 2025-10-22 13:00:00 | 2025-10-10 13:00:00 | 6 |
 | 34531077 | Snacks | Breadfast Muddy Bites - Dark Chocolate (100g) | 2025-10-22 13:00:00 | 2025-10-10 13:00:00 | 1 |
 | 34531079 | Snacks | Breadfast Muddy Bites - Mixed Chocolates (100g) | 2025-10-22 13:00:00 | 2025-10-10 13:00:00 | 6 |
 | 10550206 | Yogurt | Almarai Treats Strawberry Yogurt (150g) | 2025-10-10 13:00:00 | 2025-09-28 13:00:00 | 108 |
 | 1138370 | Yogurt | Almarai Natural Yogurt Offer 5+1 Free (105g) | 2025-10-10 13:00:00 | 2025-09-28 13:00:00 | 1576 |
 | 2102758 | Yogurt | Almarai Natural Yogurt Offer 9+3 Free (105g) | 2025-10-10 13:00:00 | 2025-09-28 13:00:00 | 568 |
 | 29084428 | Centralized Fresh | Avanti Greek Low Salt Cheese (450gm) | 2025-10-10 13:00:00 | 2025-09-28 13:00:00 | 209 |
-| 34531076 | Snacks | Breadfast Muddy Bites - Milk Chocolate (100g) | 2025-10-22 13:00:00 | 2025-10-10 13:00:00 | 6 |
 | 32596712 | Yogurt | Danone Light Yogurt Save 2 EGP (160g) | 2025-10-10 11:00:00 | 2025-09-28 11:00:00 | 48 |
 | 42096155 | Yogurt | Dango Strawberry 4 Cups (85gm) | 2025-10-10 11:00:00 | 2025-10-10 11:00:00 | 48 |
 | 39723041 | Yogurt | Danone Yogurt Plain 6 Cups (85g) | 2025-10-10 11:00:00 | 2025-09-28 11:00:00 | 64 |
@@ -412,14 +429,3 @@
 | 30433886 | Centralized Fresh | Katilo White Cheese Low Salt (500g) | 2025-10-10 11:00:00 | 2025-09-28 11:00:00 | 171 |
 | 4049979 | Frozen Meals | Smoke House Fully Cooked Beef Kofta (400g) | 2025-10-10 10:00:00 | 2025-09-22 10:00:00 | 1 |
 | 17829167 | Milk | Juhayna Full Cream Milk Multipack Pack Of 6 Save 10LE (1L) | 2025-10-28 03:00:00 | 2025-10-10 03:00:00 | 1 |
-| 5649697 | Food Cupboard | Breadfast Brown Lentils (400g) | 2025-11-15 00:00:00 | 2025-10-10 01:00:00 | 2 |
-| 31446164 | Snacks | Abu Auf Hazelnut in Shell (250g) | 2026-01-17 17:00:00 | 2025-10-09 18:00:00 | 10 |
-| 31446164 | Snacks | Abu Auf Hazelnut in Shell (250g) | 2026-01-17 17:00:00 | 2025-10-09 18:00:00 | 1 |
-| 1077032 | Centralized Fresh | Domty White Cheese Low Salt Natural Fat (Plastic) (700g) | 2025-10-09 18:00:00 | 2025-09-27 18:00:00 | 13 |
-| 17896843 | Frozen Desserts and Ice Cream | Kold Gelato Sundae Vanilla Caramel (500ml) | 2025-11-14 13:00:00 | 2025-10-09 14:00:00 | 5 |
-| 17896838 | Frozen Desserts and Ice Cream | Kold Gelato Vanilla (500ml) | 2025-11-14 12:00:00 | 2025-10-09 13:00:00 | 1 |
-| 249906 | Yogurt | Almarai Natural Yogurt (170g) | 2025-10-09 13:00:00 | 2025-09-30 13:00:00 | 1723 |
-| 32596666 | Yogurt | Danone Plain Yogurt Offer Save 2 EGP (160g) | 2025-10-09 11:00:00 | 2025-09-27 11:00:00 | 96 |
-| 42096275 | Yogurt | Dango Strawberry 6 Cups (85gm) | 2025-10-09 11:00:00 | 2025-10-09 11:00:00 | 144 |
-| 5649662 | Food Cupboard | Breadfast Fava Beans (400g) | 2025-11-14 00:00:00 | 2025-10-09 01:00:00 | 2 |
-| 5649966 | Food Cupboard | Breadfast Bulgur (400g) | 2025-11-14 00:00:00 | 2025-10-09 01:00:00 | 2 |
