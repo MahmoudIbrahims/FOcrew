@@ -7,4 +7,10 @@ class ProcessRequest(BaseModel):
     INDUSTRY_NAME:str =None
     Managers:str =None
     do_reset : Optional[int] = 0
+
+
+class DataAnaltsisRequest(BaseModel):
+    Language:str =None
+    
+    
     

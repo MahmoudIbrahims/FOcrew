@@ -1,4 +1,5 @@
-from Agents.Prompts import Data_processing_prompt,description_prompt,Visualization_Prompt,SendEmail_prompt
+from Agents.Prompts import (Data_processing_prompt,description_prompt,
+                            Visualization_Prompt,SendEmail_prompt)
 from Agents import DataProcessing,DataVisualizationExpert,ReportGeneratorAgent,ReportSenderAgent
 from .Enums.InventorymanagmentEnums import InventorManagmentEunms
 from fastapi import APIRouter ,status,Request,Depends
@@ -72,10 +73,12 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
     if Process_Request.Language== Languages.ARABIC.value:
                               
         crew = Crew(
-                    agents=[Data_Processing_Agent,
+                    agents=[
+                        Data_Processing_Agent,
                             Data_Visualization_Agent,ReportGenerator_Agent,Report_Sender_Agent],
                     
-                    tasks=[Data_Processing_task ,
+                    tasks=[
+                        Data_Processing_task ,
                            Data_Visualization_task,ReportGenerator_task,Report_Sender_tesk],
                             verbose=True
                                 )

@@ -9,6 +9,9 @@ from .InventoryManagment import DataVisualizationExpert
 from .InventoryManagment import ReportSenderAgent
 from .InventoryManagment import ReportGeneratorAgent
 #======================================================================
+from .DataAnalysis import DataAnalysisAgent
+
+#=============================================================
 from ..Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt
 from ..Prompts.DataprocessingPrompt import Data_processing_prompt
 from ..Prompts.VisualizationPrompt import Visualization_Prompt
