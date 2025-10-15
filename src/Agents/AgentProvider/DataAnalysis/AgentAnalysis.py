@@ -2,7 +2,7 @@ from crewai import Task
 from ..BaseAgent import BaseAgent
 from Providers import ProviderLLM
 from tools.JupyterNodebook import LiveJupyterKernelTool
-from tools.LiveNotebookTool import WindowNotebookTool
+from tools.LiveNotebookTool import FastAPINotebookTool  #WindowNotebookTool
 import os
 
 class DataAnalysisAgent(BaseAgent):
@@ -10,7 +10,7 @@ class DataAnalysisAgent(BaseAgent):
         provider = ProviderLLM()
         llm = provider.get_llm()
         jupyter_tool = LiveJupyterKernelTool()
-        window_tool = WindowNotebookTool()
+        window_tool = FastAPINotebookTool()
 
         super().__init__(
             name="Data Analysis Executor",
