@@ -1,78 +1,181 @@
 from crewai.tools import BaseTool
 from pydantic import BaseModel
 from typing import Type
-import threading, subprocess, sys, os
+import threading, os, io, contextlib, traceback
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse, JSONResponse
+import uvicorn
+import base64
+import matplotlib.pyplot as plt
 
 
 class NotebookInput(BaseModel):
     code: str
 
 
-class WindowNotebookTool(BaseTool):
+class FastAPINotebookTool(BaseTool):
     name: str = "Live Jupyter Notebook (Web)"
     description: str = (
-        "Runs and displays Python code execution visually like Jupyter Notebook using Streamlit, "
-        "keeping variables persistent and stacking new cells automatically."
+        "Runs and displays Python code execution visually like Jupyter Notebook "
+        "using FastAPI web interface with persistent variables and stacked cells."
     )
     args_schema: Type[BaseModel] = NotebookInput
 
+    _globals_dict = {}
+    _cells = []
+    _server_started = False
+    _port = 8001  
+
     def _run(self, code: str):
-       
-        os.makedirs("notebook_cells", exist_ok=True)
-        cell_path = f"notebook_cells/cell_{len(os.listdir('notebook_cells'))+1}.py"
-        with open(cell_path, "w", encoding="utf-8") as f:
-            f.write(code)
+        """run the code as new cell"""
+        os.makedirs("fastapi_notebook", exist_ok=True)
+        output, error, image_data = self._execute_code(code)
 
+        self._cells.append({
+            "code": code.strip(),
+            "output": output.strip(),
+            "error": error.strip() if error else None,
+            "image": image_data
+        })
+
+        if not self._server_started:
+            threading.Thread(target=self._start_server, daemon=True).start()
+            self._server_started = True
+
+        return f"✅ Code executed and added as a new cell → open http://localhost:{self._port} to view the live notebook."
+
+    def _execute_code(self, code: str):
       
-        with open("live_notebook_app.py", "w", encoding="utf-8") as f:
-            f.write(self._generate_app())
+        f_output = io.StringIO()
+        img_data = None
+        with contextlib.redirect_stdout(f_output), contextlib.redirect_stderr(f_output):
+            try:
+                plt.close("all")
+                exec(code, self._globals_dict)
 
+                if plt.get_fignums():
+                    buf = io.BytesIO()
+                    plt.savefig(buf, format="png")
+                    buf.seek(0)
+                    img_data = base64.b64encode(buf.read()).decode("utf-8")
+
+                return f_output.getvalue(), None, img_data
+            except Exception:
+                return "", traceback.format_exc(), None
+
+    def _start_server(self):
         
-        if not getattr(self, "_server_running", False):
-            threading.Thread(target=self._run_streamlit_server, daemon=True).start()
-            self._server_running = True
+        app = self._build_app()
+        uvicorn.run(app, host="0.0.0.0", port=self._port, log_level="error")
 
-        return f"✅ Added new code cell → open http://localhost:8501 to see it live."
+    def _build_app(self):
+        app = FastAPI(title="FOcrew Live Notebook")
 
-    def _run_streamlit_server(self):
-        subprocess.run(
-            [sys.executable, "-m", "streamlit", "run", "live_notebook_app.py", "--server.headless=true"]
-        )
+        @app.get("/", response_class=HTMLResponse)
+        def home():
+            return self._generate_notebook_view()
 
-    def _generate_app(self) -> str:
-        """يبني تطبيق Streamlit يحاكي Jupyter Notebook بالكامل"""
-        return """
-import streamlit as st
-import io, contextlib, traceback, glob, os
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
+        @app.get("/cells")
+        def get_cells():
+            return JSONResponse({"cells": self._cells})
 
-st.set_page_config(page_title="🧠 Live Jupyter Notebook", layout="wide")
-st.markdown("<h1 style='color:#00FFAA; text-align:center;'>🧠 AI Data Analyst - Interactive Notebook</h1>", unsafe_allow_html=True)
+        return app
 
-if "globals_dict" not in st.session_state:
-    st.session_state.globals_dict = {}
+    def _generate_notebook_view(self) -> str:
+        return f"""
+        <html>
+        <head>
+            <title>FOcrew Notebook</title>
+            <style>
+                body {{
+                    background-color: #fafafa;
+                    color: #1a1a1a;
+                    font-family: 'Source Code Pro', monospace;
+                    padding: 30px;
+                }}
+                h1 {{
+                    text-align: center;
+                    color: #0055cc;
+                    margin-bottom: 30px;
+                }}
+                .cell {{
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    padding: 15px;
+                    background: #fff;
+                    margin-bottom: 20px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+                    transition: all 0.3s ease-in-out;
+                }}
+                pre {{
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                    padding: 10px;
+                    white-space: pre-wrap;
+                    overflow-x: auto;
+                    color: #333;
+                }}
+                .error {{
+                    background: #ffeaea;
+                    border-left: 4px solid #ff5555;
+                    padding: 10px;
+                    color: #a00000;
+                    border-radius: 5px;
+                }}
+                img {{
+                    max-width: 100%;
+                    border-radius: 5px;
+                    margin-top: 10px;
+                }}
+                .label {{
+                    font-weight: bold;
+                    color: #888;
+                }}
+                .input {{
+                    color: #0d6efd;
+                }}
+                .output {{
+                    color: #444;
+                }}
+            </style>
+        </head>
+        <body>
+            <h1>FOcrew Live Notebook</h1>
+            <div id="cells"></div>
+            <script>
+                let lastCount = 0;
+                async function loadCells() {{
+                    const res = await fetch('/cells');
+                    const data = await res.json();
+                    const container = document.getElementById('cells');
 
-cell_files = sorted(glob.glob("notebook_cells/cell_*.py"))
+                    if (data.cells.length === lastCount) return; // 
+                    lastCount = data.cells.length;
 
-for i, cell in enumerate(cell_files, start=1):
-    with open(cell, "r", encoding="utf-8") as f:
-        code = f.read()
-    st.markdown(f"### 🧩 Cell {i}")
-    st.code(code, language="python")
+                    container.innerHTML = '';
+                    data.cells.forEach((cell, i) => {{
+                        container.innerHTML += `
+                            <div class='cell'>
+                                <div class='label input'>In [${{i+1}}]:</div>
+                                <pre>${{cell.code}}</pre>
+                                ${{
+                                    cell.error
+                                        ? `<div class='label output'>Error:</div><pre class='error'>${{cell.error}}</pre>`
+                                        : `<div class='label output'>Out [${{i+1}}]:</div><pre>${{cell.output || ''}}</pre>`
+                                }}
+                                ${{cell.image ? `<img src='data:image/png;base64,${{cell.image}}'/>` : ''}}
+                            </div>
+                        `;
+                    }});
 
-    f_output = io.StringIO()
-    with contextlib.redirect_stdout(f_output), contextlib.redirect_stderr(f_output):
-        try:
-            plt.close("all")
-            exec(code, st.session_state.globals_dict)
-            out_text = f_output.getvalue()
-            if out_text.strip():
-                st.text_area("Output", out_text, height=180, key=f"out_{i}")
-            if plt.get_fignums():
-                st.pyplot(plt.gcf())
-        except Exception:
-            st.text_area("❌ Error", traceback.format_exc(), height=200, key=f"err_{i}")
+                    // تمرير تلقائي لآخر خلية
+                    window.scrollTo({{ top: document.body.scrollHeight, behavior: 'smooth' }});
+                }}
 
-"""
+                setInterval(loadCells, 1000); // update after 1 second
+                loadCells();
+            </script>
+        </body>
+        </html>
+        """
+
