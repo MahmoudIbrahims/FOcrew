@@ -10,6 +10,7 @@ cd src
 ```bash
 cd Models/schema
 ```
+
 #### Initiolization alembic:
 ```bash
 alembic init alembic
