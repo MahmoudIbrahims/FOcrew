@@ -1,6 +1,8 @@
 import subprocess
+import os
 from crewai.tools import BaseTool
 from pydantic import Field
+from typing import Optional
 
 
 class RunCommandTool(BaseTool):
@@ -10,13 +12,17 @@ class RunCommandTool(BaseTool):
         "and returns the full output."
     )
 
-    working_dir: str = Field(".", description="The working directory (default is current directory)")
+    working_dir: Optional[str] = Field("working", description="The working directory (default is 'working')")
 
-    def _run(self, command: str, working_dir: str = ".") -> str:
+
+    def _run(self, command: str, working_dir: str = "working") -> str:
         """
         Execute a shell command and return its output.
         """
         try:
+            # Ensure the directory exists, create it if it doesn't
+            os.makedirs(self.working_dir, exist_ok=True)
+
             process = subprocess.Popen(
                 command,
                 shell=True,
@@ -29,11 +35,11 @@ class RunCommandTool(BaseTool):
             error_code = process.returncode
 
             # Clip overly long outputs to avoid flooding the console
-            if len(output) > 2000:
+            if len(output) > 1400:
                 output = (
-                    output[:500]
+                    output[:700]
                     + "\n\n[...content clipped...]\n\n"
-                    + output[-500:]
+                    + output[-700:]
                 )
 
             if error_code == 0:
@@ -42,4 +48,4 @@ class RunCommandTool(BaseTool):
                 return f"❌ Command failed (exit code={error_code}):\n{output}"
 
         except Exception as e:
-            return f"⚠️ Exception occurred: {str(e)}"
+            return f"⚠️ An exception occurred: {str(e)}"
