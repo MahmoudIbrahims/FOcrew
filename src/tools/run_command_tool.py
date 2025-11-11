@@ -31,9 +31,9 @@ class RunCommandTool(BaseTool):
             # Clip overly long outputs to avoid flooding the console
             if len(output) > 2000:
                 output = (
-                    output[:1000]
+                    output[:500]
                     + "\n\n[...content clipped...]\n\n"
-                    + output[-1000:]
+                    + output[-500:]
                 )
 
             if error_code == 0:
