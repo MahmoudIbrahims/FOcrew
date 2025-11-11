@@ -10,7 +10,14 @@ cd src
 ```bash
 cd Models/schema
 ```
-#### Initiolization alembic:
+
+
+### copy the alembic.ini file  or Initiolization alembic::
+
+```bash
+ cp alembic.ini.example alembic.ini
+ ```
+
 ```bash
 alembic init alembic
 ```
@@ -37,11 +44,5 @@ alembic revision --autogenerate -m "initial commit"
 ```bash
 alembic upgrade head
 ```
-#### -------------------------------------------
-### How to use :
-
-#### Copy the file and update sqlalchemy.url:
-```bash
-cp alembic.ini.example alempic.ini
-```
+# ------------------------------------------
 
