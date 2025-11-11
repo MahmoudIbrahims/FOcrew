@@ -22,3 +22,4 @@ jupyter-client==8.6.3
 ipykernel==6.30.1
 customtkinter==5.2.2
 streamlit==1.50.0
+subprocess.run==0.0.8

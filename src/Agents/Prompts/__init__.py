@@ -3,4 +3,4 @@ from .DataprocessingPrompt import Data_processing_prompt
 from .VisualizationPrompt import Visualization_Prompt
 from .MarkdownToPDFReportPrompt import description_prompt
 from .SendEmailprompt import SendEmail_prompt
-from .DataAnalysisPrompt import Data_analysis_prompt
+from .DataAnalysisPrompt import Data_analysis_prompt,data_reader_prompt

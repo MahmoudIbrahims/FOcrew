@@ -45,7 +45,7 @@ cd src
 ```
 #### Install the dependencis
 ```bash
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
 
 #### Copy file .env from .env.example:

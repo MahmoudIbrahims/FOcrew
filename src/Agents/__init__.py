@@ -2,7 +2,11 @@ from .AgentProvider import DataProcessing
 from .AgentProvider import DataVisualizationExpert
 from .AgentProvider import ReportGeneratorAgent
 from .AgentProvider import ReportSenderAgent
-from .AgentProvider import DataAnalysisAgent
+from .AgentProvider import DataReaderAgent
+from .AgentProvider import DataCleanerAgent
+from .AgentProvider import DataAnalyzerAgent
+from .AgentProvider import DataVisualizerAgent
+from .AgentProvider import ReportWriterAgent
 #______________________________________________________________
 from .AgentProvider import TranslationEnglishArabic
 from .Prompts.AnalysisReportPrompt import description_prompt, expected_output_prompt
