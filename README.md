@@ -9,14 +9,6 @@
   <strong>Future-Oriented Crew</strong><br>
 </p>
 
-<pre>
-    __________             
-   / ____/ __ \_____________ _      __
-  / /_  / / / / ___/ ___/ _ \ | /| / /
- / __/ / /_/ / /__/ /  /  __/ |/ |/ / 
-/_/    \____/\___/_/   \___/|__/|__/  
-</pre>
-
 ## What is FOcrew? 
 
 * FOcrew is an open-source Multi-Agent System powered by AI,
