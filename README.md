@@ -59,6 +59,9 @@ cp .env.example .env
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
+#### Result for Data Analysis Agent 
+[report.md](src/results/Data_Analysis/Analysis_Report.md)
+
 #### Result for Agent inventory managment 
 [report.md](src/results/inventory_management/report.pdf)
 
