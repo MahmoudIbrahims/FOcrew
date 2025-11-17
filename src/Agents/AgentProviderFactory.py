@@ -1,7 +1,8 @@
 import os
 from crewai import Crew
 from .AgentEnums import AgentName ,Languages
-
+from typing import Optional
+from pathlib import Path
 #=========== marketing stratgey planner============
 from .AgentProvider import SWOTAnalyst
 from .AgentProvider import MarketingStrategist
@@ -24,7 +25,8 @@ class AgentProviderFactory:
     def __init__(self,config : dict ):  
         self.config =config 
     
-    def create(self, Crew_Name: str ,lanuage:str ,file_path:str,logo_company:str,Managers:str):
+    def create(self, Crew_Name: str ,lanuage:str,logo_company:str,
+                                        Managers:str,file_path: Optional[str] = None):
         
         if Crew_Name == AgentName.MARKETING_STRATGEY_PLANNER.value:
             SWOT_Analyst = SWOTAnalyst()
@@ -78,8 +80,12 @@ class AgentProviderFactory:
                     
         elif Crew_Name ==AgentName.INVENTORY_MANAGMENT.value:
             
-            if not os.path.exists(file_path):
-                raise FileNotFoundError(f"Inventory file not found:{file_path}")
+            # if not os.path.exists(file_path):
+            #     raise FileNotFoundError(f"Inventory file not found:{file_path}")
+
+            if not file_path or not Path(file_path).exists():
+                print(f"Inventory file not found: {file_path}, skipping...")
+                file_path = None
 
             Data_Processing =DataProcessing()
             Data_Visualization =DataVisualizationExpert()

@@ -1,7 +1,11 @@
-## How to run the docker compose :
+## How to run the docker compose and copy env  :
 
 ```bash
 cd docker
+```
+
+```bash
+cp .env.example .env
 ```
 
 ```bash

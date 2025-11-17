@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import base,UploadfileEndpoint,InventoryManagmentEndpoint
+from routes import base,UploadfileEndpoint,InventoryManagmentEndpoint,DataAnalysisEndpoint
 from helpers.config import get_settings
 from Agents.AgentProviderFactory import AgentProviderFactory
 from sqlalchemy.ext.asyncio import create_async_engine,AsyncSession
@@ -43,3 +43,4 @@ app.on_event("shutdown")(shutdown_span)
 app.include_router(base.base_router)
 app.include_router(UploadfileEndpoint.data_router)
 app.include_router(InventoryManagmentEndpoint.agent_router)
+app.include_router(DataAnalysisEndpoint.agent_router)

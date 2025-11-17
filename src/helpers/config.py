@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from typing import List
+from typing import List,Optional
 
 class Settings(BaseSettings):
     
@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     
     AGENT_NAME:str
     AGANT_NAME_LITERAL:List[str]=None
-    DATA_PATH:str
+    DATA_PATH:Optional[str] = None
     
     COMPANY_NAME:str
     INDUSTRY_NAME:str
