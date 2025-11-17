@@ -24,7 +24,7 @@ class ReportWriterAgent(BaseAgent):
                     "Steps:\n"
                     "1. Combine data summaries, analysis, and visual insights.\n"
                     "2. Write an executive-style report highlighting key insights, trends, and recommendations.\n"
-                    "3. Save the report to results/Analysis_Report.md using MarkdownTool."
+                    "3. Save the report to results/Data_Analysis/Analysis_Report.md using MarkdownTool."
                 ),
                 expected_output="A clear and well-structured Markdown report containing insights and recommendations.",
                 agent=self.get_agent(),
