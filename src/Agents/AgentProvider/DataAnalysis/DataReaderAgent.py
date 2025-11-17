@@ -25,7 +25,7 @@ class DataReaderAgent(BaseAgent):
                 "1. Detect the file type (CSV, Excel, or JSON).\n"
                 "2. Load the dataset into a pandas DataFrame.\n"
                 "3. Display the first few rows and dataset structure (columns, types, shape).\n"
-                "4. Return a summary that will be passed to the next agent."
+                "4. Return a Markdown-formatted summary including shape, columns, dtypes, and sample data."
             ),
             expected_output="A summary of the dataset structure, column details, and head preview.",
             agent=self.get_agent(),
