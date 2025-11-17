@@ -8,6 +8,7 @@ __pycache__/
 
 Dataset/*
 
+working/*
 # Distribution / packaging
 .Python
 build/
