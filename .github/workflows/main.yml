@@ -48,9 +48,9 @@ jobs:
       - name: 🧪 Run Unit and Integration Tests
         # Assuming your tests are run using pytest and located in 'src/'
         run: |
-          # Set the environment variable for your database connection for testing
-          # Adjust DB connection string if necessary
-          export DATABASE_URL="postgresql://user:password@localhost:5432/testdb" 
+          # Sets the secure connection string using the defined Secret and DB configuration.
+          export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB" 
+          # Runs your tests
           pytest src/
       
       # 5. Build/Lint/Format (Optional but recommended)
