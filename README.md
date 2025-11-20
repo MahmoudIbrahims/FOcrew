@@ -1,63 +1,56 @@
-![Image](https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604)
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604" alt="FOcrew Logo" width="150"/>
+</p>
 
 <h1 align="center">
-  🌟 FOcrew
+  🌟 FOcrew: Future-Oriented Crew
 </h1>
 
 <p align="center">
-  <strong>Future-Oriented Crew</strong><br>
+  <strong>Automate, Decide, Scale: Your AI Multi-Agent Operating System.</strong><br>
+  A powerful open-source framework for enterprise productivity and intelligent decision support.
 </p>
 
-## What is FOcrew? 
+---
 
-* FOcrew is an open-source Multi-Agent System powered by AI,
-* designed for business productivity, automation, and intelligent decision support. Built using Python, FastAPI, and CrewAI,
-* FOcrew provides a modular platform to automate data analysis, generate actionable reports, and streamline business operations.
+<p align="center">
+  <a href="https://github.com/MahmoudIbrahims/FOcrew/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/MahmoudIbrahims/FOcrew/ci.yml?branch=main&label=CI%20Build" alt="CI Build Status">
+  </a>
+  <a href="#license">
+    <img src="https://img.shields.io/github/license/MahmoudIbrahims/FOcrew" alt="License">
+  </a>
+  <img src="https://img.shields.io/badge/Python-3.10+-blue" alt="Python Version">
+  <img src="https://img.shields.io/badge/Framework-CrewAI%2FFastAPI-red" alt="Frameworks Used">
+</p>
 
-### Requirements
-* python 3.10 
-* install python using Miniconda
-* Download and install Miniconda .
+---
 
+## 💡 What is FOcrew?
 
-#### Create a new environment using the following command:
-```bash
-$ conda create -n coreAgent python=3.10
-```
-#### Activate coreAgent
-```bash
-conda activate coreAgent
-```
-### How to run the FOcrew:
+FOcrew is a highly modular, open-source **Multi-Agent System** designed to revolutionize business automation. Built on Python, FastAPI, and CrewAI, it provides a robust platform for creating specialized, collaborative AI agents that:
 
-#### First run the image postgres 
-```bash
-cd docker
-```
-```bash
-sudo docker compose up -d
-```
-#### Open new terminal and run the app
+* **⚡ Boost Productivity:** Automate time-consuming business processes.
+* **📊 Enable Intelligence:** Generate sophisticated data analysis and actionable reports.
+* **🧩 Ensure Scalability:** Use a decoupled architecture for easy integration and deployment.
 
-```bash
-cd src
-```
-#### Install the dependencis
-```bash
-uv pip install -r requirements.txt
-```
+### Key Features
 
-#### Copy file .env from .env.example:
+* **Modular Agent Design:** Easily add, remove, or customize specialized agents.
+* **Asynchronous Task Handling:** Ready for production with FastAPI backend.
+* **PostgreSQL Integration:** Robust data storage for agent memory and history.
+
+---
+
+#### 1. Environment Setup
+
+Create and activate a dedicated Python environment:
 
 ```bash
-cp .env.example .env
+$conda create -n coreAgent python=3.10
 ```
-
-#### Run the app:
+------------------------------
 ```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+$conda activate coreAgent
 ```
-
-#### Result for Data Analysis Agent 
-[report.md](src/results/Data_Analysis/Analysis_Report.md)
+-------------------------------
