@@ -26,38 +26,36 @@ jobs:
           python-version: '3.10'
           cache: 'pip' # Cache dependencies for faster runs
 
-      # 2. Install Dependencies (Corrected to use .venv)
+      # 2. Install Dependencies (Using UV for reliable venv management)
       - name: 📦 Install project dependencies (using UV)
         run: |
-          # Install uv globally on the runner
+          # 1. Install uv globally on the runner
           pip install uv
-          # Create the virtual environment (.venv)
+          # 2. Create the virtual environment (.venv)
           uv venv
-          # Install dependencies into the created .venv
+          # 3. Install project dependencies into the created .venv
           uv pip install -r src/requirements.txt
-          # Also install linter (flake8) into the venv now for step 5
-          ./.venv/bin/pip install flake8
+          # 4. Install the linter (flake8) using uv, which targets the .venv
+          uv pip install flake8
 
       # 3. Database Setup (Crucial step for a FastAPI project using Postgres)
       - name: 🐳 Start PostgreSQL Database
         run: |
           echo "Waiting for PostgreSQL service to be ready..."
-          # This pause is still needed to ensure the DB service is up
           sleep 10
 
-      # 4. Run Tests (Now using the pytest executable from the .venv)
+      # 4. Run Tests (Explicitly use the executable from the .venv)
       - name: 🧪 Run Unit and Integration Tests
         run: |
-          # Sets the secure connection string
+          # Set the secure database connection string
           export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB"
-          # Runs tests using the executable installed in the .venv
+          # Run tests using the pytest executable installed in .venv
           ./.venv/bin/pytest src/
 
-      # 5. Run Linter (Now using the flake8 executable from the .venv)
+      # 5. Run Linter (Explicitly use the executable from the .venv)
       - name: 🔎 Run Linter (e.g., Flake8 or Black)
-        # Note: flake8 installation was moved to step 2 to simplify this step
         run: |
-          # Run flake8 using the executable installed in the .venv
+          # Run flake8 using the executable installed in .venv
           ./.venv/bin/flake8 src/
 
     services:
