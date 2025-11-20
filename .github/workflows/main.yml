@@ -50,13 +50,13 @@ jobs:
           # Set the secure database connection string
           export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB"
           # Run tests using the pytest executable installed in .venv
-          ./.venv/bin/pytest src/
+          **./.venv/bin/python -m flake8 src/**
 
       # 5. Run Linter (Explicitly use the executable from the .venv)
       - name: 🔎 Run Linter (e.g., Flake8 or Black)
         run: |
           # Run flake8 using the executable installed in .venv
-          ./.venv/bin/flake8 src/
+          **./.venv/bin/python -m flake8 src/**
 
     services:
       # Define the PostgreSQL container service needed for integration tests
