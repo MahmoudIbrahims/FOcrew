@@ -49,8 +49,8 @@ Create and activate a dedicated Python environment:
 ```bash
 $conda create -n coreAgent python=3.10
 ```
-------------------------------
+-------
 ```bash
 $conda activate coreAgent
 ```
--------------------------------
+-------
