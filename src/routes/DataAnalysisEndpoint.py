@@ -1,6 +1,6 @@
 from Agents.Prompts import data_reader_prompt
 from Agents import (DataReaderAgent,DataCleanerAgent,
-                    DataAnalyzerAgent,DataVisualizerAgent,ReportWriterAgent)
+                    DataAnalyzerAgent,DataVisualizerAgent,ReportWriterAgent,ReportGeneratorAgent)
 from fastapi import APIRouter ,status,Request,Depends
 from helpers.config import get_settings, Settings
 from Models.ProjectModel import ProjectModel
@@ -58,14 +58,19 @@ async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request
     Report_Writer = ReportWriterAgent()
     Report_Writer_Agent =Report_Writer.get_agent()
     Report_Writer_task =Report_Writer.get_task()
+
+
+    Report_Generator = ReportGeneratorAgent()
+    Report_Generator_Agent =Report_Generator.get_agent()
+    Report_Generator_task =Report_Generator.get_task()
     
     if DataAnaltsis_Request.Language== Languages.ARABIC.value:
                               
         crew = Crew(
                     agents=[Data_Reader_Agent,Data_Cleaner_Agent,Data_Analyzer_Agent,
-                            Data_Visualizer_Agent,Report_Writer_Agent],
+                            Data_Visualizer_Agent,Report_Writer_Agent,Report_Generator_Agent],
                     
-                    tasks=[Data_Reader_task,Data_Cleane_task,Data_Analyzer_task,Data_Visualizer_task,Report_Writer_task],
+                    tasks=[Data_Reader_task,Data_Cleane_task,Data_Analyzer_task,Data_Visualizer_task,Report_Writer_task,Report_Generator_task],
                     
                             verbose=True
                                 )

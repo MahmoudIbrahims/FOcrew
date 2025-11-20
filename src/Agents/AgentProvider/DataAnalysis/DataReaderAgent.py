@@ -1,4 +1,4 @@
-from crewai import Agent,Task
+from crewai import Task
 from tools.file_tool import FileReaderTool
 from Providers import ProviderLLM
 from ..BaseAgent import BaseAgent
@@ -7,7 +7,6 @@ class DataReaderAgent(BaseAgent):
     def __init__(self):
         llm = ProviderLLM().get_llm()
         reader_tool = FileReaderTool()
-
         super().__init__(
             name="DataReaderAgent",
             role="Data Reader",
