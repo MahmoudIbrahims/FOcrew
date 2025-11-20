@@ -10,54 +10,55 @@ on:
     branches:
       - main
       - "release/**"
-      
+
 jobs:
   test_and_build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: ⬇️ Checkout code
         uses: actions/checkout@v4
-      
+
       # 1. Setup Python Environment
       - name: 🛠️ Set up Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           cache: 'pip' # Cache dependencies for faster runs
-      
-      # 2. Install Dependencies (Using UV or standard pip)
-      - name: 📦 Install project dependencies (using UV if preferred)
-        # Note: If uv is not globally available, you might need to install it first.
-        # Alternatively, use a standard 'pip install -r src/requirements.txt'
+
+      # 2. Install Dependencies (Corrected to use .venv)
+      - name: 📦 Install project dependencies (using UV)
         run: |
-          pip install uv  # Install uv
+          # Install uv globally on the runner
+          pip install uv
+          # Create the virtual environment (.venv)
+          uv venv
+          # Install dependencies into the created .venv
           uv pip install -r src/requirements.txt
-          
+          # Also install linter (flake8) into the venv now for step 5
+          ./.venv/bin/pip install flake8
+
       # 3. Database Setup (Crucial step for a FastAPI project using Postgres)
       - name: 🐳 Start PostgreSQL Database
-        # Uses a service container defined later, or a setup action
         run: |
-          # The service container setup is implicitly handled by the job configuration below.
-          # Here we ensure wait-for-it or similar tool is used to confirm readiness.
           echo "Waiting for PostgreSQL service to be ready..."
-          # Example: Wait for the default port 5432 to be open
-          sleep 10 
+          # This pause is still needed to ensure the DB service is up
+          sleep 10
 
-      # 4. Run Tests (Adapt this based on your testing framework: pytest, unittest)
+      # 4. Run Tests (Now using the pytest executable from the .venv)
       - name: 🧪 Run Unit and Integration Tests
-        # Assuming your tests are run using pytest and located in 'src/'
         run: |
-          # Sets the secure connection string using the defined Secret and DB configuration.
-          export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB" 
-          # Runs your tests
-          pytest src/
-      
-      # 5. Build/Lint/Format (Optional but recommended)
+          # Sets the secure connection string
+          export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB"
+          # Runs tests using the executable installed in the .venv
+          ./.venv/bin/pytest src/
+
+      # 5. Run Linter (Now using the flake8 executable from the .venv)
       - name: 🔎 Run Linter (e.g., Flake8 or Black)
+        # Note: flake8 installation was moved to step 2 to simplify this step
         run: |
-          pip install flake8
-          flake8 src/
+          # Run flake8 using the executable installed in the .venv
+          ./.venv/bin/flake8 src/
 
     services:
       # Define the PostgreSQL container service needed for integration tests
