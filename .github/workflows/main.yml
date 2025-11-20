@@ -1,0 +1,76 @@
+name: 🐍 CI/CD Pipeline for FOcrew (Python)
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+    paths:
+      - "src/**"
+  pull_request:
+    branches:
+      - main
+      - "release/**"
+      
+jobs:
+  test_and_build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+      
+      # 1. Setup Python Environment
+      - name: 🛠️ Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip' # Cache dependencies for faster runs
+      
+      # 2. Install Dependencies (Using UV or standard pip)
+      - name: 📦 Install project dependencies (using UV if preferred)
+        # Note: If uv is not globally available, you might need to install it first.
+        # Alternatively, use a standard 'pip install -r src/requirements.txt'
+        run: |
+          pip install uv  # Install uv
+          uv pip install -r src/requirements.txt
+          
+      # 3. Database Setup (Crucial step for a FastAPI project using Postgres)
+      - name: 🐳 Start PostgreSQL Database
+        # Uses a service container defined later, or a setup action
+        run: |
+          # The service container setup is implicitly handled by the job configuration below.
+          # Here we ensure wait-for-it or similar tool is used to confirm readiness.
+          echo "Waiting for PostgreSQL service to be ready..."
+          # Example: Wait for the default port 5432 to be open
+          sleep 10 
+
+      # 4. Run Tests (Adapt this based on your testing framework: pytest, unittest)
+      - name: 🧪 Run Unit and Integration Tests
+        # Assuming your tests are run using pytest and located in 'src/'
+        run: |
+          # Set the environment variable for your database connection for testing
+          # Adjust DB connection string if necessary
+          export DATABASE_URL="postgresql://user:password@localhost:5432/testdb" 
+          pytest src/
+      
+      # 5. Build/Lint/Format (Optional but recommended)
+      - name: 🔎 Run Linter (e.g., Flake8 or Black)
+        run: |
+          pip install flake8
+          flake8 src/
+
+    services:
+      # Define the PostgreSQL container service needed for integration tests
+      postgres:
+        image: pgvector/pgvector:0.8.0-pg17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_TEST_PASSWORD }}
+          POSTGRES_DB: FOcrew_DB
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
