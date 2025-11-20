@@ -26,17 +26,21 @@ jobs:
           python-version: '3.10'
           cache: 'pip' # Cache dependencies for faster runs
 
-      # 2. Install Dependencies (Using UV for reliable venv management)
+      # 2. Install Dependencies & Activate Venv Path (The fix for all path errors)
       - name: 📦 Install project dependencies (using UV)
         run: |
-          # 1. Install uv globally on the runner
+          # 1. Install uv globally
           pip install uv
           # 2. Create the virtual environment (.venv)
           uv venv
-          # 3. Install project dependencies into the created .venv
+          # 3. Install project dependencies and linter into the created .venv
           uv pip install -r src/requirements.txt
-          # 4. Install the linter (flake8) using uv, which targets the .venv
           uv pip install flake8
+          
+          # 4. **CRITICAL FIX:** Add the venv's 'bin' directory to the system PATH
+          # This ensures 'pytest' and 'flake8' are found in subsequent steps.
+          echo "VENV_PATH=$(pwd)/.venv/bin" >> $GITHUB_ENV
+          echo "$VENV_PATH" >> $GITHUB_PATH
 
       # 3. Database Setup (Crucial step for a FastAPI project using Postgres)
       - name: 🐳 Start PostgreSQL Database
@@ -44,19 +48,19 @@ jobs:
           echo "Waiting for PostgreSQL service to be ready..."
           sleep 10
 
-      # 4. Run Tests (Explicitly use the executable from the .venv)
+      # 4. Run Tests (Simple call, PATH handles the location)
       - name: 🧪 Run Unit and Integration Tests
         run: |
           # Set the secure database connection string
           export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB"
-          # Run tests using the pytest executable installed in .venv
-          **./.venv/bin/python -m flake8 src/**
+          # Run tests. The shell finds 'pytest' via the updated PATH.
+          pytest src/
 
-      # 5. Run Linter (Explicitly use the executable from the .venv)
+      # 5. Run Linter (Simple call, PATH handles the location)
       - name: 🔎 Run Linter (e.g., Flake8 or Black)
         run: |
-          # Run flake8 using the executable installed in .venv
-          **./.venv/bin/python -m flake8 src/**
+          # Run flake8. The shell finds 'flake8' via the updated PATH.
+          flake8 src/
 
     services:
       # Define the PostgreSQL container service needed for integration tests
