@@ -1,78 +1,57 @@
-name: 🐍 CI/CD Pipeline for FOcrew (Python)
+name: 🐍 CI/CD Pipeline for FOcrew (Basic Python)
+
+# 🚀 Triggers: Defines when this workflow will run
 on:
   push:
     branches:
       - main
-      - "release/**"
+      - "release/**" # Runs on main and any branches starting with 'release'
     paths:
-      - "src/**"
+      - "src/**" # Only runs when files inside the src/ folder change
   pull_request:
     branches:
       - main
-      - "release/**"
 
 jobs:
   test_and_build:
+    # ⚙️ Runner environment definition
     runs-on: ubuntu-latest
+    
+    # 📝 Basic Environment Variables (optional but useful)
+    env:
+      PYTHON_VERSION: '3.10'
+      
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
 
-    services:
-      # Define the PostgreSQL container service needed for integration tests
-      postgres:
-        image: pgvector/pgvector:0.8.0-pg17
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_TEST_PASSWORD }}
-          POSTGRES_DB: FOcrew_DB
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+      - name: 🐍 Setup Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          # caching: 'pip' # Uncomment to enable pip caching for faster installs
 
-    # steps:
-    #   - name: ⬇️ Checkout code
-    #     uses: actions/checkout@v4
+      - name: ⚙️ Install dependencies
+        run: |
+          # Upgrade pip
+          python -m pip install --upgrade pip
+          # Install dependencies from requirements.txt (or pyproject.toml)
+          pip install -r requirements.txt
+          # Install testing tools like pytest
+          pip install pytest
 
-    #   - name: 🛠️ Set up Python 3.10
-    #     uses: actions/setup-python@v5
-    #     with:
-    #       python-version: '3.10'
-    #       cache: 'pip'
-    #       cache-dependency-path: 'requirements.txt' # <--- USE THIS
-          
-    #   - name: Install dependencies
-    #     run: |
-    #       python -m pip install --upgrade pip
-    #       pip install -r requirements.txt
+      - name: ✅ Run tests
+        # Assuming you have a tests/ folder and pytest is configured
+        run: pytest
 
-      # # 2. 🚀 Install, Start DB Wait, Test, and Lint (ALL IN ONE STEP)
-      # - name: 📦 Install Dependencies, Test & Lint
-      #   run: |
-      #     # --- INSTALLATION ---
-      #     # 1. Install uv globally
-      #     pip install uv
-          
-      #     # 2. Create and ACTIVATE the virtual environment. 
-      #     # Activation persists for the rest of this 'run' block.
-      #     uv venv
-      #     source ./.venv/bin/activate
-          
-      #     # 3. Install project dependencies, pytest, and flake8 into the activated venv
-      #     uv pip install -r src/requirements.txt
-      #     uv pip install pytest flake8
-          
-      #     # --- DATABASE WAIT (Replaces original Step 3) ---
-      #     echo "Waiting for PostgreSQL service to be ready..."
-      #     sleep 10
-          
-      #     # --- RUN TESTS (Replaces original Step 4) ---
-      #     # 4. Set the secure database connection string
-      #     export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB"
-      #     # Run tests using the activated environment
-      #     pytest src/
-          
-      #     # --- RUN LINTER (Replaces original Step 5) ---
-      #     # 5. Run the linter using the activated environment
-      #     flake8 src/
+      - name: 📦 Build/Package (Generate Source Distribution)
+        # This command creates distribution files (sdist and wheel) 
+        # and requires a pyproject.toml or setup.py file to be present.
+        run: python -m build
+        
+      # Optional: Uncomment this section to upload the built package as an artifact
+      # - name: ⬆️ Upload build artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: fo_crew-package
+      #     path: dist/
