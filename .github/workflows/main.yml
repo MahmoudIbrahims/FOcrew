@@ -10,54 +10,10 @@ on:
     branches:
       - main
       - "release/**"
-      
+
 jobs:
   test_and_build:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
-      
-      # 1. Setup Python Environment
-      - name: 🛠️ Set up Python 3.10
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          cache: 'pip' # Cache dependencies for faster runs
-      
-      # 2. Install Dependencies (Using UV or standard pip)
-      - name: 📦 Install project dependencies (using UV if preferred)
-        # Note: If uv is not globally available, you might need to install it first.
-        # Alternatively, use a standard 'pip install -r src/requirements.txt'
-        run: |
-          pip install uv  # Install uv
-          uv pip install -r src/requirements.txt
-          
-      # 3. Database Setup (Crucial step for a FastAPI project using Postgres)
-      - name: 🐳 Start PostgreSQL Database
-        # Uses a service container defined later, or a setup action
-        run: |
-          # The service container setup is implicitly handled by the job configuration below.
-          # Here we ensure wait-for-it or similar tool is used to confirm readiness.
-          echo "Waiting for PostgreSQL service to be ready..."
-          # Example: Wait for the default port 5432 to be open
-          sleep 10 
-
-      # 4. Run Tests (Adapt this based on your testing framework: pytest, unittest)
-      - name: 🧪 Run Unit and Integration Tests
-        # Assuming your tests are run using pytest and located in 'src/'
-        run: |
-          # Sets the secure connection string using the defined Secret and DB configuration.
-          export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB" 
-          # Runs your tests
-          pytest src/
-      
-      # 5. Build/Lint/Format (Optional but recommended)
-      - name: 🔎 Run Linter (e.g., Flake8 or Black)
-        run: |
-          pip install flake8
-          flake8 src/
 
     services:
       # Define the PostgreSQL container service needed for integration tests
@@ -74,3 +30,49 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
+    # steps:
+    #   - name: ⬇️ Checkout code
+    #     uses: actions/checkout@v4
+
+    #   - name: 🛠️ Set up Python 3.10
+    #     uses: actions/setup-python@v5
+    #     with:
+    #       python-version: '3.10'
+    #       cache: 'pip'
+    #       cache-dependency-path: 'requirements.txt' # <--- USE THIS
+          
+    #   - name: Install dependencies
+    #     run: |
+    #       python -m pip install --upgrade pip
+    #       pip install -r requirements.txt
+
+      # # 2. 🚀 Install, Start DB Wait, Test, and Lint (ALL IN ONE STEP)
+      # - name: 📦 Install Dependencies, Test & Lint
+      #   run: |
+      #     # --- INSTALLATION ---
+      #     # 1. Install uv globally
+      #     pip install uv
+          
+      #     # 2. Create and ACTIVATE the virtual environment. 
+      #     # Activation persists for the rest of this 'run' block.
+      #     uv venv
+      #     source ./.venv/bin/activate
+          
+      #     # 3. Install project dependencies, pytest, and flake8 into the activated venv
+      #     uv pip install -r src/requirements.txt
+      #     uv pip install pytest flake8
+          
+      #     # --- DATABASE WAIT (Replaces original Step 3) ---
+      #     echo "Waiting for PostgreSQL service to be ready..."
+      #     sleep 10
+          
+      #     # --- RUN TESTS (Replaces original Step 4) ---
+      #     # 4. Set the secure database connection string
+      #     export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB"
+      #     # Run tests using the activated environment
+      #     pytest src/
+          
+      #     # --- RUN LINTER (Replaces original Step 5) ---
+      #     # 5. Run the linter using the activated environment
+      #     flake8 src/
