@@ -3,8 +3,8 @@ from typing import List,Optional
 
 class Settings(BaseSettings):
     
-    APP_NAME:str
-    APP_VERSION: str
+    APP_NAME:str="FOcrew"
+    APP_VERSION: str="0.1"
     
     FILE_ALLOWED_TYPES:List[str]
     DB_BACKEND:str

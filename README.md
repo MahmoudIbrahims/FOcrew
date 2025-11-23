@@ -54,3 +54,13 @@ $conda create -n coreAgent python=3.10
 $conda activate coreAgent
 ```
 -------
+
+#### 2. Install all dependencies:
+
+```bash
+$cd src
+```
+-------
+```bash
+ $uv pip install -r requirements.txt
+ ```

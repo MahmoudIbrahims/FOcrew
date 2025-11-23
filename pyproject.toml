@@ -6,35 +6,78 @@ authors = [{ name = "Mahmoud Ibrahim", email = "mahmoudibrahimabdelfattah48@gmai
 requires-python = ">=3.10"
 readme = "README.md"
 license = { file = "LICENSE" }
+keywords = ["fastapi", "crewai", "multi-agent", "ai"]
 
+# 1. Production Dependencies
 dependencies = [
+    # API & Async
     "fastapi==0.110.2",
     "uvicorn[standard]==0.29.0",
+    "python-multipart==0.0.20", 
+
+    # Agent System
     "crewai==0.130.0",
     "crewai-tools==0.47.1",
     "langchain==0.3.26",
     "langchain-core==0.3.66",
     "langchain-community==0.3.26",
+
+    # Data & Database
     "pydantic-settings==2.4.0",
     "SQLAlchemy==2.0.36",
     "alembic==1.14.1",
     "asyncpg==0.30.0",
-    "psycopg2==2.9.10",
+    "psycopg2-binary==2.9.10", # Updated to 'binary' version for easier installation
+
+    # Utilities & Reporting
     "plotly==6.1.2",
     "pyyaml==6.0.2",
     "openpyxl==3.1.5",
-    "dask==2024.9.1",
-    "ydata-profiling==4.16.1",
+    "dask==2025.7.0", # Version updated
+    "ydata-profiling==4.17.0", # Version updated
     "weasyprint==66.0",
     "PyPDF2==3.0.1",
-    "python-multipart==0.0.20"
+]
+
+# ⚙️ 2. Development, Testing, and UI Dependencies
+[project.optional-dependencies]
+dev = [
+    # Testing Framework
+    "pytest==9.0.1",
+    "httpx==0.27.0", # Essential for FastAPI TestClient
+
+    # UI/Interactive Tools
+    "jupyter-client==8.6.3",
+    "ipykernel==6.30.1",
+    "customtkinter==5.2.2",
+    "streamlit==1.50.0",
+    
+    # Utilities
+    "subprocess.run==0.0.8", # For secure sub-process execution
+
+    # Linting & Formatting (Optional)
+    # "flake8",
+    # "black",
+    # "isort",
 ]
 
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 
-## How to run pyproject --> python -m build
+# --- Development Tool Settings ---
 
+[tool.setuptools.packages]
+# To specify that your code is located inside the 'src' folder
+find = {where = ["src"]}
 
+# 🧪 Pytest Settings
+[tool.pytest.ini_options]
+# Setup import paths
+pythonpath = ["src"]
+
+# Ignore FastAPI/Starlette deprecation warnings
+filterwarnings = [
+    "ignore::PendingDeprecationWarning"
+]
