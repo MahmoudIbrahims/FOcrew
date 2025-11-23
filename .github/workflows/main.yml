@@ -31,21 +31,21 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
+    # steps:
+    #   - name: ⬇️ Checkout code
+    #     uses: actions/checkout@v4
 
-      # 1. Setup Python Environment
-      - name: 🛠️ Set up Python 3.10
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          cache: 'pip'
+    #   - name: 🛠️ Set up Python 3.10
+    #     uses: actions/setup-python@v5
+    #     with:
+    #       python-version: '3.10'
+    #       cache: 'pip'
+    #       cache-dependency-path: 'requirements.txt' # <--- USE THIS
           
-      - name: 📦 Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    #   - name: Install dependencies
+    #     run: |
+    #       python -m pip install --upgrade pip
+    #       pip install -r requirements.txt
 
       # # 2. 🚀 Install, Start DB Wait, Test, and Lint (ALL IN ONE STEP)
       # - name: 📦 Install Dependencies, Test & Lint
