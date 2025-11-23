@@ -53,9 +53,8 @@ $conda create -n coreAgent python=3.10
 ```bash
 $conda activate coreAgent
 ```
--------
 
-#### 2. Install all dependencies:
+#### 2. Run the app:
 
 ```bash
 $cd src
@@ -64,3 +63,9 @@ $cd src
 ```bash
  $uv pip install -r requirements.txt
  ```
+ -------
+
+ ```bash
+ $uvicorn main:app --reload --host 0.0.0.0 --port 8000
+ ```
+

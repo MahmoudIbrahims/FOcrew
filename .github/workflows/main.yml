@@ -1,0 +1,78 @@
+name: 🐍 CI/CD Pipeline for FOcrew (Python)
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+    paths:
+      - "src/**"
+  pull_request:
+    branches:
+      - main
+      - "release/**"
+
+jobs:
+  test_and_build:
+    runs-on: ubuntu-latest
+
+    services:
+      # Define the PostgreSQL container service needed for integration tests
+      postgres:
+        image: pgvector/pgvector:0.8.0-pg17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_TEST_PASSWORD }}
+          POSTGRES_DB: FOcrew_DB
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    # steps:
+    #   - name: ⬇️ Checkout code
+    #     uses: actions/checkout@v4
+
+    #   - name: 🛠️ Set up Python 3.10
+    #     uses: actions/setup-python@v5
+    #     with:
+    #       python-version: '3.10'
+    #       cache: 'pip'
+    #       cache-dependency-path: 'requirements.txt' # <--- USE THIS
+          
+    #   - name: Install dependencies
+    #     run: |
+    #       python -m pip install --upgrade pip
+    #       pip install -r requirements.txt
+
+      # # 2. 🚀 Install, Start DB Wait, Test, and Lint (ALL IN ONE STEP)
+      # - name: 📦 Install Dependencies, Test & Lint
+      #   run: |
+      #     # --- INSTALLATION ---
+      #     # 1. Install uv globally
+      #     pip install uv
+          
+      #     # 2. Create and ACTIVATE the virtual environment. 
+      #     # Activation persists for the rest of this 'run' block.
+      #     uv venv
+      #     source ./.venv/bin/activate
+          
+      #     # 3. Install project dependencies, pytest, and flake8 into the activated venv
+      #     uv pip install -r src/requirements.txt
+      #     uv pip install pytest flake8
+          
+      #     # --- DATABASE WAIT (Replaces original Step 3) ---
+      #     echo "Waiting for PostgreSQL service to be ready..."
+      #     sleep 10
+          
+      #     # --- RUN TESTS (Replaces original Step 4) ---
+      #     # 4. Set the secure database connection string
+      #     export DATABASE_URL="postgresql://postgres:${{ secrets.POSTGRES_TEST_PASSWORD }}@localhost:5432/FOcrew_DB"
+      #     # Run tests using the activated environment
+      #     pytest src/
+          
+      #     # --- RUN LINTER (Replaces original Step 5) ---
+      #     # 5. Run the linter using the activated environment
+      #     flake8 src/
