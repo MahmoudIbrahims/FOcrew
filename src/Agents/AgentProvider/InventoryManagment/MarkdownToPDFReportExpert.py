@@ -26,10 +26,10 @@ class ReportGeneratorAgent(BaseAgent):
     def get_task(self):
         return Task(
             description="\n".join([
-                "Take the Markdown analysis file (default: results/inventory_management/Analysis_Report.md).",
+                "Take the Markdown analysis file (default: results/Data_Analysis/Analysis_Report.md).",
                 "1. Use the `Markdown to PDF Report Generator` tool.",
                 "2. Provide the correct logo path (../docs.logo.png).",
-                "3. Save the generated PDF in results/inventory_management/report.pdf.",
+                "3. Save the generated PDF in results/Data_Analysis/Analysis_Report.pdf.",
                 "4. Confirm the PDF path in the output."
             ]),
             agent=self.get_agent(),
