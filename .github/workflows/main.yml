@@ -1,4 +1,4 @@
-name: 🐍 CI/CD Pipeline for FOcrew (Basic Python)
+name: 🐍 CI/CD Pipeline for FOcrew 
 
 # 🚀 Triggers: Defines when this workflow will run
 on:
@@ -35,7 +35,7 @@ jobs:
         run: |
           # Upgrade pip
           python -m pip install --upgrade pip
-          # Install dependencies from requirements.txt (or pyproject.toml)
+          # Install dependencies from requirements.txt 
           pip install -r src/requirements.txt
           # Install testing tools like pytest
           pip install pytest
