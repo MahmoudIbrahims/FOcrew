@@ -28,6 +28,8 @@ dependencies = [
     "alembic==1.14.1",
     "asyncpg==0.30.0",
     "psycopg2-binary==2.9.10", # Updated to 'binary' version for easier installation
+    "boto3==1.42.5",
+    "supabase==2.25.0",
 
     # Utilities & Reporting
     "plotly==6.1.2",
