@@ -1,0 +1,8 @@
+torch==2.9.1
+transformers==4.57.3
+beam-client==0.2.190
+sentencepiece==0.2.1
+protobuf==6.33.2
+huggingface_hub[hf_xet]
+
+  
