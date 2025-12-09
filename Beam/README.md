@@ -16,6 +16,7 @@ beam configure default --token Uik_cfGVv............
  ```
  ---------
  ### beam serve to test the model: 
+ 
  ```bash
  beam serve Generationmodel.py:generate_text
  ```
