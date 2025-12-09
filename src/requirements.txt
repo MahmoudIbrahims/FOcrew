@@ -25,3 +25,5 @@ streamlit==1.50.0
 subprocess.run==0.0.8
 pytest==9.0.1
 python-multipart==0.0.20
+boto3==1.42.5
+supabase==2.25.0

@@ -14,7 +14,16 @@ class Settings(BaseSettings):
     POSTGRES_HOST:str
     POSTGRES_PORT:str
     POSTGRES_MAIN_DATABASE:str
-    
+
+    SUPABASE_URL:str =None
+    SUPABASE_SECRET:str =None
+
+    ENDPOINT_URL:str
+    AWS_ACCESS_KEY_ID:str
+    AWS_SECRET_ACCESS_KEY:str
+    REGION:str
+    AWS_BUCKET:str
+
     MODEL_NAME_LITERAL:List[str]=None
     MODEL_NAME:str
     API_KEY:str
