@@ -36,7 +36,7 @@ jobs:
           # Upgrade pip
           python -m pip install --upgrade pip
           # Install dependencies from requirements.txt 
-          pip install -r src/requirements.txt
+          pip install -r requirements.txt
           # Install testing tools like pytest
           pip install pytest
 
