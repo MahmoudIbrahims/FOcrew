@@ -36,9 +36,6 @@ def Upload_file_to_s3(
    
    return f"success the Upload in{s3_bucket}"
 
-
-
-
 def download_file_from_s3(
     boto3_client: object,
     bucket_name: str,
