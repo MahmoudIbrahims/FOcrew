@@ -1,16 +1,16 @@
 import requests
 
 # Beam endpoint URL
-url = "https://da42bdd0-b341-43aa-929e-451fa916ab40.app.beam.cloud"
+url = "https://eff50fbb-8fcd-4022-9335-030976ce684a.app.beam.cloud"
 
 # Authorization token for the endpoint
-auth_token = "Uik_.................."
+auth_token = "Uik_cfGVvVMohAXB6naEpZ0xN0suM5H98ExqYV0QKcOfyY-ccujRkt1ENHMMuFL0phaW8zzu7G1elM-G2szWLA=="
 
 # The data to send to the model
 data = {
     "messages": [
-        {"role": "system", "content": "you are model for Assistant FOcrew Multi Agents"},
-        {"role": "user", "content": "who are you?"}
+        {"role": "system", "content": "you are helpful assastant for code python"},
+        {"role": "user", "content": "please create endpint by fastapi"}
     ]
 }
 
