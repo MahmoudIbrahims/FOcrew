@@ -6,6 +6,8 @@
   🌟 FOcrew: Future-Oriented Crew
 </h1>
 
+![FOcrew Website Screenshot](docs/web.png)
+
 <p align="center">
   <strong>Automate, Decide, Scale: Your AI Multi-Agent Operating System.</strong><br>
   A powerful open-source framework for enterprise productivity and intelligent decision support.
