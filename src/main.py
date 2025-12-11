@@ -5,9 +5,18 @@ from Agents.AgentProviderFactory import AgentProviderFactory
 from sqlalchemy.ext.asyncio import create_async_engine,AsyncSession
 from sqlalchemy.orm import sessionmaker
 from Providers import DataBaseProviderFactory
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app =FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 async def startup_span():
     settings = get_settings()

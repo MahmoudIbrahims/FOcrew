@@ -62,7 +62,7 @@ async def upload_data(request: Request, project_id: int, file: UploadFile = File
     try:
         # Read content into Pandas using an in-memory stream (BytesIO)
         if file_extension == FileNameEnum.CSV.value:
-            df = pd.read_csv(BytesIO(contents))
+            df = pd.read_csv(BytesIO(contents),encoding="latin1")
         elif file_extension in [FileNameEnum.EXCEL.value, FileNameEnum.SHEET.value]:
             df = pd.read_excel(BytesIO(contents))
         else:
@@ -126,12 +126,12 @@ async def upload_data(request: Request, project_id: int, file: UploadFile = File
             content={
                 "message": ResponseSignal.FILE_UPLOADED_Success.value,
                 "file_id": str(saved_file.file_id),
-                "file_uuid": str(file_uuid),
+                # "file_uuid": str(file_uuid),
                 "original_filename": str(saved_file.original_filename),
                 "file_size": file_size,
                 "rows": rows_count,
                 "columns": columns_count,
-                "s3_key": s3_key # Returned S3 Key instead of local path
+                # "s3_key": s3_key # Returned S3 Key instead of local path
             }
         )
 
