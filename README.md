@@ -2,11 +2,11 @@
   <img src="https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604" alt="FOcrew Logo" width="150"/>
 </p>
 
+![FOcrew Website Screenshot](docs/web.png)
+
 <h1 align="center">
   🌟 FOcrew: Future-Oriented Crew
 </h1>
-
-![FOcrew Website Screenshot](docs/web.png)
 
 <p align="center">
   <strong>Automate, Decide, Scale: Your AI Multi-Agent Operating System.</strong><br>
