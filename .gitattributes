@@ -5,4 +5,4 @@
 ./src/results/Dashboard/* linguist-vendored
 
 # Force Python to be counted correctly
-*.py linguist-language=Python
+#*.py linguist-language=Python
