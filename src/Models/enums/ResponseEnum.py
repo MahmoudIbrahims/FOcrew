@@ -15,6 +15,7 @@ class ResponseSignal(Enum):
     RESPONSE_FAILED ="response_failed"
     RESPONSE_SUCCESS="file_uploaded_success"
     RESPONSE_NOT_UPLOADED_FILE="No uploaded file found for this project"
+    RESPONSE_NOT_DOWNLOAD_FILE="Not download this file from S3 please back to solve this problem."
     
    
     

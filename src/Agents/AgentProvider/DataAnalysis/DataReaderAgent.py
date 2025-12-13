@@ -1,19 +1,22 @@
 from crewai import Task
 from tools.file_tool import FileReaderTool
+from tools.run_command_tool import RunCommandTool
 from Providers import ProviderLLM
 from ..BaseAgent import BaseAgent
+
 
 class DataReaderAgent(BaseAgent):
     def __init__(self):
         llm = ProviderLLM().get_llm()
         reader_tool = FileReaderTool()
+        CMD_tool =RunCommandTool()
         super().__init__(
             name="DataReaderAgent",
             role="Data Reader",
             goal="Load and summarize the dataset structure.",
             backstory="Specialist in reading and understanding dataset schemas.",
             llm=llm,
-            tools=[reader_tool],
+            tools=[reader_tool,CMD_tool],
         )
 
     def get_task(self):

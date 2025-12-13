@@ -50,12 +50,6 @@ def download_file_from_s3(
         os.path.basename(file_key)
     )
 
-       # create local dir to download the file
-    download_path = os.path.join(
-        download_directory,
-        os.path.basename(file_key)
-    )
-
     if os.path.exists(download_path) and not force_download:
         return download_path
     

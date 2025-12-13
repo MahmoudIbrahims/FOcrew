@@ -14,6 +14,7 @@ from .DataAnalysis import DataCleanerAgent
 from .DataAnalysis import DataAnalyzerAgent
 from .DataAnalysis import DataVisualizerAgent
 from .DataAnalysis import ReportWriterAgent
+from .DataAnalysis import ReportGeneratorAgent
 #=============================================================
 from ..Prompts.DataprocessingPrompt import Data_processing_prompt
 from ..Prompts.VisualizationPrompt import Visualization_Prompt

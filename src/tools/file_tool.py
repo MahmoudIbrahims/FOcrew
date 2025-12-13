@@ -8,13 +8,14 @@ class FileReaderTool(BaseTool):
     def _run(self, file_path: str) -> str:
         try:
             if file_path.endswith(".csv"):
-                df = pd.read_csv(file_path)
+                df = pd.read_csv(file_path,encoding="latin-1")
             elif file_path.endswith(".xlsx"):
                 df = pd.read_excel(file_path)
             elif file_path.endswith(".json"):
                 df = pd.read_json(file_path)
             else:
                 return "❌ Unsupported file type."
+            
 
             # Markdown summary
             summary_md = f"### Dataset Summary\n- Shape: {df.shape}\n- Columns & dtypes:\n"

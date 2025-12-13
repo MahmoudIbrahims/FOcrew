@@ -125,7 +125,7 @@ const App: React.FC = () => {
       <footer className="bg-white border-t border-slate-200 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <p className="text-center text-xs text-slate-400">
-            &copy; {new Date().getFullYear()} FOcrew Data Analysis Agent. Powered by CrewAI & FastAPI.
+            &copy; {new Date().getFullYear()} FOcrew Data Analysis Agent.
           </p>
         </div>
       </footer>
