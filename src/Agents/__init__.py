@@ -12,5 +12,6 @@ from .AgentProvider import TranslationEnglishArabic
 from .Prompts.VisualizationPrompt import Visualization_Prompt
 from .Prompts.DataprocessingPrompt import Data_processing_prompt
 from .Prompts.SendEmailprompt import SendEmail_prompt
+from .Prompts.MarkdownToPDFReportPrompt import Convert_md_to_pdf_prompt
 
 from .Prompts.DataAnalysisPrompt import data_reader_prompt

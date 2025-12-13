@@ -17,7 +17,7 @@ class BaseController:
         """Creates and returns the Boto3 S3 client using application settings."""
          
         # Using the imported helper function
-        return get_boto3_client(
+        return  get_boto3_client(
             s3_url=self.app_settings.ENDPOINT_URL,
             s3_bucket=self.app_settings.AWS_BUCKET,
             s3_region=self.app_settings.REGION,

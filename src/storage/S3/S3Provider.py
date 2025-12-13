@@ -3,6 +3,7 @@ from boto3 import client
 import os
 from pathlib import Path
 
+
 def get_boto3_client(
     s3_url: str,
     s3_bucket: str,

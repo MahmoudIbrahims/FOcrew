@@ -1,7 +1,7 @@
-from Agents.Prompts import data_reader_prompt
+from Agents.Prompts import data_reader_prompt,Convert_md_to_pdf_prompt
 from Agents import (DataReaderAgent,DataCleanerAgent,
                     DataAnalyzerAgent,DataVisualizerAgent,ReportWriterAgent,ReportGeneratorAgent)
-from fastapi import APIRouter ,status,Request,Depends
+from fastapi import APIRouter ,status,Request,Depends,BackgroundTasks
 from helpers.config import get_settings, Settings
 from Models.ProjectModel import ProjectModel
 from Models.UserFileModel import UserFileModel
@@ -27,7 +27,7 @@ agent_router = APIRouter(
 
 
 @agent_router.post('/DataAnalysis/{project_id}')
-async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request:DataAnaltsisRequest,
+async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request:DataAnaltsisRequest,backgroudtask:BackgroundTasks,
                           app_settings: Settings = Depends(get_settings)):
     
     project_model = await ProjectModel.create_instance(db_client = request.app.db_client)
@@ -53,10 +53,12 @@ async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request
     job_dir_path.mkdir(parents=True, exist_ok=True)
     full_local_file_path = job_dir_path / Path(latest_file.file_path).name
 
+    final_pdf_path = job_dir_path / "Data_Analysis_Report.pdf"
+
     if not full_local_file_path.exists():
         try:
 
-            download_file =download_file_from_s3(
+            download_file = download_file_from_s3(
                                 boto3_client=request.app.storage_S3_client,
                                 bucket_name=app_settings.AWS_BUCKET,
                                 file_key=latest_file.file_path,
@@ -109,6 +111,8 @@ async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request
     Report_Generator = ReportGeneratorAgent()
     Report_Generator_Agent =Report_Generator.get_agent()
     Report_Generator_task =Report_Generator.get_task()
+    Report_Generator_task.description =Convert_md_to_pdf_prompt.safe_substitute(full_path=final_pdf_path.as_posix(),logo_company=app_settings.LOGO_COMPANY)
+
     
     if DataAnaltsis_Request.Language== Languages.ARABIC.value:
                             
@@ -154,10 +158,11 @@ async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request
             content={"message": "Crew execution failed unexpectedly."}
         )
 
-        final_pdf_path = job_dir_path / "Data_Analysis_Report.pdf"
+       
         response = None
 
         if os.path.exists(final_pdf_path):
+            backgroudtask.add_task(shutil.rmtree, job_dir_path)
             return FileResponse(
                 path=final_pdf_path.as_posix(),
                 filename="Data_Analysis_Report.pdf",

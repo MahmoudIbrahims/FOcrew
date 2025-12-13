@@ -119,7 +119,6 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ projectId, onUploa
               File Uploaded Successfully
             </div>
             <ul className="text-xs space-y-1 text-green-800 opacity-90 pl-6 list-disc">
-               <li>UUID: {uploadData.file_uuid}</li>
                <li>Rows: {uploadData.rows}</li>
                <li>Columns: {uploadData.columns}</li>
             </ul>

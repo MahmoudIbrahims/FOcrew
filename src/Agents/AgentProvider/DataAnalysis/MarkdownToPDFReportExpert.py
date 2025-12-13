@@ -29,9 +29,10 @@ class ReportGeneratorAgent(BaseAgent):
                 "Take the Markdown analysis file (default: results/Data_Analysis/Analysis_Report.md).",
                 "1. Use the `Markdown to PDF Report Generator` tool.",
                 "2. Provide the correct logo path (../docs.logo.png).",
-                "3. Save the generated PDF in results/Data_Analysis/Analysis_Report.pdf.",
+                "3. Save the generated PDF in $full_path.",
                 "4. Confirm the PDF path in the output."
             ]),
             agent=self.get_agent(),
+            context_keys=["final_report_path"],
             expected_output="Path to the generated PDF report"
         )
