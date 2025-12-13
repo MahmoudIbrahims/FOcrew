@@ -1,10 +1,10 @@
 import requests
 
 # Beam endpoint URL
-url = "https://eff50fbb-8fcd-4022-9335-030976ce684a.app.beam.cloud"
+url = "https://eff.............."
 
 # Authorization token for the endpoint
-auth_token = "Uik_cfGVvVMohAXB6naEpZ0xN0suM5H98ExqYV0QKcOfyY-ccujRkt1ENHMMuFL0phaW8zzu7G1elM-G2szWLA=="
+auth_token = "Uik_cfGVvVMohAXB6............."
 
 # The data to send to the model
 data = {
