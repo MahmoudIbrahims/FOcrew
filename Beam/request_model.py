@@ -4,6 +4,7 @@ import requests
 url = "https://eff.............."
 
 # Authorization token for the endpoint
+
 auth_token = "Uik_cfGVvVMohAXB6............."
 
 # The data to send to the model
