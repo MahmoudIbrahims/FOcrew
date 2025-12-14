@@ -19,6 +19,7 @@ class ReportGeneratorAgent(BaseAgent):
                 "Your reports are then passed to managers or other agents."
             ]),
             llm=llm,
+            reasoning=True,
             allow_delegation=False,
             tools=[pdf_tool],
         )

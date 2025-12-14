@@ -14,6 +14,7 @@ class DataVisualizerAgent(BaseAgent):
             goal="Generate visualizations using matplotlib and seaborn.",
             backstory="Creates compelling graphs to highlight insights and trends.",
             llm=llm,
+            reasoning=True,
             tools=[cmd_tool],
         )
         

@@ -1,34 +1,163 @@
-# Sales Performance and Profitability Analysis Report
+# **Inventory & Product Analysis: Executive Report**
 
-## Executive Summary
+---
 
-This report analyzes sales performance and profitability based on recent transaction data. The primary finding indicates a significant challenge in profitability, largely driven by the current discount strategy. While the majority of transactions are profitable, a strong negative correlation exists between discount levels and profit margins. High discounts, particularly on larger orders, frequently lead to substantial losses, significantly reducing overall average profitability. To address this, a strategic review of the discount policy is recommended to ensure profitability thresholds are maintained across all transactions.
+## **1. Executive Summary**
 
-## Key Findings and Insights
+This report provides a strategic analysis of the inventory dataset, comprising **9,274 records** across **13 attributes**, including product details, financial categories, quantities, and temporal data (production, expiration, removal, and alert dates). The analysis reveals key insights into inventory distribution, product categories, and stock management trends.
 
-### 1. Profitability Volatility and Distribution
+### **Key Highlights**
+- **Top Financial Categories**: "Centralized Fresh" and "Water" dominate inventory, reflecting a focus on perishable and high-turnover goods.
+- **Stock Distribution**: Products are evenly distributed across stock zones, with **Zone A** holding the highest count.
+- **Temporal Trends**: Production is consistent across 2023–2025, while most products expire between **2026–2028**, peaking in 2027.
+- **Quantity Consistency**: `Available Quantity` and `Quantity` are perfectly correlated, with a symmetric distribution centered around **249 units**. No extreme outliers were detected.
 
-*   **Low Average Profit:** The mean profit per transaction is low ($5.23), despite a higher median profit ($15.22). This discrepancy highlights that a small number of transactions with significant losses are disproportionately impacting overall profitability.
-*   **High Volatility:** The profit distribution exhibits high negative skewness and kurtosis, indicating that while most transactions yield small positive profits, there are frequent and substantial losses (minimum profit of -$383.03) that create high volatility.
+### **Strategic Recommendations**
+1. **Optimize Stock Levels**: Focus on high-turnover categories like "Water" and "Centralized Fresh" to reduce holding costs.
+2. **Expiration Management**: Prioritize monitoring for products expiring in **2026–2028** to minimize waste.
+3. **Zone-Specific Strategies**: Leverage the balanced distribution across zones to implement **location-based inventory policies**.
+4. **Data Quality**: Address missing barcode data (2,695 records) to improve traceability and compliance.
 
-### 2. Impact of Discount Strategy on Profitability
+---
 
-*   **Strong Negative Correlation:** A strong negative correlation (-0.73) was identified between `Discount` and `Profit`. This relationship is visually confirmed, showing that as the discount percentage increases, the resulting profit decreases significantly, often leading to losses.
-*   **Unprofitable Thresholds:** The analysis suggests that discounts above a certain threshold consistently result in negative profits. This indicates that the current discount structure may be overly aggressive and directly eroding profit margins.
+## **2. Key Insights**
 
-### 3. Sales Volume vs. Profitability
+### **A. Inventory Composition**
+| **Metric**               | **Finding**                                                                                     |
+|--------------------------|-------------------------------------------------------------------------------------------------|
+| **Total Records**        | 9,274 (post-cleaning)                                                                           |
+| **Top Financial Categories** | "Centralized Fresh" (1,224), "Water" (1,188), "Coffee & Other Drinks" (1,183)                     |
+| **Top Locations**        | Zone A (2,365), Zone B (2,328), Zone F (2,291)                                                 |
+| **Quantity Distribution** | Mean = 249, Median = 249, Symmetric (Skewness = -0.006)                                       |
+| **Missing Data**         | 2,695 missing barcodes (imputed as "UNKNOWN_BARCODE")                                         |
 
-*   **Counterintuitive Relationship:** There is a weak negative correlation (-0.38) between `Sales` revenue and `Profit`. This finding challenges the assumption that higher sales volume automatically leads to higher profits. In fact, some of the highest revenue transactions are associated with negative profits, likely due to high discounts applied to large orders.
+**Business Implication**:
+The dominance of perishable and beverage categories suggests a **high-turnover inventory strategy**. Missing barcodes may impact traceability and compliance, requiring immediate remediation.
 
-### 4. Order Quantity Analysis
+---
 
-*   **Quantity and Profit Correlation:** A moderate negative correlation (-0.55) exists between `Quantity` and `Profit`. Box plot analysis shows that larger orders (Quantity 4-5) tend to have lower median profits compared to smaller orders (Quantity 1-2). This suggests that bulk purchases may be receiving discounts that reduce profitability per item.
+### **B. Temporal Trends**
 
-## Recommendations
+#### **1. Production Trends (2023–2025)**
+| **Year** | **Product Count** |
+|---------|------------------|
+| 2023    | 3,142            |
+| 2024    | 3,089            |
+| 2025    | 3,043            |
 
-Based on these findings, the following actions are recommended to improve overall profitability:
+**Insight**: Production volumes are stable, with a slight decline in 2025. This may indicate **seasonal adjustments** or supply chain optimizations.
 
-1.  **Review and Adjust Discount Policy:** Implement a comprehensive review of the current discount policy. Establish clear discount thresholds and guidelines to prevent transactions from becoming unprofitable. Consider a dynamic pricing model that balances sales incentives with profit protection.
-2.  **Profitability-Focused Sales Strategy:** Shift the focus from maximizing gross sales revenue to maximizing profit per transaction. Incentivize sales teams based on profit margin rather than sales volume alone.
-3.  **Investigate High-Loss Transactions:** Conduct further analysis to identify specific product categories, customer segments, or regions where high discounts and losses are most prevalent. This will allow for targeted interventions to address underlying cost or pricing issues.
-4.  **Monitor Quantity-Based Discounts:** Re-evaluate the discount structure for bulk orders to ensure that larger quantities do not disproportionately reduce profit margins. Implement a tiered discount system that maintains profitability at higher volumes.
+#### **2. Expiration Trends (2024–2030)**
+| **Year** | **Product Count** |
+|---------|------------------|
+| 2024    | 413              |
+| 2025    | 1,174            |
+| 2026    | 1,912            |
+| 2027    | 2,353            |
+| 2028    | 1,878            |
+| 2029    | 1,159            |
+| 2030    | 385              |
+
+**Insight**: The peak in 2027 aligns with production dates, suggesting a **3–5-year shelf life** for most products. Proactive expiration management is critical for **2026–2028**.
+
+---
+
+## **3. Trends and Patterns**
+
+### **A. Category-Specific Stock Levels**
+The average `Available Quantity` varies by financial category:
+
+| **Financial Category**         | **Avg. Quantity** |
+|--------------------------------|-------------------|
+| Water                          | 257               |
+| Personal Care                  | 251               |
+| Coffee & Other Drinks          | 251               |
+| All / ASTS / Furniture         | 249               |
+
+**Trend**: "Water" leads in stock levels, likely due to **high demand or bulk procurement**. Categories like "Furniture" have lower averages, reflecting **lower turnover**.
+
+### **B. Location-Based Distribution**
+Products are evenly distributed across zones, with **Zone A** leading slightly. This balance suggests:
+- **Efficient space utilization** across storage zones.
+- Potential to implement **zone-specific reorder policies** based on demand patterns.
+
+---
+
+## **4. Strategic Recommendations**
+
+### **A. Inventory Optimization**
+1. **Prioritize High-Turnover Categories**:
+   - Increase stock monitoring for "Water" and "Centralized Fresh" to avoid stockouts.
+   - Implement **just-in-time (JIT) procurement** for perishables to reduce waste.
+
+2. **Expiration Management**:
+   - Flag products expiring in **2026–2028** for priority sales or promotions.
+   - Use **FIFO (First-In-First-Out)** for zones with older stock (e.g., 2023 production).
+
+3. **Data Quality Improvements**:
+   - Audit and update missing barcodes (2,695 records) to ensure **compliance and traceability**.
+   - Integrate barcode scanners at intake to prevent future gaps.
+
+### **B. Operational Efficiency**
+1. **Zone-Specific Strategies**:
+   - Analyze demand patterns by zone to **tailor reorder points** (e.g., higher thresholds for Zone A).
+   - Cross-train staff across zones to handle **peak demand periods**.
+
+2. **Leverage Temporal Insights**:
+   - Align procurement cycles with production trends (e.g., ramp up in Q4 for 2025 production).
+   - Use expiration data to **negotiate supplier lead times** for longer shelf-life products.
+
+### **C. Risk Mitigation**
+1. **Supplier Diversification**:
+   - For categories like "Water" and "Centralized Fresh," engage **backup suppliers** to mitigate disruptions.
+
+2. **Automated Alerts**:
+   - Implement **automated alerts** for products nearing expiration (e.g., 90-day warnings).
+
+---
+
+## **5. Conclusion**
+
+The analysis reveals a **well-balanced inventory** with clear opportunities for optimization. Key focus areas include:
+
+1. **High-Turnover Management**: Double down on "Water" and "Centralized Fresh" to capitalize on demand.
+2. **Expiration Control**: Proactively manage products expiring in **2026–2028** to minimize losses.
+3. **Data-Driven Decisions**: Use zone and category insights to refine stocking strategies.
+4. **Compliance & Traceability**: Address missing barcode data to enhance operational integrity.
+
+By acting on these recommendations, the organization can **reduce costs, improve efficiency, and enhance inventory turnover**, ultimately driving profitability.
+
+---
+
+## **Appendix: Visual Insights**
+
+The following visualizations support the findings:
+
+1. **Quantity Distribution**: Symmetric histogram centered at 249 units.
+   ![Histogram of Quantity Distribution](histogram_quantity_distribution.png)
+   *Figure 1: Symmetric distribution of Available Quantity and Quantity.*
+
+2. **Top Financial Categories**: Bar plot highlighting dominance of "Centralized Fresh" and "Water."
+   ![Top Financial Categories by Count](bar_financial_category_count.png)
+   *Figure 2: Product count by financial category.*
+
+3. **Zone Distribution**: Bar plot showing balanced product allocation across zones.
+   ![Top Locations by Product Count](bar_location_count.png)
+   *Figure 3: Product count by stock zone.*
+
+4. **Expiration Trends**: Bar plot of product counts by expiration year, peaking in 2027.
+   ![Expiration Year Distribution](bar_expiration_year_count.png)
+   *Figure 4: Products expiring by year.*
+
+5. **Average Quantity by Category**: Bar plot comparing stock levels across categories.
+   ![Average Quantity by Financial Category](bar_avg_quantity_by_category.png)
+   *Figure 5: Average available quantity by category.*
+
+---
+
+**Next Steps**:
+- Implement automated dashboards to track **expiration dates** and **stock levels** in real-time.
+- Conduct a **supplier performance review** for high-turnover categories.
+- Pilot a **zone-based inventory audit** to validate data accuracy.
+
+---

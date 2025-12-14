@@ -30,8 +30,8 @@ image = (
     secrets=["HF_TOKEN"],
     on_start=load_models,
     name="mistralai/Mistral-7B-Instruct-v0.3",
-    cpu=1,
-    memory="8Gi",
+    cpu=5,
+    memory="16Gi",
     gpu="A10G",
     volumes=[
         Volume(
