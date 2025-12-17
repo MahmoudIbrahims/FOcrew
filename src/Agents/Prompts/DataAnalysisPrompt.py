@@ -1,7 +1,7 @@
 from string import Template
 
 data_reader_prompt = Template("\n".join([
-    "Read and summarize the dataset file provided at $file_path.",
+    "**ABSOLUTELY MUST**Read and summarize the dataset file provided at $file_path.",
     "",
     "Steps:",
     "1. Detect the file type (CSV, Excel, or JSON).",

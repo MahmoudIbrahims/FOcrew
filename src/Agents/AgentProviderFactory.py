@@ -16,7 +16,7 @@ from .AgentProvider import ReportSenderAgent
 #==========Prompts Inventory Managment===============
 from .Prompts.DataprocessingPrompt import Data_processing_prompt
 from .Prompts.VisualizationPrompt import Visualization_Prompt
-from .Prompts.MarkdownToPDFReportPrompt import description_prompt
+# from .Prompts.MarkdownToPDFReportPrompt import description_prompt
 from .Prompts.SendEmailprompt import SendEmail_prompt
 
 
@@ -102,7 +102,7 @@ class AgentProviderFactory:
             
             Report_Generator_Agent =Report_GeneratorAgent.get_agent()
             Report_Generator_task =Report_GeneratorAgent.get_task()
-            Report_Generator_task.description =description_prompt.safe_substitute(logo_company=logo_company)
+            #Report_Generator_task.description =description_prompt.safe_substitute(logo_company=logo_company)
             
             Report_Sender_Agent =Report_Sender.get_agent()
             Report_Sender_tesk =Report_Sender.get_task()

@@ -7,7 +7,9 @@ class BeamCustomLLM(BaseLLM):
     A custom Large Language Model (LLM) implementation for CrewAI, 
     designed to communicate with a specific Beam Cloud endpoint.
     """
-    def __init__(self, endpoint: str, auth_token: str, model: str = "mistralai/Mistral-7B-Instruct-v0.3", temperature: Optional[float] = 0.1):
+    def __init__(self, endpoint: str,
+                            auth_token: str, model: str = "mistralai/Mistral-7B-Instruct-v0.3",
+                            temperature: Optional[float] = 0.1):
         # 1. Initialize the BaseLLM parent class with required parameters
         # 'model' and 'temperature' are necessary for BaseLLM, even if the 
         # external endpoint doesn't use them directly by name.

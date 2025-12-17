@@ -1,5 +1,5 @@
 from .DataprocessingPrompt import Data_processing_prompt
 from .VisualizationPrompt import Visualization_Prompt
-from .MarkdownToPDFReportPrompt import description_prompt
+from .MarkdownToPDFReportPrompt import Convert_md_to_pdf_prompt
 from .SendEmailprompt import SendEmail_prompt
 from .DataAnalysisPrompt import data_reader_prompt

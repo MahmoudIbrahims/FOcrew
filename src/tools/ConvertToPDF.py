@@ -163,7 +163,7 @@ class MarkdownToPDFReport(BaseTool):
             <body>
                 <!-- Cover Page -->
                 <div class="cover">
-                    '<img src="../docs/logo.png" alt="Company Logo">' 
+                    <img src="../docs/logo.png" alt="Company Logo"> 
                     <h1>Inventory Report</h1>
                     <p>Date: {report_date}</p>
                 </div>

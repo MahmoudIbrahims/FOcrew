@@ -1,4 +1,4 @@
-from Agents.Prompts import (Data_processing_prompt,description_prompt,
+from Agents.Prompts import (Data_processing_prompt,
                             Visualization_Prompt,SendEmail_prompt)
 from Agents import DataProcessing,DataVisualizationExpert,ReportGeneratorAgent,ReportSenderAgent
 from .Enums.InventorymanagmentEnums import InventorManagmentEunms
@@ -62,7 +62,7 @@ async def inventory_agent(request : Request ,project_id:int,Process_Request:Proc
     ReportGenerator =ReportGeneratorAgent()
     ReportGenerator_Agent =ReportGenerator.get_agent()
     ReportGenerator_task =ReportGenerator.get_task()
-    ReportGenerator_task.description =description_prompt.safe_substitute(logo_company=app_settings.LOGO_COMPANY)
+    #ReportGenerator_task.description =description_prompt.safe_substitute(logo_company=app_settings.LOGO_COMPANY)
 
     Report_Sender = ReportSenderAgent()
     Report_Sender_Agent =Report_Sender.get_agent()

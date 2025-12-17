@@ -14,6 +14,7 @@ class DataCleanerAgent(BaseAgent):
             goal="Generate Python code to clean and preprocess the dataset.",
             backstory="Expert in handling missing values, outliers, and data types.",
             llm=llm,
+            reasoning=True,
             tools=[cmd_tool],
         )
 

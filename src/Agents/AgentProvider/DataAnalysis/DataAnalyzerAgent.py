@@ -14,6 +14,7 @@ class DataAnalyzerAgent(BaseAgent):
             goal="Perform statistical analysis and extract key insights.",
             backstory="Analyst specialized in numeric feature evaluation and trend discovery.",
             llm=llm,
+            reasoning=True,
             tools=[cmd_tool],
         )
 

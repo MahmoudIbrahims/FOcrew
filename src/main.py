@@ -5,9 +5,19 @@ from Agents.AgentProviderFactory import AgentProviderFactory
 from sqlalchemy.ext.asyncio import create_async_engine,AsyncSession
 from sqlalchemy.orm import sessionmaker
 from Providers import DataBaseProviderFactory
+from fastapi.middleware.cors import CORSMiddleware
+from storage.S3.S3Provider import get_boto3_client
+
 
 app =FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 async def startup_span():
     settings = get_settings()
@@ -30,6 +40,15 @@ async def startup_span():
                          provider=settings.DB_BACKEND
         
                                 )
+    
+    app.storage_S3_client = get_boto3_client(
+                    s3_url=settings.ENDPOINT_URL,
+                    s3_bucket=settings.AWS_BUCKET,
+                    s3_region=settings.REGION,
+                    s3_access_key=settings.AWS_ACCESS_KEY_ID,
+                    s3_secret_key=settings.AWS_SECRET_ACCESS_KEY
+
+                            )
     
     
 async def shutdown_span():

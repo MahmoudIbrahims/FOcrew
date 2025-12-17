@@ -3,3 +3,4 @@ from .DataCleanerAgent import DataCleanerAgent
 from .DataAnalyzerAgent import DataAnalyzerAgent
 from .DataVisualizerAgent import DataVisualizerAgent
 from .ReportWriterAgent import ReportWriterAgent
+from .MarkdownToPDFReportExpert import ReportGeneratorAgent

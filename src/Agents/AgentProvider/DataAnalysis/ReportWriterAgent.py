@@ -14,6 +14,7 @@ class ReportWriterAgent(BaseAgent):
             goal="Write a concise, insightful business report summarizing findings.",
             backstory="Transforms technical data insights into executive-level business recommendations.",
             llm=llm,
+            reasoning=True,
             tools=[md_tool],
         )
 

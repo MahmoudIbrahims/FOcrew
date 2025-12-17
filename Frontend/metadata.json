@@ -1,0 +1,5 @@
+{
+  "name": "FOcrew Data Analysis Agent",
+  "description": "A powerful interface to upload datasets and trigger autonomous AI agents for deep data analysis, visualization, and reporting.",
+  "requestFramePermissions": []
+}

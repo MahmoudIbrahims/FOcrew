@@ -31,6 +31,8 @@ class RunCommandTool(BaseTool):
                 # This uses a 'here-document' to pass the multi-line Python code 
                 # as input to the python3 interpreter.
                 command = f'python3 - << "EOF"\n{command}\nEOF'
+            # if "\n" in command and not command.strip().startswith('python3 -c') and not command.strip().startswith('python'):
+            #     command = f'python3 - << "EOF"\n{command}\nEOF'
 
             # 3. Execute the command using subprocess.Popen
             process = subprocess.Popen(
