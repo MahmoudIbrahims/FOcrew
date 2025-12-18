@@ -10,7 +10,8 @@ interface ReportViewerProps {
 export const ReportViewer: React.FC<ReportViewerProps> = ({ data, onBack }) => {
   // Fallback URL for demonstration if the backend doesn't return one yet
   // In production, this should come from data.report_url
-  const pdfUrl = data.report_url || "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+  const pdfUrl = data.report_url ||'http://localhost:8000'
+  //"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
 
   return (
     <div className="h-full flex flex-col bg-slate-50">

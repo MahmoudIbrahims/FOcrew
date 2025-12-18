@@ -6,7 +6,7 @@ from fastapi import APIRouter ,status,Request,Depends,BackgroundTasks
 from helpers.config import get_settings, Settings
 from Models.ProjectModel import ProjectModel
 from Models.UserFileModel import UserFileModel
-from fastapi.responses import JSONResponse,StreamingResponse
+from fastapi.responses import JSONResponse,StreamingResponse,FileResponse
 from .Schemes.data import DataAnaltsisRequest,ProcessRequest
 from .Enums.BasicsEnums import Languages
 from Models.enums import ResponseSignal
@@ -166,34 +166,37 @@ async def inventory_agent(request : Request ,project_id:str,DataAnaltsis_Request
         
         response = None
 
-        # if os.path.exists(final_pdf_path):
-        #     backgroudtask.add_task(shutil.rmtree, job_dir_path)
-        #     return FileResponse(
-        #         path=final_pdf_path.as_posix(),
-        #         filename="Data_Analysis_Report.pdf",
-        #         media_type='application/pdf'
-
-        #                    )
-
         if os.path.exists(final_pdf_path):
-            #backgroudtask.add_task(shutil.rmtree, job_dir_path)
+            backgroudtask.add_task(shutil.rmtree, job_dir_path)
+            return FileResponse(
+                path=final_pdf_path.as_posix(),
+                filename="Data_Analysis_Report.pdf",
+                media_type='application/pdf',
+                 headers={
+            "Content-Disposition": "inline; filename=Data_Analysis_Report.pdf"
+                         }
 
-            def file_iterator(file_path):
-                with open(file_path, "rb") as file_like:
-                    yield from file_like
+                           )
 
+        # if os.path.exists(final_pdf_path):
+        #     file_size = os.path.getsize(final_pdf_path) 
+        #     file_name = "Data_Analysis_Report.pdf"
 
-            file_name = "Data_Analysis_Report.pdf"
+        #     headers = {
+        #         'Content-Disposition': f'inline; filename="{file_name}"',
+        #         'Content-Length': str(file_size), 
+        #         'Access-Control-Expose-Headers': 'Content-Disposition' 
+        #     }
 
-            headers = {
-                    'Content-Disposition': f'inline; filename="{file_name}"' 
-                     }
+        #     def file_iterator(file_path):
+        #         with open(file_path, "rb") as file_like:
+        #             yield from file_like
             
-            return StreamingResponse(
-                        file_iterator(final_pdf_path),
-                        media_type='application/pdf',
-                        headers=headers
-                    )
+        #     return StreamingResponse(
+        #                 file_iterator(final_pdf_path),
+        #                 media_type='application/pdf',
+        #                 headers=headers
+        #             )
 
         else:
 
