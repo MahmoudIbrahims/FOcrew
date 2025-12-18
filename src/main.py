@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import base,UploadfileEndpoint,InventoryManagmentEndpoint,DataAnalysisEndpoint
+from routes import base,UploadfileEndpoint,InventoryManagmentEndpoint,DataAnalysisEndpoint,NewProject
 from helpers.config import get_settings
 from Agents.AgentProviderFactory import AgentProviderFactory
 from sqlalchemy.ext.asyncio import create_async_engine,AsyncSession
@@ -62,3 +62,4 @@ app.include_router(base.base_router)
 app.include_router(UploadfileEndpoint.data_router)
 app.include_router(InventoryManagmentEndpoint.agent_router)
 app.include_router(DataAnalysisEndpoint.agent_router)
+app.include_router(NewProject.project_router)
