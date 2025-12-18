@@ -6,8 +6,8 @@ from fastapi import APIRouter ,status,Request,Depends,BackgroundTasks
 from helpers.config import get_settings, Settings
 from Models.ProjectModel import ProjectModel
 from Models.UserFileModel import UserFileModel
-from fastapi.responses import JSONResponse,FileResponse,StreamingResponse
-from .Schemes.data import DataAnaltsisRequest
+from fastapi.responses import JSONResponse,StreamingResponse
+from .Schemes.data import DataAnaltsisRequest,ProcessRequest
 from .Enums.BasicsEnums import Languages
 from Models.enums import ResponseSignal
 from .Enums.DataAnalysisEnums import DataAnalysisEunms
@@ -30,14 +30,13 @@ agent_router = APIRouter(
 
 
 @agent_router.post('/DataAnalysis/{project_id}')
-
-async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request:DataAnaltsisRequest,backgroudtask:BackgroundTasks,
+async def inventory_agent(request : Request ,project_id:str,DataAnaltsis_Request:ProcessRequest,backgroudtask:BackgroundTasks,
 
                           app_settings: Settings = Depends(get_settings)):
 
     project_model = await ProjectModel.create_instance(db_client = request.app.db_client)
 
-    model = await project_model.get_project_or_create_one(project_id = project_id )
+    model = await project_model.get_project_by_id(project_id)
 
     userfile_model =await UserFileModel.create_instance(db_client=request.app.db_client)
 
