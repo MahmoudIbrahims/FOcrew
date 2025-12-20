@@ -13,12 +13,16 @@ project_router = APIRouter(
 )
 
 
-@project_router.post('/create', status_code=status.HTTP_201_CREATED)
-async def create_project(request: Request, project_data: ProjectCreateRequest):
+@project_router.post('/create', 
+                     status_code=status.HTTP_201_CREATED)
+async def create_project(
+    request: Request, 
+    project_data: ProjectCreateRequest
+    ):
+
     """Create a new project"""
     try:
         model = await ProjectModel.create_instance(db_client=request.app.db_client)
-        
         project = await model.create_new_project(
             project_name=project_data.project_name,
             company_name=project_data.company_name,
