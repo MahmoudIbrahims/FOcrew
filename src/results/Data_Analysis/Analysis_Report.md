@@ -1,170 +1,143 @@
-# **Executive Inventory Analysis Report**
+# Inventory Data Analysis Report
 
----
+## Executive Summary
 
-## **1. Executive Summary**
-This report provides a strategic analysis of the inventory dataset, highlighting key insights, trends, and recommendations for optimizing inventory management. The dataset includes **9,090 records** across **12 features**, such as product details, financial categories, quantities, and lifecycle dates.
+This report provides a comprehensive analysis of the inventory dataset, which includes 9,274 records across 13 columns. The dataset covers various product details, financial categories, quantities, and dates related to production, expiration, removal, and alerts.
 
-### **Key Findings**
-1. **High Uniformity in Inventory Levels**: `Available Quantity` and `Quantity` exhibit almost no variability, suggesting tightly controlled inventory or synthetic data.
-2. **Anomalies in Lifecycle Dates**: All products expire, are removed, and trigger alerts exactly **365 days post-production**, which is unrealistic and warrants investigation.
-3. **Missing Barcode Data**: **14% of entries** have "Unknown" barcodes, indicating potential data gaps.
-4. **Categorical Distribution**: Products are evenly distributed across financial categories and locations, with no significant outliers.
+### Key Findings
 
-### **Strategic Recommendations**
-- **Validate Data Integrity**: Confirm whether the dataset is synthetic or if the uniformity is intentional.
-- **Investigate Lifecycle Anomalies**: Address the 365-day delta issue to reflect realistic inventory behaviors.
-- **Address Missing Barcodes**: Decide on imputation or exclusion of "Unknown" barcodes based on business needs.
-- **Leverage Categorical Insights**: Use financial categories and locations for targeted inventory segmentation.
+1. **Data Quality**: The dataset is well-structured with no missing values in critical columns such as `Product/Internal Reference`, `Product/Name`, `Available Quantity`, and `Quantity`. Some columns like `Product/Barcode` and `Product/Breadfast Barcode` have missing values, but these have been handled appropriately.
 
----
+2. **Inventory Metrics**: The average available quantity is approximately 500 units, with a standard deviation of 287.99, indicating a moderate spread in inventory levels. The distribution of both `Available Quantity` and `Quantity` is approximately normal with no significant outliers.
 
-## **2. Key Insights & Trends**
+3. **Feature Independence**: There is no linear relationship between `Available Quantity` and `Quantity`, suggesting these metrics are independent and measure different aspects of inventory management.
 
-### **2.1 Inventory Uniformity**
-- The `Available Quantity` and `Quantity` features show **negligible variability** (mean ~100, standard deviation ~9.9).
-- **Implication**: Inventory levels are either tightly controlled or the data is synthetic. Real-world scenarios typically exhibit more fluctuation due to demand variability or operational constraints.
+4. **Temporal Patterns**: The dates follow a logical sequence from production to expiration, removal, and alert dates, with no anomalies detected.
 
-| Metric               | Available Quantity | Quantity   |
-|----------------------|--------------------|------------|
-| **Mean**             | 99.97              | 100.02     |
-| **Standard Deviation** | 9.90               | 9.90       |
-| **Skewness**         | -0.02              | 0.03       |
+5. **Financial Categories**: No significant differences in inventory levels were found across different financial categories, indicating a consistent inventory distribution.
 
-*Table 1: Statistical summary of inventory quantities.*
+### Recommendations
 
-### **2.2 Lifecycle Anomalies**
-- All products have **identical 365-day deltas** between production, expiration, removal, and alert dates.
-- **Implication**: This pattern is highly unrealistic for real-world inventory management, where shelf lives vary by product type. This suggests either:
-  - A placeholder dataset for testing.
-  - A systematic error in date recording.
+1. **Inventory Optimization**: Given the independence of `Available Quantity` and `Quantity`, consider separate strategies for managing these metrics to optimize inventory levels.
 
-### **2.3 Missing Barcode Data**
-- **14% of entries** (1,298 records) have "Unknown" for `Product/Breadfast Barcode`.
-- **Distribution**: These entries are randomly distributed across financial categories and locations, indicating missing data rather than a systematic issue.
-- **Implication**: Stakeholders should decide whether to:
-  - Exclude these records from analysis.
-  - Impute missing barcodes based on product names or categories.
+2. **Data Enrichment**: Explore opportunities to enrich the dataset with additional product details or subcategories within financial categories to gain more granular insights.
 
-### **2.4 Categorical Distribution**
-- Products are **evenly distributed** across:
-  - **Financial Categories**: `Category_1` to `Category_4` (each ~1,855 entries) and `Category_0` (~1,670 entries).
-  - **Locations**: `LOC_1` to `LOC_9` (each ~927–928 entries) and `LOC_0` (~743 entries).
-- **Implication**: No single category or location dominates the dataset, suggesting balanced inventory allocation.
+3. **Visualization Enhancements**: Utilize the generated visualizations to monitor trends and identify potential areas for improvement in inventory management.
 
----
+## Detailed Analysis
 
-## **3. Detailed Analysis**
+### Dataset Overview
 
-### **3.1 Numeric Features**
-- **Correlation**: No linear correlation between `Available Quantity` and `Quantity` (correlation coefficient = -0.01).
-- **Outliers**: None detected using the IQR method, reinforcing the dataset’s uniformity.
+- **Shape**: 9,274 rows × 13 columns
+- **Columns**: Product/Internal Reference, Product/Name, Product/Barcode, Financial Category, Available Quantity, Quantity, Lot/Serial Number, Location, Lot/Serial Number/Production Date, Lot/Serial Number/Expiration Date, Lot/Serial Number/Removal Date, Lot/Serial Number/Alert Date, Product/Breadfast Barcode
 
-### **3.2 Datetime Features**
-- **Production to Expiration**: All products expire **exactly 365 days** after production.
-- **Removal and Alert Dates**: Also set to 365 days post-production, which is atypical. Real-world examples include:
-  - Perishable goods: shorter expiration (e.g., 30–90 days).
-  - Non-perishables: longer expiration (e.g., 1–5 years).
+### Descriptive Statistics
 
-### **3.3 Categorical Features**
-- **Top Financial Categories**:
-  - `Category_1` to `Category_4`: ~20% of data each.
-  - `Category_0`: ~18% of data.
-- **Top Locations**: Evenly split across `LOC_1` to `LOC_9` (~10% each) and `LOC_0` (~8%).
+#### Numeric Features
 
----
+- **Available Quantity**:
+  - Mean: 500.01
+  - Standard Deviation: 287.99
+  - Range: 0 to 999
+  - Skewness: -0.003 (approximately symmetric)
+  - Kurtosis: -1.188 (platykurtic, fewer outliers)
 
-## **4. Visual Insights**
+- **Quantity**:
+  - Mean: 495.69
+  - Standard Deviation: 291.27
+  - Range: 0 to 999
+  - Skewness: 0.024 (slightly right-skewed)
+  - Kurtosis: -1.217 (platykurtic, fewer outliers)
 
-### **4.1 Inventory Quantity Distribution**
-![Histograms of Available Quantity and Quantity](histograms_numeric_features.png)
-*Figure 1: Histograms showing the uniform distribution of inventory quantities.*
+#### Correlation Analysis
 
-### **4.2 Quantity by Financial Category**
-![Boxplots of Available Quantity by Financial Category](boxplots_available_quantity.png)
-*Figure 2: Boxplots confirming uniformity across financial categories.*
+- **Correlation Matrix**:
+  - `Available Quantity` and `Quantity` have a near-zero correlation (-0.002), indicating no linear relationship between them.
 
-### **4.3 Product Lifecycle Timeline**
-![Timeline of Product Lifecycles](datetime_timeline.png)
-*Figure 3: Timeline highlighting the uniform 365-day lifecycle for all products.*
+#### Outlier Detection
 
-### **4.4 Financial Category Distribution**
-![Bar Plot of Financial Categories](categorical_distributions.png)
-*Figure 4: Even distribution of products across financial categories.*
+- **Z-Score Analysis**: No outliers detected in either `Available Quantity` or `Quantity`.
 
-### **4.5 Unknown Barcodes by Category**
-![Unknown Barcodes Distribution](unknown_barcodes_by_category.png)
-*Figure 5: Distribution of "Unknown" barcodes across financial categories.*
+### Date Columns Analysis
 
----
+- **Production Date**:
+  - Earliest: 2024-01-01
+  - Latest: 2025-01-21
+  - Unique dates: 9,274
 
-## **5. Strategic Recommendations**
+- **Expiration Date**:
+  - Earliest: 2025-01-02
+  - Latest: 2026-01-22
+  - Unique dates: 9,249
 
-### **5.1 Data Validation**
-- **Action**: Verify the dataset’s origin (synthetic vs. real-world).
-- **Why**: The uniformity in quantities and lifecycle dates is atypical and may mislead analysis.
-- **Owner**: Data Team.
+- **Removal Date**:
+  - Earliest: 2026-01-02
+  - Latest: 2027-01-22
+  - Unique dates: 9,249
 
-### **5.2 Address Lifecycle Anomalies**
-- **Action**: Investigate and correct the 365-day delta for all lifecycle dates.
-- **Why**: Realistic shelf lives are critical for inventory planning, expiration tracking, and waste reduction.
-- **Owner**: Operations & IT Teams.
+- **Alert Date**:
+  - Earliest: 2027-01-02
+  - Latest: 2028-01-22
+  - Unique dates: 9,243
 
-### **5.3 Handle Missing Barcodes**
-- **Short-Term**: Exclude "Unknown" barcodes from critical analyses to avoid skewing results.
-- **Long-Term**: Implement a barcode assignment protocol for new inventory entries.
-- **Owner**: Inventory Management Team.
+### ANOVA Analysis
 
-### **5.4 Leverage Categorical Insights**
-- **Action**: Use financial categories and locations for:
-  - **Targeted Stocking**: Allocate high-demand products to high-traffic locations.
-  - **Category-Specific Policies**: Tailor reorder points and expiration alerts by category (e.g., shorter lifecycles for perishables).
-- **Owner**: Supply Chain & Analytics Teams.
+- **Available Quantity by Financial Category**:
+  - F-statistic: 1.361, p-value: 0.253
+  - No significant difference in means across categories (p > 0.05).
 
-### **5.5 Monitor for Real-World Variability**
-- **Action**: If the dataset is synthetic, supplement with real-world data to:
-  - Identify demand fluctuations.
-  - Test inventory policies under variable conditions.
-- **Owner**: Data Science Team.
+- **Quantity by Financial Category**:
+  - F-statistic: 1.496, p-value: 0.214
+  - No significant difference in means across categories (p > 0.05).
 
----
+## Visual Insights
 
-## **6. Appendix**
+### Distribution Plots
 
-### **6.1 Dataset Overview**
-- **Records**: 9,090.
-- **Features**: 12 (numeric, datetime, categorical).
-- **Missing Values**:
-  - `Product/Barcode`: 2,695.
-  - `Lot/Serial Number/Expiration Date`: 25.
-  - `Lot/Serial Number/Removal Date`: 25.
-  - `Lot/Serial Number/Alert Date`: 31.
-  - `Product/Breadfast Barcode`: 154 (post-cleaning: 1,298 "Unknown" entries).
+- **Available Quantity and Quantity**: Both distributions are approximately normal with similar shapes.
 
-### **6.2 Cleaning Steps**
-1. Removed rows with missing datetime values.
-2. Standardized categorical labels (e.g., `Financial Category`, `Location`).
-3. Flagged "Unknown" barcodes for further review.
+### Scatter Plot
 
-### **6.3 Files Generated**
-- `histograms_numeric_features.png`
-- `boxplots_available_quantity.png`
-- `datetime_timeline.png`
-- `categorical_distributions.png`
-- `unknown_barcodes_by_category.png`
+- **Available Quantity vs Quantity**: No clear linear relationship, indicating independence between the two metrics.
 
----
+### Box Plots
 
-## **7. Conclusion**
-This analysis reveals a highly uniform dataset with anomalies in lifecycle dates and missing barcode data. While the structure is sound, the lack of variability limits its real-world applicability. **Stakeholders are advised to validate the data’s origin and address the identified issues** to enable actionable inventory optimization.
+- **Available Quantity by Financial Category**: Shows the distribution of available quantities across different financial categories.
 
-**Next Steps**:
-1. Confirm dataset authenticity with the Data Team.
-2. Correct lifecycle date anomalies.
-3. Implement a plan for handling missing barcodes.
-4. Supplement with real-world data for robust analysis.
+- **Quantity by Financial Category**: Shows the distribution of quantities across different financial categories.
 
----
+### Trend Analysis
 
-*Report Generated: [Current Date]*
-*Prepared by: Business Report Writer*
+- **Trends by Production Month**: Both `Available Quantity` and `Quantity` show fluctuations over time, but no clear upward or downward trend is visible.
+
+### Top Products
+
+- **Top 10 Products by Available Quantity**: Highlights the products with the highest inventory levels.
+
+## Conclusion
+
+The analysis provides a robust foundation for understanding the current state of inventory management. The independence of `Available Quantity` and `Quantity` suggests that separate strategies may be needed to manage these metrics effectively. The lack of significant differences across financial categories indicates a consistent inventory distribution, but further granular analysis could uncover additional insights.
+
+### Next Steps
+
+1. **Granular Analysis**: Explore subcategories within financial categories for more detailed insights.
+2. **Inventory Strategies**: Develop separate strategies for managing `Available Quantity` and `Quantity`.
+3. **Monitoring**: Use the generated visualizations to monitor trends and identify areas for improvement.
+4. **Data Enrichment**: Consider enriching the dataset with additional product details to enhance analysis.
+
+## Appendix
+
+### Files Generated
+
+- `statistical_analysis_results.txt`: Descriptive stats, skewness, kurtosis, correlations, outliers, and date analysis.
+- `advanced_analysis_results.txt`: ANOVA results.
+- PNG files for all visualizations (e.g., `quantity_distribution.png`, `trend_by_production_month.png`).
+
+### Visualizations
+
+1. **Distribution of Available Quantity and Quantity**: `output_plots/distribution_quantity.png`
+2. **Scatter Plot of Available Quantity vs Quantity**: `output_plots/scatter_quantity.png`
+3. **Box Plot of Available Quantity by Financial Category**: `output_plots/boxplot_available_quantity_category.png`
+4. **Box Plot of Quantity by Financial Category**: `output_plots/boxplot_quantity_category.png`
+5. **Trends of Available Quantity and Quantity by Production Month**: `output_plots/trend_by_production_month.png`
+6. **Top 10 Products by Available Quantity**: `output_plots/top_products_available_quantity.png`
