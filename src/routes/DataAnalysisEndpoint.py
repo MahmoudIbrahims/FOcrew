@@ -21,29 +21,39 @@ from pathlib import Path
 import uuid
 
 
-
 agent_router = APIRouter(
     prefix ="/api/v1/agent",
     tags =["api_v1","agent"],
 
 )
 
-
 @agent_router.post('/DataAnalysis/{project_id}')
-async def inventory_agent(request : Request ,project_id:str,DataAnaltsis_Request:ProcessRequest,backgroudtask:BackgroundTasks,
-
-                          app_settings: Settings = Depends(get_settings)):
-
-    project_model = await ProjectModel.create_instance(db_client = request.app.db_client)
+async def inventory_agent(
+        request :Request,
+        project_id:str,
+        DataAnaltsis_Request:ProcessRequest,
+        backgroudtask:BackgroundTasks,
+        app_settings: Settings = Depends(get_settings)):
+    
+    project_model = await ProjectModel.create_instance(
+                                        db_client = request.app.db_client)
 
     model = await project_model.get_project_by_id(project_id)
 
-    userfile_model =await UserFileModel.create_instance(db_client=request.app.db_client)
+    Update_record = await project_model.update_project(
+                            project_id=project_id,
+                            company_name=DataAnaltsis_Request.COMPANY_NAME,
+                            industry_name =DataAnaltsis_Request.INDUSTRY_NAME,
+                            report_language =DataAnaltsis_Request.Language
+                                )
 
-    latest_file = await userfile_model.get_latest_user_file_by_project(project_id =model.project_id)
+    userfile_model =await UserFileModel.create_instance(
+                                        db_client=request.app.db_client)
+
+    latest_file = await userfile_model.get_latest_user_file_by_project(
+                                        project_id =model.project_id)
 
     if not latest_file:
-
         return JSONResponse(
             status_code=status.HTTP_404_NOT_FOUND,
             content={
@@ -62,35 +72,42 @@ async def inventory_agent(request : Request ,project_id:str,DataAnaltsis_Request
 
     final_pdf_path = job_dir_path / "Data_Analysis_Report.pdf"
 
-    if not full_local_file_path.exists():
+    def task_start_callback(task):
+        print(f"[TIMER] Starting {task.name}")
+        task._timer = time.perf_counter()  
 
-        try:
+    def task_end_callback(task):
+        elapsed = time.perf_counter() - getattr(task, "_timer", time.perf_counter())
+        print(f"[TIMER] Finished {task.name}, took {elapsed:.2f}s")
 
-            download_file = download_file_from_s3(
 
-                                boto3_client=request.app.storage_S3_client,
-                                bucket_name=app_settings.AWS_BUCKET,
-                                file_key=latest_file.file_path,
-                                download_directory=job_dir_path.as_posix(),
-                                force_download =True)
+    with StepTimer("Download file from S3"):
+        if not full_local_file_path.exists():
+            try:
 
-        except Exception as e:
-            print(f"Error during S3 download: {e}")
-            return JSONResponse(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                content={"message": ResponseSignal.RESPONSE_NOT_DOWNLOAD_FILE.value})
+                download_file = download_file_from_s3(
+                                    boto3_client=request.app.storage_S3_client,
+                                    bucket_name=app_settings.AWS_BUCKET,
+                                    file_key=latest_file.file_path,
+                                    download_directory=job_dir_path.as_posix(),
+                                    force_download =True)
 
-        if not download_file:
+            except Exception as e:
+                print(f"Error during S3 download: {e}")
+                return JSONResponse(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    content={"message": ResponseSignal.RESPONSE_NOT_DOWNLOAD_FILE.value})
 
-            return JSONResponse(
-                status_code=status.HTTP_404_NOT_FOUND,
-                content={
-                    "message": ResponseSignal.RESPONSE_NOT_DOWNLOAD_FILE.value}
-                    )
+            if not download_file:
+                return JSONResponse(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    content={
+                        "message": ResponseSignal.RESPONSE_NOT_DOWNLOAD_FILE.value}
+                        )
 
-    else:
-        print(f"File already exists at: {full_local_file_path}")
-        download_file = True
+        else:
+            print(f"File already exists at: {full_local_file_path}")
+            download_file = True
 
     Data_Reader = DataReaderAgent()
     Data_Reader_Agent =Data_Reader.get_agent()
@@ -104,7 +121,7 @@ async def inventory_agent(request : Request ,project_id:str,DataAnaltsis_Request
     Data_Analyzer = DataAnalyzerAgent()
     Data_Analyzer_Agent =Data_Analyzer.get_agent()
     Data_Analyzer_task =Data_Analyzer.get_task()
-
+    
     Data_Visualizer = DataVisualizerAgent()
     Data_Visualizer_Agent =Data_Visualizer.get_agent()
     Data_Visualizer_task =Data_Visualizer.get_task()
@@ -118,18 +135,25 @@ async def inventory_agent(request : Request ,project_id:str,DataAnaltsis_Request
     Report_Generator_task =Report_Generator.get_task()
     Report_Generator_task.description =Convert_md_to_pdf_prompt.safe_substitute(full_path=final_pdf_path.as_posix(),logo_company=app_settings.LOGO_COMPANY)
 
-    if DataAnaltsis_Request.Language== Languages.ARABIC.value:
-                   
+    if DataAnaltsis_Request.Language== Languages.ARABIC.value: 
         crew = Crew(
+                agents=[Data_Reader_Agent,
+                        Data_Cleaner_Agent,
+                        Data_Analyzer_Agent,
+                        Data_Visualizer_Agent,
+                        Report_Writer_Agent,
+                        Report_Generator_Agent],
 
-                    agents=[Data_Reader_Agent,Data_Cleaner_Agent,Data_Analyzer_Agent,
-
-                            Data_Visualizer_Agent,Report_Writer_Agent,Report_Generator_Agent],
-
-                    tasks=[Data_Reader_task,Data_Cleane_task,Data_Analyzer_task,Data_Visualizer_task,Report_Writer_task,Report_Generator_task],          
-                              verbose=True
-                             )
-
+                tasks=[Data_Reader_task,
+                        Data_Cleane_task,
+                        Data_Analyzer_task,
+                        Data_Visualizer_task,
+                        Report_Writer_task,
+                        Report_Generator_task],          
+                            verbose=True,
+                            on_task_start=task_start_callback, on_task_end=task_end_callback
+                            )
+        
         MAX_RETRIES = 5
         BASE_WAIT_TIME = 5
         result = None
@@ -165,38 +189,17 @@ async def inventory_agent(request : Request ,project_id:str,DataAnaltsis_Request
                          )
         
         response = None
-
         if os.path.exists(final_pdf_path):
             backgroudtask.add_task(shutil.rmtree, job_dir_path)
             return FileResponse(
                 path=final_pdf_path.as_posix(),
                 filename="Data_Analysis_Report.pdf",
                 media_type='application/pdf',
-                 headers={
+                headers={
             "Content-Disposition": "inline; filename=Data_Analysis_Report.pdf"
-                         }
+                        }
 
-                           )
-
-        # if os.path.exists(final_pdf_path):
-        #     file_size = os.path.getsize(final_pdf_path) 
-        #     file_name = "Data_Analysis_Report.pdf"
-
-        #     headers = {
-        #         'Content-Disposition': f'inline; filename="{file_name}"',
-        #         'Content-Length': str(file_size), 
-        #         'Access-Control-Expose-Headers': 'Content-Disposition' 
-        #     }
-
-        #     def file_iterator(file_path):
-        #         with open(file_path, "rb") as file_like:
-        #             yield from file_like
-            
-        #     return StreamingResponse(
-        #                 file_iterator(final_pdf_path),
-        #                 media_type='application/pdf',
-        #                 headers=headers
-        #             )
+                        )
 
         else:
 
