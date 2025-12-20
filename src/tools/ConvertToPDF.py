@@ -164,7 +164,7 @@ class MarkdownToPDFReport(BaseTool):
                 <!-- Cover Page -->
                 <div class="cover">
                     <img src="../docs/logo.png" alt="Company Logo"> 
-                    <h1>Inventory Report</h1>
+                    <h1>Analysis Report</h1>
                     <p>Date: {report_date}</p>
                 </div>
 
@@ -175,14 +175,14 @@ class MarkdownToPDFReport(BaseTool):
 
                 <!-- Report Content -->
                 <div class="header">
-                    '<img src="../docs/logo.png" alt="Company Logo">' 
-                    <h1>Inventory Report</h1>
+                    <img src="../docs/logo.png" alt="Company Logo"> 
+                    <h1>Analysis Report</h1>
                 </div>
 
                 {html_content}
 
                 <div class="footer">
-                    © 2025 Company Name. All rights reserved.
+                    © 2025 FOcrew. All rights reserved.
                 </div>
             </body>
             </html>
