@@ -79,35 +79,33 @@ async def inventory_agent(
     def task_end_callback(task):
         elapsed = time.perf_counter() - getattr(task, "_timer", time.perf_counter())
         print(f"[TIMER] Finished {task.name}, took {elapsed:.2f}s")
+        
+    if not full_local_file_path.exists():
+        try:
 
+            download_file = download_file_from_s3(
+                                boto3_client=request.app.storage_S3_client,
+                                bucket_name=app_settings.AWS_BUCKET,
+                                file_key=latest_file.file_path,
+                                download_directory=job_dir_path.as_posix(),
+                                force_download =True)
 
-    with StepTimer("Download file from S3"):
-        if not full_local_file_path.exists():
-            try:
+        except Exception as e:
+            print(f"Error during S3 download: {e}")
+            return JSONResponse(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                content={"message": ResponseSignal.RESPONSE_NOT_DOWNLOAD_FILE.value})
 
-                download_file = download_file_from_s3(
-                                    boto3_client=request.app.storage_S3_client,
-                                    bucket_name=app_settings.AWS_BUCKET,
-                                    file_key=latest_file.file_path,
-                                    download_directory=job_dir_path.as_posix(),
-                                    force_download =True)
+        if not download_file:
+            return JSONResponse(
+                status_code=status.HTTP_404_NOT_FOUND,
+                content={
+                    "message": ResponseSignal.RESPONSE_NOT_DOWNLOAD_FILE.value}
+                    )
 
-            except Exception as e:
-                print(f"Error during S3 download: {e}")
-                return JSONResponse(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    content={"message": ResponseSignal.RESPONSE_NOT_DOWNLOAD_FILE.value})
-
-            if not download_file:
-                return JSONResponse(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    content={
-                        "message": ResponseSignal.RESPONSE_NOT_DOWNLOAD_FILE.value}
-                        )
-
-        else:
-            print(f"File already exists at: {full_local_file_path}")
-            download_file = True
+    else:
+        print(f"File already exists at: {full_local_file_path}")
+        download_file = True
 
     Data_Reader = DataReaderAgent()
     Data_Reader_Agent =Data_Reader.get_agent()
@@ -116,7 +114,7 @@ async def inventory_agent(
 
     Data_Cleaner = DataCleanerAgent()
     Data_Cleaner_Agent =Data_Cleaner.get_agent()
-    Data_Cleane_task =Data_Cleaner.get_task()
+    Data_Cleaner_task =Data_Cleaner.get_task()
 
     Data_Analyzer = DataAnalyzerAgent()
     Data_Analyzer_Agent =Data_Analyzer.get_agent()
@@ -145,14 +143,13 @@ async def inventory_agent(
                         Report_Generator_Agent],
 
                 tasks=[Data_Reader_task,
-                        Data_Cleane_task,
+                        Data_Cleaner_task,
                         Data_Analyzer_task,
                         Data_Visualizer_task,
                         Report_Writer_task,
                         Report_Generator_task],          
-                            verbose=True,
-                            on_task_start=task_start_callback, on_task_end=task_end_callback
-                            )
+                            verbose=True
+                            )     
         
         MAX_RETRIES = 5
         BASE_WAIT_TIME = 5
