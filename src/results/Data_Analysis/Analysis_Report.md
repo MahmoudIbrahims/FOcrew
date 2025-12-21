@@ -1,143 +1,70 @@
-# Inventory Data Analysis Report
+# Executive Summary
 
-## Executive Summary
+This report provides a comprehensive analysis of the inventory dataset, focusing on key insights and trends related to product availability and quantity. The dataset consists of 9,274 records across 13 columns, with no missing values after data cleaning.
 
-This report provides a comprehensive analysis of the inventory dataset, which includes 9,274 records across 13 columns. The dataset covers various product details, financial categories, quantities, and dates related to production, expiration, removal, and alerts.
-
-### Key Findings
-
-1. **Data Quality**: The dataset is well-structured with no missing values in critical columns such as `Product/Internal Reference`, `Product/Name`, `Available Quantity`, and `Quantity`. Some columns like `Product/Barcode` and `Product/Breadfast Barcode` have missing values, but these have been handled appropriately.
-
-2. **Inventory Metrics**: The average available quantity is approximately 500 units, with a standard deviation of 287.99, indicating a moderate spread in inventory levels. The distribution of both `Available Quantity` and `Quantity` is approximately normal with no significant outliers.
-
-3. **Feature Independence**: There is no linear relationship between `Available Quantity` and `Quantity`, suggesting these metrics are independent and measure different aspects of inventory management.
-
-4. **Temporal Patterns**: The dates follow a logical sequence from production to expiration, removal, and alert dates, with no anomalies detected.
-
-5. **Financial Categories**: No significant differences in inventory levels were found across different financial categories, indicating a consistent inventory distribution.
-
-### Recommendations
-
-1. **Inventory Optimization**: Given the independence of `Available Quantity` and `Quantity`, consider separate strategies for managing these metrics to optimize inventory levels.
-
-2. **Data Enrichment**: Explore opportunities to enrich the dataset with additional product details or subcategories within financial categories to gain more granular insights.
-
-3. **Visualization Enhancements**: Utilize the generated visualizations to monitor trends and identify potential areas for improvement in inventory management.
-
-## Detailed Analysis
+## Key Insights
 
 ### Dataset Overview
+- **Shape**: (9,274, 13)
+- **Numeric Features**: Available Quantity, Quantity
+- **Data Quality**: All columns have consistent data types and no missing values.
 
-- **Shape**: 9,274 rows × 13 columns
-- **Columns**: Product/Internal Reference, Product/Name, Product/Barcode, Financial Category, Available Quantity, Quantity, Lot/Serial Number, Location, Lot/Serial Number/Production Date, Lot/Serial Number/Expiration Date, Lot/Serial Number/Removal Date, Lot/Serial Number/Alert Date, Product/Breadfast Barcode
+### Statistical Summaries
+- **Available Quantity**: Mean = 500.22, Median = 505, Std Dev = 287.36
+- **Quantity**: Mean = 503.30, Median = 508, Std Dev = 291.44
+- Both features exhibit near-zero skewness, indicating symmetric distributions.
+- Negative kurtosis suggests lighter tails than a normal distribution.
 
-### Descriptive Statistics
+### Correlation Analysis
+- **Correlation between Available Quantity and Quantity**: -0.0095
+- The weak correlation indicates that these two metrics are influenced by different factors.
 
-#### Numeric Features
-
-- **Available Quantity**:
-  - Mean: 500.01
-  - Standard Deviation: 287.99
-  - Range: 0 to 999
-  - Skewness: -0.003 (approximately symmetric)
-  - Kurtosis: -1.188 (platykurtic, fewer outliers)
-
-- **Quantity**:
-  - Mean: 495.69
-  - Standard Deviation: 291.27
-  - Range: 0 to 999
-  - Skewness: 0.024 (slightly right-skewed)
-  - Kurtosis: -1.217 (platykurtic, fewer outliers)
-
-#### Correlation Analysis
-
-- **Correlation Matrix**:
-  - `Available Quantity` and `Quantity` have a near-zero correlation (-0.002), indicating no linear relationship between them.
-
-#### Outlier Detection
-
-- **Z-Score Analysis**: No outliers detected in either `Available Quantity` or `Quantity`.
-
-### Date Columns Analysis
-
-- **Production Date**:
-  - Earliest: 2024-01-01
-  - Latest: 2025-01-21
-  - Unique dates: 9,274
-
-- **Expiration Date**:
-  - Earliest: 2025-01-02
-  - Latest: 2026-01-22
-  - Unique dates: 9,249
-
-- **Removal Date**:
-  - Earliest: 2026-01-02
-  - Latest: 2027-01-22
-  - Unique dates: 9,249
-
-- **Alert Date**:
-  - Earliest: 2027-01-02
-  - Latest: 2028-01-22
-  - Unique dates: 9,243
-
-### ANOVA Analysis
-
-- **Available Quantity by Financial Category**:
-  - F-statistic: 1.361, p-value: 0.253
-  - No significant difference in means across categories (p > 0.05).
-
-- **Quantity by Financial Category**:
-  - F-statistic: 1.496, p-value: 0.214
-  - No significant difference in means across categories (p > 0.05).
+### Outlier Detection
+- No outliers detected in the numeric features using the IQR method.
 
 ## Visual Insights
 
-### Distribution Plots
+### Distribution of Available Quantity
+![Available Quantity Distribution](visualizations/available_quantity_distribution.png)
+- The histogram shows a near-normal distribution with a slight negative skew.
 
-- **Available Quantity and Quantity**: Both distributions are approximately normal with similar shapes.
+### Distribution of Quantity
+![Quantity Distribution](visualizations/quantity_distribution.png)
+- Similar to available quantity, the distribution is near-normal with minimal skewness.
 
-### Scatter Plot
-
-- **Available Quantity vs Quantity**: No clear linear relationship, indicating independence between the two metrics.
+### Relationship between Available Quantity and Quantity
+![Quantity Relationship](visualizations/quantity_relationship.png)
+- The scatter plot confirms the weak correlation between the two metrics.
 
 ### Box Plots
+![Available Quantity Box Plot](visualizations/available_quantity_boxplot.png)
+![Quantity Box Plot](visualizations/quantity_boxplot.png)
+- Both box plots confirm the absence of outliers and show tight distributions around the median.
 
-- **Available Quantity by Financial Category**: Shows the distribution of available quantities across different financial categories.
+### Correlation Heatmap
+![Correlation Heatmap](visualizations/correlation_heatmap.png)
+- The heatmap visually represents the weak correlation between available quantity and quantity.
 
-- **Quantity by Financial Category**: Shows the distribution of quantities across different financial categories.
+## Recommendations
 
-### Trend Analysis
+### Inventory Management
+- **Optimize Stock Levels**: Given the symmetric distributions, consider maintaining stock levels around the median to balance supply and demand.
+- **Independent Management**: Since available quantity and total quantity are weakly correlated, manage these metrics independently to address different influencing factors.
 
-- **Trends by Production Month**: Both `Available Quantity` and `Quantity` show fluctuations over time, but no clear upward or downward trend is visible.
+### Data Quality
+- **Consistent Data Entry**: Ensure consistent data entry practices to maintain the high data quality observed.
+- **Regular Audits**: Conduct regular audits to identify and address any potential data inconsistencies.
 
-### Top Products
-
-- **Top 10 Products by Available Quantity**: Highlights the products with the highest inventory levels.
+### Further Analysis
+- **Segmentation Analysis**: Analyze the dataset by financial categories or product types to identify specific trends or patterns.
+- **Predictive Modeling**: Explore predictive modeling to forecast future inventory needs based on historical data.
 
 ## Conclusion
 
-The analysis provides a robust foundation for understanding the current state of inventory management. The independence of `Available Quantity` and `Quantity` suggests that separate strategies may be needed to manage these metrics effectively. The lack of significant differences across financial categories indicates a consistent inventory distribution, but further granular analysis could uncover additional insights.
+The dataset is well-structured with high data quality, providing a solid foundation for inventory management and analysis. The symmetric distributions and lack of outliers indicate consistent data across the inventory. The weak correlation between available quantity and total quantity suggests that these metrics should be managed independently. By leveraging these insights, the business can optimize inventory levels, improve stock management, and enhance overall operational efficiency.
 
 ### Next Steps
-
-1. **Granular Analysis**: Explore subcategories within financial categories for more detailed insights.
-2. **Inventory Strategies**: Develop separate strategies for managing `Available Quantity` and `Quantity`.
-3. **Monitoring**: Use the generated visualizations to monitor trends and identify areas for improvement.
-4. **Data Enrichment**: Consider enriching the dataset with additional product details to enhance analysis.
-
-## Appendix
-
-### Files Generated
-
-- `statistical_analysis_results.txt`: Descriptive stats, skewness, kurtosis, correlations, outliers, and date analysis.
-- `advanced_analysis_results.txt`: ANOVA results.
-- PNG files for all visualizations (e.g., `quantity_distribution.png`, `trend_by_production_month.png`).
-
-### Visualizations
-
-1. **Distribution of Available Quantity and Quantity**: `output_plots/distribution_quantity.png`
-2. **Scatter Plot of Available Quantity vs Quantity**: `output_plots/scatter_quantity.png`
-3. **Box Plot of Available Quantity by Financial Category**: `output_plots/boxplot_available_quantity_category.png`
-4. **Box Plot of Quantity by Financial Category**: `output_plots/boxplot_quantity_category.png`
-5. **Trends of Available Quantity and Quantity by Production Month**: `output_plots/trend_by_production_month.png`
-6. **Top 10 Products by Available Quantity**: `output_plots/top_products_available_quantity.png`
+- Implement the recommended inventory management strategies.
+- Conduct further segmentation analysis to identify specific trends.
+- Explore predictive modeling to forecast future inventory needs.
+- Regularly review and update inventory management practices based on ongoing analysis.
