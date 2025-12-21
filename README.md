@@ -2,7 +2,7 @@
   <img src="https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604" alt="FOcrew Logo" width="150"/>
 </p>
 
-![FOcrew Website Screenshot](docs/web.png)
+![FOcrew Website Screenshot](docs/web_v01.png)
 
 <h1 align="center">
   🌟 FOcrew: Future-Oriented Crew
@@ -47,7 +47,8 @@ FOcrew is a highly modular, open-source **Multi-Agent System** designed to revol
 
 Follow these steps to set up the project environment and run the system locally:
 
-* Download and install Miniconda .
+=======
+* First Download and install Miniconda .
 
 ### 1. Clone the Repository
 ```bash
