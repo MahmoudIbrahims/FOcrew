@@ -71,14 +71,6 @@ async def inventory_agent(
     full_local_file_path = job_dir_path / Path(latest_file.file_path).name
 
     final_pdf_path = job_dir_path / "Data_Analysis_Report.pdf"
-
-    def task_start_callback(task):
-        print(f"[TIMER] Starting {task.name}")
-        task._timer = time.perf_counter()  
-
-    def task_end_callback(task):
-        elapsed = time.perf_counter() - getattr(task, "_timer", time.perf_counter())
-        print(f"[TIMER] Finished {task.name}, took {elapsed:.2f}s")
         
     if not full_local_file_path.exists():
         try:
