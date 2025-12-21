@@ -75,7 +75,7 @@ cd docker
 cp .env.example .env
 ```
 #### Third alembic for data migration:
-### [Readme](.\src\Models\schema\README.md)
+### [Readme](./src/Models/schema/README.md)
 
 #### 2. Run the app:
 
