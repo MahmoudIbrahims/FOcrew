@@ -43,31 +43,44 @@ FOcrew is a highly modular, open-source **Multi-Agent System** designed to revol
 * **PostgreSQL Integration:** Robust data storage for agent memory and history.
 
 ---
+# Installation Guide
 
+Follow these steps to set up the project environment and run the system locally:
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/MahmoudIbrahims/FOcrew.git
+cd FOcrew
+```
 #### 1. Environment Setup
 
 Create and activate a dedicated Python environment:
 
 ```bash
 $conda create -n coreAgent python=3.10
-```
--------
-```bash
+
 $conda activate coreAgent
+
+$uv pip install -r requirements.txt
 ```
+### Configuration
+#### THe first src
+```bash
+cd src
+cp .env.example .env
+```
+#### The second docker
+```bash
+cd docker
+cp .env.example .env
+```
+#### Third alembic for data migration:
+### [Readme](.\src\Models\schema\README.md)
 
 #### 2. Run the app:
-
-```bash
-$cd src
-```
--------
-```bash
- $uv pip install -r requirements.txt
- ```
- -------
 
  ```bash
  $uvicorn main:app --reload --host 0.0.0.0 --port 8000
  ```
+ #### Access URL: http://localhost:8000
 

@@ -28,3 +28,4 @@ pytest-mock==3.15.1
 python-multipart==0.0.20
 boto3==1.42.5
 supabase==2.25.0
+pydantic[email]

@@ -6,8 +6,8 @@ from fastapi import APIRouter ,status,Request,Depends,BackgroundTasks
 from helpers.config import get_settings, Settings
 from Models.ProjectModel import ProjectModel
 from Models.UserFileModel import UserFileModel
-from fastapi.responses import JSONResponse,FileResponse,StreamingResponse
-from .Schemes.data import DataAnaltsisRequest
+from fastapi.responses import JSONResponse,StreamingResponse,FileResponse
+from .Schemes.data import DataAnaltsisRequest,ProcessRequest
 from .Enums.BasicsEnums import Languages
 from Models.enums import ResponseSignal
 from .Enums.DataAnalysisEnums import DataAnalysisEunms
@@ -21,30 +21,39 @@ from pathlib import Path
 import uuid
 
 
-
 agent_router = APIRouter(
     prefix ="/api/v1/agent",
     tags =["api_v1","agent"],
 
 )
 
-
 @agent_router.post('/DataAnalysis/{project_id}')
+async def inventory_agent(
+        request :Request,
+        project_id:str,
+        DataAnaltsis_Request:ProcessRequest,
+        backgroudtask:BackgroundTasks,
+        app_settings: Settings = Depends(get_settings)):
+    
+    project_model = await ProjectModel.create_instance(
+                                        db_client = request.app.db_client)
 
-async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request:DataAnaltsisRequest,backgroudtask:BackgroundTasks,
+    model = await project_model.get_project_by_id(project_id)
 
-                          app_settings: Settings = Depends(get_settings)):
+    Update_record = await project_model.update_project(
+                            project_id=project_id,
+                            company_name=DataAnaltsis_Request.COMPANY_NAME,
+                            industry_name =DataAnaltsis_Request.INDUSTRY_NAME,
+                            report_language =DataAnaltsis_Request.Language
+                                )
 
-    project_model = await ProjectModel.create_instance(db_client = request.app.db_client)
+    userfile_model =await UserFileModel.create_instance(
+                                        db_client=request.app.db_client)
 
-    model = await project_model.get_project_or_create_one(project_id = project_id )
-
-    userfile_model =await UserFileModel.create_instance(db_client=request.app.db_client)
-
-    latest_file = await userfile_model.get_latest_user_file_by_project(project_id =model.project_id)
+    latest_file = await userfile_model.get_latest_user_file_by_project(
+                                        project_id =model.project_id)
 
     if not latest_file:
-
         return JSONResponse(
             status_code=status.HTTP_404_NOT_FOUND,
             content={
@@ -62,13 +71,11 @@ async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request
     full_local_file_path = job_dir_path / Path(latest_file.file_path).name
 
     final_pdf_path = job_dir_path / "Data_Analysis_Report.pdf"
-
+        
     if not full_local_file_path.exists():
-
         try:
 
             download_file = download_file_from_s3(
-
                                 boto3_client=request.app.storage_S3_client,
                                 bucket_name=app_settings.AWS_BUCKET,
                                 file_key=latest_file.file_path,
@@ -82,7 +89,6 @@ async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request
                 content={"message": ResponseSignal.RESPONSE_NOT_DOWNLOAD_FILE.value})
 
         if not download_file:
-
             return JSONResponse(
                 status_code=status.HTTP_404_NOT_FOUND,
                 content={
@@ -100,12 +106,12 @@ async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request
 
     Data_Cleaner = DataCleanerAgent()
     Data_Cleaner_Agent =Data_Cleaner.get_agent()
-    Data_Cleane_task =Data_Cleaner.get_task()
+    Data_Cleaner_task =Data_Cleaner.get_task()
 
     Data_Analyzer = DataAnalyzerAgent()
     Data_Analyzer_Agent =Data_Analyzer.get_agent()
     Data_Analyzer_task =Data_Analyzer.get_task()
-
+    
     Data_Visualizer = DataVisualizerAgent()
     Data_Visualizer_Agent =Data_Visualizer.get_agent()
     Data_Visualizer_task =Data_Visualizer.get_task()
@@ -119,18 +125,24 @@ async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request
     Report_Generator_task =Report_Generator.get_task()
     Report_Generator_task.description =Convert_md_to_pdf_prompt.safe_substitute(full_path=final_pdf_path.as_posix(),logo_company=app_settings.LOGO_COMPANY)
 
-    if DataAnaltsis_Request.Language== Languages.ARABIC.value:
-                   
+    if DataAnaltsis_Request.Language== Languages.ARABIC.value: 
         crew = Crew(
+                agents=[Data_Reader_Agent,
+                        Data_Cleaner_Agent,
+                        Data_Analyzer_Agent,
+                        Data_Visualizer_Agent,
+                        Report_Writer_Agent,
+                        Report_Generator_Agent],
 
-                    agents=[Data_Reader_Agent,Data_Cleaner_Agent,Data_Analyzer_Agent,
-
-                            Data_Visualizer_Agent,Report_Writer_Agent,Report_Generator_Agent],
-
-                    tasks=[Data_Reader_task,Data_Cleane_task,Data_Analyzer_task,Data_Visualizer_task,Report_Writer_task,Report_Generator_task],          
-                              verbose=True
-                             )
-
+                tasks=[Data_Reader_task,
+                        Data_Cleaner_task,
+                        Data_Analyzer_task,
+                        Data_Visualizer_task,
+                        Report_Writer_task,
+                        Report_Generator_task],          
+                            verbose=True
+                            )     
+        
         MAX_RETRIES = 5
         BASE_WAIT_TIME = 5
         result = None
@@ -166,35 +178,17 @@ async def inventory_agent(request : Request ,project_id:int,DataAnaltsis_Request
                          )
         
         response = None
-
-        # if os.path.exists(final_pdf_path):
-        #     backgroudtask.add_task(shutil.rmtree, job_dir_path)
-        #     return FileResponse(
-        #         path=final_pdf_path.as_posix(),
-        #         filename="Data_Analysis_Report.pdf",
-        #         media_type='application/pdf'
-
-        #                    )
-
         if os.path.exists(final_pdf_path):
-            #backgroudtask.add_task(shutil.rmtree, job_dir_path)
+            backgroudtask.add_task(shutil.rmtree, job_dir_path)
+            return FileResponse(
+                path=final_pdf_path.as_posix(),
+                filename="Data_Analysis_Report.pdf",
+                media_type='application/pdf',
+                headers={
+            "Content-Disposition": "inline; filename=Data_Analysis_Report.pdf"
+                        }
 
-            def file_iterator(file_path):
-                with open(file_path, "rb") as file_like:
-                    yield from file_like
-
-
-            file_name = "Data_Analysis_Report.pdf"
-
-            headers = {
-                    'Content-Disposition': f'inline; filename="{file_name}"' 
-                     }
-            
-            return StreamingResponse(
-                        file_iterator(final_pdf_path),
-                        media_type='application/pdf',
-                        headers=headers
-                    )
+                        )
 
         else:
 

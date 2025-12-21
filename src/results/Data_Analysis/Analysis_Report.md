@@ -1,44 +1,70 @@
-# Business Performance Analysis Report
+# Executive Summary
 
-## Executive Summary
+This report provides a comprehensive analysis of the inventory dataset, focusing on key insights and trends related to product availability and quantity. The dataset consists of 9,274 records across 13 columns, with no missing values after data cleaning.
 
-This report summarizes key findings from a comprehensive analysis of sales and profitability data. The primary insight reveals a critical challenge: **the current discount strategy is severely impacting overall profitability.** While the majority of transactions are profitable, a strong negative correlation exists between the discount applied and the resulting profit. Specifically, high discounts, often applied to larger orders, are directly linked to significant financial losses, pulling down the average profit margin.
+## Key Insights
 
-**Key Recommendations:**
+### Dataset Overview
+- **Shape**: (9,274, 13)
+- **Numeric Features**: Available Quantity, Quantity
+- **Data Quality**: All columns have consistent data types and no missing values.
 
-1.  **Re-evaluate Discount Policy:** Implement a data-driven review of the discount structure to identify and eliminate unprofitable discount thresholds.
-2.  **Enforce Profitability Thresholds:** Establish minimum profit margins for all sales, particularly for high-quantity orders, to prevent losses.
-3.  **Segment-Specific Analysis:** Conduct further analysis by product category and customer segment to pinpoint specific areas where discounts are most detrimental to profitability.
+### Statistical Summaries
+- **Available Quantity**: Mean = 500.22, Median = 505, Std Dev = 287.36
+- **Quantity**: Mean = 503.30, Median = 508, Std Dev = 291.44
+- Both features exhibit near-zero skewness, indicating symmetric distributions.
+- Negative kurtosis suggests lighter tails than a normal distribution.
 
-## Key Findings and Analysis
+### Correlation Analysis
+- **Correlation between Available Quantity and Quantity**: -0.0095
+- The weak correlation indicates that these two metrics are influenced by different factors.
 
-### 1. Profitability Challenge: The Impact of Large Losses
+### Outlier Detection
+- No outliers detected in the numeric features using the IQR method.
 
-Analysis of the profit distribution reveals a significant negative skew. This indicates that while most transactions generate a positive profit (median profit is higher than the mean), a smaller number of large loss-making transactions are disproportionately reducing the overall average profit. The presence of these severe losses suggests a critical flaw in the current pricing or discount strategy for specific high-value or bulk transactions.
+## Visual Insights
 
-### 2. Strong Negative Correlation: Discount vs. Profit
+### Distribution of Available Quantity
+![Available Quantity Distribution](visualizations/available_quantity_distribution.png)
+- The histogram shows a near-normal distribution with a slight negative skew.
 
-**Finding:** The most critical finding from the correlation analysis is the strong negative correlation between `Discount` and `Profit` (-0.81). This relationship demonstrates that as the discount percentage increases, the profit generated from the transaction decreases sharply, often resulting in substantial losses. This indicates that discounts are the primary driver of unprofitability within the dataset.
+### Distribution of Quantity
+![Quantity Distribution](visualizations/quantity_distribution.png)
+- Similar to available quantity, the distribution is near-normal with minimal skewness.
 
-### 3. Counterintuitive Trend: Larger Orders and Profitability
+### Relationship between Available Quantity and Quantity
+![Quantity Relationship](visualizations/quantity_relationship.png)
+- The scatter plot confirms the weak correlation between the two metrics.
 
-**Finding:** The analysis shows a moderate negative correlation between `Profit` and `Quantity` (-0.63). This suggests that larger orders (higher quantity) tend to be less profitable. This trend is likely driven by the practice of applying higher discounts to bulk purchases, as indicated by the moderate positive correlation between `Sales` and `Discount` (0.48). The current strategy of incentivizing large orders with high discounts appears to be counterproductive to maximizing profit.
+### Box Plots
+![Available Quantity Box Plot](visualizations/available_quantity_boxplot.png)
+![Quantity Box Plot](visualizations/quantity_boxplot.png)
+- Both box plots confirm the absence of outliers and show tight distributions around the median.
 
-## Strategic Recommendations
+### Correlation Heatmap
+![Correlation Heatmap](visualizations/correlation_heatmap.png)
+- The heatmap visually represents the weak correlation between available quantity and quantity.
 
-Based on the analysis, the following actions are recommended to improve business performance and profitability:
+## Recommendations
 
-### 1. Optimize Discount Policy
+### Inventory Management
+- **Optimize Stock Levels**: Given the symmetric distributions, consider maintaining stock levels around the median to balance supply and demand.
+- **Independent Management**: Since available quantity and total quantity are weakly correlated, manage these metrics independently to address different influencing factors.
 
-*   **Action:** Review and adjust the discount policy to ensure that discounts do not exceed a specific threshold where transactions become unprofitable. The current strong negative correlation suggests that a significant portion of discounts are applied without adequate consideration for the resulting profit margin.
-*   **Benefit:** By implementing a data-driven discount strategy, the organization can maximize revenue while protecting profitability, ensuring that sales growth does not come at the expense of financial health.
+### Data Quality
+- **Consistent Data Entry**: Ensure consistent data entry practices to maintain the high data quality observed.
+- **Regular Audits**: Conduct regular audits to identify and address any potential data inconsistencies.
 
-### 2. Implement Profitability-Based Pricing for Bulk Orders
+### Further Analysis
+- **Segmentation Analysis**: Analyze the dataset by financial categories or product types to identify specific trends or patterns.
+- **Predictive Modeling**: Explore predictive modeling to forecast future inventory needs based on historical data.
 
-*   **Action:** Re-evaluate the pricing structure for high-quantity orders. Instead of automatically applying high discounts, implement a tiered pricing model that maintains a minimum profit margin for bulk purchases.
-*   **Benefit:** This will mitigate the risk associated with large, low-margin sales and ensure that high-volume transactions contribute positively to overall profitability.
+## Conclusion
 
-### 3. Conduct Deep Dive Analysis by Segment and Category
+The dataset is well-structured with high data quality, providing a solid foundation for inventory management and analysis. The symmetric distributions and lack of outliers indicate consistent data across the inventory. The weak correlation between available quantity and total quantity suggests that these metrics should be managed independently. By leveraging these insights, the business can optimize inventory levels, improve stock management, and enhance overall operational efficiency.
 
-*   **Action:** Perform a detailed analysis of profitability by `Category`, `Sub-Category`, and `Customer Segment`. Identify specific product lines or customer groups where the discount-profit relationship is most severe.
-*   **Benefit:** This targeted approach will allow for precise interventions, such as adjusting pricing for specific products or re-negotiating terms with certain customer segments, leading to more efficient resource allocation and improved profit margins.
+### Next Steps
+- Implement the recommended inventory management strategies.
+- Conduct further segmentation analysis to identify specific trends.
+- Explore predictive modeling to forecast future inventory needs.
+- Regularly review and update inventory management practices based on ongoing analysis.
