@@ -64,7 +64,7 @@ $conda activate coreAgent
 $uv pip install -r requirements.txt
 ```
 ### Configuration
-#### THe first src
+#### The first src
 ```bash
 cd src
 cp .env.example .env
