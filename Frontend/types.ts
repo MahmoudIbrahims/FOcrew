@@ -79,11 +79,18 @@ export interface UploadResponse {
   s3_key: string;
 }
 
+// export interface AnalysisResponse {
+//   signal: string;
+//   Agent_name: string;
+//   created_at: string;
+//   report_url?: string; // Added to support PDF link
+// } 
+
 export interface AnalysisResponse {
   signal: string;
   Agent_name: string;
   created_at: string;
-  report_url?: string; // Added to support PDF link
+  pdfUrl: string;  
 }
 
 // API Requests

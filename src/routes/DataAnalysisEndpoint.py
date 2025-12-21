@@ -35,6 +35,13 @@ async def inventory_agent(
         backgroudtask:BackgroundTasks,
         app_settings: Settings = Depends(get_settings)):
     
+
+    if not project_id:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"message": "Project ID is required in URL."}
+        )
+
     project_model = await ProjectModel.create_instance(
                                         db_client = request.app.db_client)
 
@@ -71,7 +78,8 @@ async def inventory_agent(
     full_local_file_path = job_dir_path / Path(latest_file.file_path).name
 
     final_pdf_path = job_dir_path / "Data_Analysis_Report.pdf"
-        
+
+
     if not full_local_file_path.exists():
         try:
 
@@ -98,6 +106,13 @@ async def inventory_agent(
     else:
         print(f"File already exists at: {full_local_file_path}")
         download_file = True
+
+    
+    if not full_local_file_path.exists():
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content={"message": "The file for this project does not exist."}
+        )
 
     Data_Reader = DataReaderAgent()
     Data_Reader_Agent =Data_Reader.get_agent()
@@ -186,6 +201,7 @@ async def inventory_agent(
                 media_type='application/pdf',
                 headers={
             "Content-Disposition": "inline; filename=Data_Analysis_Report.pdf"
+            # "Access-Control-Expose-Headers": "Content-Disposition"
                         }
 
                         )
@@ -207,4 +223,12 @@ async def inventory_agent(
             print(f"Warning: Failed to cleanup directory {job_dir_path}. Error: {cleanup_e}")
 
         return response
+    
+    else:
+         response = JSONResponse(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                content={"message": "Agent not support this language"}
+
+                                )
+        
 

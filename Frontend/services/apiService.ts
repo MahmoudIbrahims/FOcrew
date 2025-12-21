@@ -128,13 +128,10 @@ export const uploadFile = async (
   });
 };
 
-/* -----------------------------------
-   Run Analysis (PDF response handling)
------------------------------------ */
 // export const runAnalysis = async (
 //   projectId: number,
 //   payload: AnalysisRequestPayload
-// ): Promise<AnalysisResponse> => {
+// ) => {
 //   const response = await fetch(
 //     `${API_BASE_URL}/agent/DataAnalysis/${projectId}`,
 //     {
@@ -151,28 +148,39 @@ export const uploadFile = async (
 //     try {
 //       const errorData = await response.json();
 //       message = errorData.message || message;
-//     } catch {
-//       // Ignore JSON parsing errors for non-JSON responses
-//     }
+//     } catch {}
 //     throw new Error(message);
 //   }
 
-//   // ✅ Backend returns a PDF, not JSON
+//   // Backend returns PDF
 //   const pdfBlob = await response.blob();
+
+//   // Create object URL for iframe display
 //   const pdfUrl = URL.createObjectURL(pdfBlob);
 
-//   // ✅ Return a shape compatible with AnalysisResponse
-//   return {
-//     signal:"success",
-//     Agent_name: 'AI Analysis Agent',
-//     created_at: new Date().toISOString(),
-//   };
+//   // Return the URL
+//   return pdfUrl;
+
+
+//   // Backend returns PDF
+//   // const pdfBlob = await response.blob();
+//   // const pdfUrl = URL.createObjectURL(pdfBlob);
+
+//   // // Create a temporary link to download PDF
+//   // const link = document.createElement('a');
+//   // link.href = pdfUrl;
+//   // link.setAttribute('download', 'Data_Analysis_Report.pdf');
+//   // document.body.appendChild(link);
+//   // link.click();
+//   // link.remove();
+
+//   // // Revoke object URL after download
+//   // URL.revokeObjectURL(pdfUrl);
 // };
-//==================
 export const runAnalysis = async (
   projectId: number,
   payload: AnalysisRequestPayload
-) => {
+): Promise<string> => {  
   const response = await fetch(
     `${API_BASE_URL}/agent/DataAnalysis/${projectId}`,
     {
@@ -193,18 +201,8 @@ export const runAnalysis = async (
     throw new Error(message);
   }
 
-  // Backend returns PDF
   const pdfBlob = await response.blob();
   const pdfUrl = URL.createObjectURL(pdfBlob);
-
-  // Create a temporary link to download PDF
-  const link = document.createElement('a');
-  link.href = pdfUrl;
-  link.setAttribute('download', 'Data_Analysis_Report.pdf');
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-  // Revoke object URL after download
-  URL.revokeObjectURL(pdfUrl);
+  
+  return pdfUrl;
 };

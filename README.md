@@ -47,6 +47,7 @@ FOcrew is a highly modular, open-source **Multi-Agent System** designed to revol
 
 Follow these steps to set up the project environment and run the system locally:
 
+=======
 * First Download and install Miniconda .
 
 ### 1. Clone the Repository

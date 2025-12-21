@@ -1,28 +1,33 @@
 import React from 'react';
-import { ArrowLeft, Download, FileText, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Download, FileText } from 'lucide-react';
 import { AnalysisResponse } from '../types';
 
 interface ReportViewerProps {
-  data: AnalysisResponse;
+  data: AnalysisResponse; 
   onBack: () => void;
 }
 
 export const ReportViewer: React.FC<ReportViewerProps> = ({ data, onBack }) => {
-  // Fallback URL for demonstration if the backend doesn't return one yet
-  // In production, this should come from data.report_url
-  const pdfUrl = data.report_url ||'http://localhost:8000'
-  //"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+  
+  const [pdfUrl, setPdfUrl] = React.useState<string | null>(data.pdfUrl || null);
+  const [loading, setLoading] = React.useState<boolean>(!data.pdfUrl);
+
+  const handleDownload = () => {
+    if (!pdfUrl) return;
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = 'Data_Analysis_Report.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
 
   return (
-    <div className="h-full flex flex-col bg-slate-50">
+    <div className="h-full flex flex-col bg-slate-50 min-h-[600px]">
       {/* Toolbar */}
       <div className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-40 shadow-sm">
         <div className="flex items-center">
-          <button 
-            onClick={onBack}
-            className="mr-4 p-2 rounded-full hover:bg-slate-100 text-slate-500 transition-colors"
-            title="Back to Dashboard"
-          >
+          <button onClick={onBack} className="mr-4 p-2 rounded-full hover:bg-slate-100 text-slate-500 transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
@@ -36,43 +41,34 @@ export const ReportViewer: React.FC<ReportViewerProps> = ({ data, onBack }) => {
           </div>
         </div>
 
-        <div className="flex items-center space-x-3">
-          <a 
-            href={pdfUrl} 
-            download={`Analysis_Report_${new Date().getTime()}.pdf`}
-            className="flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-medium hover:bg-indigo-100 transition-colors border border-indigo-200"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            Download PDF
-          </a>
-        </div>
+        <button
+          onClick={handleDownload}
+          disabled={!pdfUrl}
+          className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 disabled:opacity-50"
+        >
+          <Download className="w-4 h-4 mr-2" />
+          Download PDF
+        </button>
       </div>
 
       {/* PDF Viewer Container */}
-      <div className="flex-1 p-6 h-[calc(100vh-180px)]">
-        <div className="bg-white rounded-xl shadow-lg border border-slate-200 h-full overflow-hidden flex flex-col justify-center items-center">
+      <div className="flex-1 p-4 lg:p-8 h-[80vh]">
+        {loading ? (
+          <div className="flex flex-col items-center justify-center h-full space-y-4">
+             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+             <p className="text-slate-500">Preparing your report...</p>
+          </div>
+        ) : pdfUrl ? (
           <iframe 
-            src={`${pdfUrl}#toolbar=0`} 
-            className="w-full h-full"
-            title="Report PDF"
-          >
-            {/* Fallback for browsers that don't support iframes/pdf */}
-            <div className="text-center p-10">
-              <FileText className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <p className="text-slate-600 font-medium mb-4">
-                Your browser does not support inline PDF viewing.
-              </p>
-              <a 
-                href={pdfUrl} 
-                target="_blank" 
-                rel="noreferrer"
-                className="inline-flex items-center text-indigo-600 hover:text-indigo-800"
-              >
-                Open in new tab <ExternalLink className="w-4 h-4 ml-1" />
-              </a>
-            </div>
-          </iframe>
-        </div>
+            src={`${pdfUrl}#toolbar=0&navpanes=0`} 
+            className="w-full h-full border rounded-xl shadow-lg bg-white" 
+            title="Data Analysis Report"
+          />
+        ) : (
+          <div className="text-center p-10 bg-red-50 text-red-600 rounded-xl border border-red-100">
+            Could not locate the generated PDF. Please try running the analysis again.
+          </div>
+        )}
       </div>
     </div>
   );

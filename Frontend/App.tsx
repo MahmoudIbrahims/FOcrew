@@ -11,12 +11,17 @@ const App: React.FC = () => {
   const [isUploadComplete, setIsUploadComplete] = useState<boolean>(false);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResponse | null>(null);
 
-  const handleProjectSelected = (id: string, name: string) => {
-    setProjectId(id);
-    setProjectName(name);
-    setIsUploadComplete(false);
-    setAnalysisResult(null);
+  const handleAnalysisSuccess = (data: AnalysisResponse) => {
+    setAnalysisResult(data);
+    window.scrollTo(0, 0);
   };
+
+const handleProjectSelected = (id: string, name: string) => {
+  setProjectId(id);  
+  setProjectName(name);
+  setIsUploadComplete(false);
+  setAnalysisResult(null);
+};
 
   const handleProjectDeleted = () => {
     setProjectId(null);
@@ -50,7 +55,7 @@ const App: React.FC = () => {
                 <AnalysisSection 
                   projectId={projectId} 
                   isUploadComplete={isUploadComplete}
-                  onAnalysisSuccess={(data) => { setAnalysisResult(data); window.scrollTo(0,0); }}
+                  onAnalysisSuccess={handleAnalysisSuccess}
                 />
               </div>
             )}
