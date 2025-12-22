@@ -82,8 +82,20 @@ cp .env.example .env
 
 #### 2. Run the app:
 
+```bash
+cd docker
+sudo docker compose up -d
+```
+
  ```bash
+ cd src
  $uvicorn main:app --reload --host 0.0.0.0 --port 8000
  ```
- #### Access URL: http://localhost:8000
+
+ ```bash
+cd Frontend
+npm run dev
+```
+#### Access Backend URL: http://localhost:8000
+#### Access Website URL: http://localhost:3000
 

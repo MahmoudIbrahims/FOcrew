@@ -52,15 +52,29 @@ export const ReportViewer: React.FC<ReportViewerProps> = ({ data, onBack }) => {
       </div>
 
       {/* PDF Viewer Container */}
-      <div className="flex-1 p-4 lg:p-8 h-[80vh]">
+      {/* <div className="flex-1 p-4 lg:p-8 h-[80vh]"> */}
+      {/* <div className="flex-1 w-full max-w-5xl mx-auto p-2 lg:p-4 h-[calc(100vh-100px)]"> */}
+      <div className="fixed inset-0 flex flex-col"></div>
+      <div className="flex-1 overflow-hidden"> 
         {loading ? (
           <div className="flex flex-col items-center justify-center h-full space-y-4">
              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
              <p className="text-slate-500">Preparing your report...</p>
           </div>
         ) : pdfUrl ? (
+          // <iframe 
+          //   src={`${pdfUrl}#toolbar=0&navpanes=0`} 
+          //   className="w-full h-full border rounded-xl shadow-lg bg-white" 
+          //   title="Data Analysis Report"
+          // />
+          // <iframe 
+          //   src={`${pdfUrl}#view=FitH&toolbar=1`} 
+          //   className="w-full h-full border-none rounded-lg shadow-2xl bg-white" 
+          //   title="Data Analysis Report"
+          // />
+
           <iframe 
-            src={`${pdfUrl}#toolbar=0&navpanes=0`} 
+            src={`${pdfUrl}#view=FitH`} 
             className="w-full h-full border rounded-xl shadow-lg bg-white" 
             title="Data Analysis Report"
           />
