@@ -8,7 +8,6 @@ interface ReportViewerProps {
 }
 
 export const ReportViewer: React.FC<ReportViewerProps> = ({ data, onBack }) => {
-  
   const [pdfUrl, setPdfUrl] = React.useState<string | null>(data.pdfUrl || null);
   const [loading, setLoading] = React.useState<boolean>(!data.pdfUrl);
 
@@ -23,11 +22,14 @@ export const ReportViewer: React.FC<ReportViewerProps> = ({ data, onBack }) => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-slate-50 min-h-[600px]">
+    <div className="flex flex-col h-screen bg-slate-50">
       {/* Toolbar */}
       <div className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-40 shadow-sm">
         <div className="flex items-center">
-          <button onClick={onBack} className="mr-4 p-2 rounded-full hover:bg-slate-100 text-slate-500 transition-colors">
+          <button
+            onClick={onBack}
+            className="mr-4 p-2 rounded-full hover:bg-slate-100 text-slate-500 transition-colors"
+          >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
@@ -51,31 +53,17 @@ export const ReportViewer: React.FC<ReportViewerProps> = ({ data, onBack }) => {
         </button>
       </div>
 
-      {/* PDF Viewer Container */}
-      {/* <div className="flex-1 p-4 lg:p-8 h-[80vh]"> */}
-      {/* <div className="flex-1 w-full max-w-5xl mx-auto p-2 lg:p-4 h-[calc(100vh-100px)]"> */}
-      <div className="fixed inset-0 flex flex-col"></div>
-      <div className="flex-1 overflow-hidden"> 
+      {/* PDF Viewer */}
+      <div className="flex-1 overflow-hidden">
         {loading ? (
           <div className="flex flex-col items-center justify-center h-full space-y-4">
-             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-             <p className="text-slate-500">Preparing your report...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+            <p className="text-slate-500">Preparing your report...</p>
           </div>
         ) : pdfUrl ? (
-          // <iframe 
-          //   src={`${pdfUrl}#toolbar=0&navpanes=0`} 
-          //   className="w-full h-full border rounded-xl shadow-lg bg-white" 
-          //   title="Data Analysis Report"
-          // />
-          // <iframe 
-          //   src={`${pdfUrl}#view=FitH&toolbar=1`} 
-          //   className="w-full h-full border-none rounded-lg shadow-2xl bg-white" 
-          //   title="Data Analysis Report"
-          // />
-
-          <iframe 
-            src={`${pdfUrl}#view=FitH`} 
-            className="w-full h-full border rounded-xl shadow-lg bg-white" 
+          <iframe
+            src={`${pdfUrl}#view=FitH`}
+            className="w-full h-full border-none rounded-xl shadow-lg bg-white"
             title="Data Analysis Report"
           />
         ) : (

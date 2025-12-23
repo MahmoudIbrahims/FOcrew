@@ -99,7 +99,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({ projectId, isU
             name="COMPANY_NAME"
             value={payload.COMPANY_NAME}
             onChange={handleInputChange}
-            placeholder="e.g. Breadfast"
+            placeholder="e.g. Amazon"
             disabled={!isUploadComplete || status === AnalysisStatus.PROCESSING}
             className="block w-full rounded-lg border-slate-300 border bg-slate-50 p-2.5 text-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-60"
           />

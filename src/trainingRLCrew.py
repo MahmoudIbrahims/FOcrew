@@ -12,7 +12,7 @@ def run_analysis_training():
     output_pkl = os.path.join(BASE_DIR, "Train_crew", "data_analysis_expertise.pkl")
 
     if not os.path.exists(problem_file):
-        print(f"❌ File not found at: {problem_file}")
+        print(f"File not found at: {problem_file}")
         return
 
     inputs = {
