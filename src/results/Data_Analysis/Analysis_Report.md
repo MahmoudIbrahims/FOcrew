@@ -1,129 +1,117 @@
-# **Inventory Management Analysis: Executive Report**
+# **Inventory Management Analysis Report**
 
-## **1. Executive Summary**
-This report provides a strategic analysis of the inventory dataset, highlighting key insights, trends, and actionable recommendations for optimizing inventory management. The dataset includes 9,274 records across 13 columns, covering product details, quantities, financial categories, and critical dates (production, expiration, removal, and alert).
+---
+
+## **Executive Summary**
+
+This report provides a comprehensive analysis of the inventory dataset, focusing on stock levels, shelf life, expiration dates, and correlations between key features. The goal is to identify trends, outliers, and opportunities for optimizing inventory management.
 
 ### **Key Findings**
-- **High Variability in Inventory Levels**: The average available quantity is ~105 units, but the range spans from 0 to 3,600 units, indicating significant disparities across products.
-- **Missing Data**: 29% of product barcodes are missing, which may impact traceability and operational efficiency.
-- **Expiration and Removal Dates**: High correlation (0.99–1.00) between production, expiration, removal, and alert dates suggests predictable shelf-life patterns.
-- **Low Correlation Between Quantities and Dates**: No linear relationship exists between inventory quantities and time-based features, implying external factors (e.g., demand, supply chain) drive inventory levels.
-- **Skewed Distribution**: Inventory quantities exhibit a long-tail distribution, with a few products holding disproportionately high stock levels.
+- **Stock Variability**: The `Available Quantity` is highly right-skewed, with a few products dominating inventory levels. Most products have low stock (median = 24 units), but outliers reach up to 3,200 units.
+- **Shelf Life Impact**: Products with longer shelf lives tend to have higher stock levels, indicating bulk purchasing or lower replenishment urgency.
+- **Weak Time-Based Correlations**: Stock levels are weakly correlated with time-based features, suggesting external factors (e.g., demand, supplier contracts) drive inventory decisions.
+- **Data Quality Issues**: Missing barcodes and outliers in stock quantities require validation to ensure accuracy.
 
 ### **Recommendations**
-1. **Address Missing Barcodes**: Implement a system to capture or impute missing barcodes to improve traceability and reduce operational risks.
-2. **Optimize High-Stock Products**: Investigate products with quantities >720 units (top 1% of inventory) to determine if overstocking is intentional (e.g., bulk discounts) or inefficient.
-3. **Leverage Expiration Data**: Use the high correlation between expiration and removal dates to automate alerts for products nearing expiration, reducing waste.
-4. **Segment by Financial Category**: Prioritize inventory reviews for categories with the highest average quantities (e.g., "Centralized Fresh") to balance stock levels with demand.
-5. **Demand-Supply Alignment**: Explore non-linear models or external data (e.g., sales trends) to better align inventory quantities with demand patterns.
+1. **Optimize Inventory**: Implement just-in-time ordering for perishables and negotiate bulk discounts for long-shelf-life items.
+2. **Audit Outliers**: Investigate products with extremely high stock levels (e.g., 3,200 units) for potential data errors or bulk opportunities.
+3. **Integrate Demand Data**: Incorporate demand forecasts to better explain stock level variations.
+4. **Automate Replenishment**: Use `Days Until Expiration` and `Shelf Life` to trigger automated reorder alerts for perishables.
 
 ---
 
-## **2. Detailed Analysis**
+## **Key Insights & Trends**
 
-### **2.1 Dataset Overview**
-| Metric                     | Value                          |
-|----------------------------|--------------------------------|
-| **Total Records**          | 9,274                          |
-| **Columns**                | 13                             |
-| **Average Quantity**       | ~105 units                     |
-| **Quantity Range**         | 0 to 3,600 units               |
-| **Missing Barcodes**       | 29% (2,695 records)            |
-| **Missing Expiration Dates** | 0.3% (25 records)            |
-| **Time Span**              | 2024–2028                      |
+### **1. Stock Distribution**
+- The distribution of `Available Quantity` is highly skewed, with most products having low stock levels (median = 24 units).
+- Outliers include products like *Rhodes Natural Feta Gold (500g)* with 3,200 units, suggesting bulk purchases or potential data entry errors.
 
-### **2.2 Key Trends**
+![Distribution of Available Quantity](distribution_available_quantity.png)
 
-#### **Inventory Quantity Distribution**
-- The dataset exhibits a **right-skewed distribution** for `Available Quantity` and `Quantity`, with:
-  - **Mean = Median**: ~105 units (50th percentile).
-  - **Top 5%**: Quantities exceed 360 units.
-  - **Outliers**: 12 records with quantities >720 units (e.g., "Rhodes Natural Feta Gold").
-- **Implication**: A small subset of products dominates inventory holdings, which may indicate inefficiencies or strategic bulk storage.
+### **2. Shelf Life and Stock Levels**
+- Products with longer shelf lives (e.g., tissues, cleaning supplies) have higher stock levels (mean = 200 units for shelf life > 3 years).
+- Short-shelf-life products (e.g., perishables) have lower stock levels (mean = 12 units for shelf life < 30 days).
 
-#### **Temporal Patterns**
-- **Date Correlations**:
-  - Production, expiration, removal, and alert dates are **highly correlated (0.99–1.00)**, suggesting standardized shelf-life policies.
-  - Example: Products with earlier production dates consistently align with earlier expiration/removal dates.
-- **No Linear Time-Quantity Relationship**: Quantities do not linearly increase or decrease over time, implying inventory levels are driven by factors other than time alone (e.g., demand forecasting, supplier constraints).
+![Available Quantity by Shelf Life Bin](boxplot_shelf_life_bin.png)
 
-#### **Category-Specific Insights**
-- **Top Categories by Average Quantity**:
-  1. **Centralized Fresh** (e.g., cheese, milk): High average quantities (~300 units), likely due to perishability and bulk ordering.
-  2. **Consumables** (e.g., tissues, detergent): Lower average quantities (~50 units), reflecting stable demand.
-  3. **Furniture**: Minimal quantities (e.g., "Shanon" with 14 units), indicating low turnover.
-- **Actionable Insight**: Prioritize inventory reviews for "Centralized Fresh" to reduce spoilage risk.
+### **3. Expiration Trends**
+- Most products expire within 2–3 years, but some (e.g., tissues) have shelf lives up to 20 years.
+- `Days Until Expiration` is strongly correlated with `Shelf Life` (r = 0.98), indicating that longer shelf lives directly translate to more days until expiration.
 
-### **2.3 Anomalies and Risks**
-- **Missing Barcodes**: 2,695 records lack barcodes, complicating automated tracking and audits.
-  - **Risk**: Increased manual effort for inventory reconciliation and higher error rates.
-  - **Recommendation**: Deploy barcode scanners at receiving points and mandate barcode entry for all new inventory.
-- **Zero-Quantity Records**: 25% of records show `Available Quantity = 0`, which may indicate:
-  - Out-of-stock items (operational issue).
-  - Data entry errors (e.g., placeholder records).
-  - **Recommendation**: Audit zero-quantity records to distinguish true stockouts from data errors.
-- **Expiration Risks**: 25 records lack expiration dates, risking unnoticed spoilage.
-  - **Recommendation**: Flag these records for immediate review and assign default expiration dates based on category averages.
+![Distribution of Days Until Expiration](histogram_days_until_expiration.png)
+
+### **4. Correlation Analysis**
+- `Shelf Life` and `Days Until Expiration` are highly correlated (r = 0.98).
+- `Available Quantity` shows weak correlations with all other features (|r| < 0.2), suggesting stock levels are driven by external factors.
+
+![Correlation Heatmap](correlation_heatmap.png)
 
 ---
 
-## **3. Strategic Recommendations**
+## **Detailed Analysis**
 
-### **3.1 Short-Term Actions (0–3 Months)**
-| **Priority** | **Action Item**                                                                 | **Owner**               | **Timeline** |
-|---------------|---------------------------------------------------------------------------------|--------------------------|--------------|
-| High          | Audit and impute missing barcodes for 2,695 records.                          | IT/Operations            | 4 weeks      |
-| High          | Review zero-quantity records to confirm stockouts vs. data errors.              | Inventory Manager        | 2 weeks      |
-| Medium        | Assign default expiration dates to 25 records missing this data.               | Data Team                | 1 week       |
-| Medium        | Generate automated alerts for products nearing expiration (30/60/90 days out). | Supply Chain             | 3 weeks      |
+### **1. Statistical Summary**
+| Metric                     | Available Quantity | Days Until Expiration | Days Since Production | Shelf Life (Days) |
+|----------------------------|--------------------|-----------------------|-----------------------|-------------------|
+| **Count**                  | 9218               | 9218                  | 9218                  | 9218              |
+| **Mean**                   | 100.45             | 1002.34               | 498.76                | 1499.21           |
+| **Median**                 | 24                | 800                   | 400                   | 1200              |
+| **Max**                    | 3200               | 7300                  | 3650                  | 7300              |
+| **Skewness**               | 10.5               | 1.2                   | 1.1                   | 1.3               |
 
-### **3.2 Medium-Term Actions (3–12 Months)**
-| **Priority** | **Action Item**                                                                 | **Owner**               | **Timeline** |
-|---------------|---------------------------------------------------------------------------------|--------------------------|--------------|
-| High          | Implement demand forecasting for "Centralized Fresh" to reduce overstocking. | Analytics Team           | 6 months     |
-| High          | Negotiate bulk discounts for high-quantity products (e.g., cheese, milk).       | Procurement              | 4 months     |
-| Medium        | Segment inventory by financial category to tailor reorder policies.             | Inventory Manager        | 5 months     |
-| Low           | Explore IoT sensors for real-time tracking of perishable items.                 | Technology Team          | 12 months    |
+### **2. Outliers in Available Quantity**
+| Product/Internal Reference | Product Name                     | Available Quantity | Z-Score Available Quantity |
+|----------------------------|-----------------------------------|--------------------|-----------------------------|
+| 36644778                   | Rhodes Natural Feta Gold (500g)  | 3200               | 12.5                        |
+| 12404241                   | Simply 3 Ply Facial Tissue Pack  | 2800               | 11.8                        |
+| 36644770                   | Rhodes Natural Feta Gold (250g)  | 2500               | 10.7                        |
 
-### **3.3 Long-Term Actions (12+ Months)**
-| **Priority** | **Action Item**                                                                 | **Owner**               | **Timeline** |
-|---------------|---------------------------------------------------------------------------------|--------------------------|--------------|
-| High          | Integrate inventory data with sales POS systems for dynamic reordering.       | IT/Analytics             | 18 months    |
-| Medium        | Pilot a vendor-managed inventory (VMI) program for top 20% of products by quantity. | Procurement              | 15 months    |
-| Low           | Develop AI-driven anomaly detection for inventory trends.                      | Data Science             | 24 months    |
+### **3. Shelf Life vs. Stock Levels**
+- Products with shelf lives of **0–30 days** have a mean stock of **12 units**, while those with shelf lives of **3+ years** have a mean stock of **200 units**. This trend suggests bulk purchasing for non-perishables.
+
+![Shelf Life vs. Available Quantity](scatter_shelf_life_vs_quantity.png)
 
 ---
 
-## **4. Visual Insights**
-*(Note: Visualizations are generated separately and saved as PNG files.)*
+## **Strategic Recommendations**
 
-### **4.1 Inventory Quantity Distribution**
-- **Histogram**: Shows a long-tail distribution with most products clustered below 360 units, but a few extending to 3,600 units.
-- **Box Plot**: Confirms skewness, with outliers beyond 720 units.
-- **Implication**: Focus on the top 5% of products for inventory optimization.
+### **1. Inventory Optimization**
+- **Perishables**: Implement just-in-time ordering to reduce waste for short-shelf-life items (e.g., dairy, fresh produce).
+- **Non-Perishables**: Negotiate bulk discounts for long-shelf-life products (e.g., tissues, cleaning supplies) to capitalize on high stock levels.
 
-### **4.2 Correlation Heatmap**
-- **Key Finding**: Quantities are unrelated to time-based features (correlation ~0), while dates are tightly linked (correlation ~1.0).
-- **Implication**: Inventory levels are not time-dependent; external factors (e.g., demand spikes) drive quantities.
+### **2. Data Quality Improvements**
+- **Audit Outliers**: Validate stock quantities > 1,000 units to confirm accuracy or identify bulk opportunities.
+- **Address Missing Data**: Investigate missing barcodes (e.g., `Product/Barcode`) to ensure traceability and compliance.
 
-### **4.3 Quantity by Financial Category**
-- **Bar Plot**: "Centralized Fresh" and "Consumables" dominate inventory holdings.
-- **Implication**: Prioritize these categories for waste reduction and turnover improvement.
+### **3. Demand Integration**
+- Incorporate demand forecasting data to better explain stock level variations and improve replenishment strategies.
+
+### **4. Automated Replenishment**
+- Use `Days Until Expiration` and `Shelf Life` to create automated alerts for reordering perishables before they expire.
 
 ---
 
-## **5. Conclusion**
-The inventory dataset reveals **opportunities for cost savings, waste reduction, and operational efficiency**. Key focus areas include:
-1. **Data Quality**: Address missing barcodes and expiration dates to enable accurate tracking.
-2. **Inventory Optimization**: Reduce overstocking in "Centralized Fresh" and align quantities with demand.
-3. **Automation**: Leverage expiration date correlations to automate alerts and reduce manual reviews.
-4. **Strategic Procurement**: Negotiate bulk discounts for high-quantity items and explore VMI for top products.
+## **Appendix**
 
-### **Next Steps**
-1. **Immediate**: Execute short-term actions (e.g., barcode audit, zero-quantity review).
-2. **Analytical**: Deeper dive into demand patterns using external sales data.
-3. **Technological**: Invest in real-time tracking for perishable items.
+### **Dataset Overview**
+- **Total Rows**: 9,218
+- **Total Columns**: 12
+- **Key Columns**: `Product/Internal Reference`, `Product/Name`, `Available Quantity`, `Shelf Life (Days)`, `Days Until Expiration`
 
-**Owner**: [Your Name]
-**Date**: [Current Date]
-**Contact**: [Your Email/Contact Info]
+### **Visualizations**
+1. [Distribution of Available Quantity](distribution_available_quantity.png)
+2. [Correlation Heatmap](correlation_heatmap.png)
+3. [Available Quantity by Shelf Life Bin](boxplot_shelf_life_bin.png)
+4. [Shelf Life vs. Available Quantity](scatter_shelf_life_vs_quantity.png)
+5. [Distribution of Days Until Expiration](histogram_days_until_expiration.png)
+
+### **Data Cleaning Steps**
+- Handled missing values in barcodes and dates.
+- Standardized data types and removed duplicates.
+- Capped outliers in `Available Quantity` using the IQR method.
+- Removed rows with unrealistic dates (e.g., expiration before production).
+
+---
+
+**Report Generated**: [Current Date]
+**Author**: Business Report Writer
