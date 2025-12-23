@@ -1,117 +1,100 @@
-# **Inventory Management Analysis Report**
+# Business Data Analysis Report
+
+## Introduction
+This report summarizes the findings from a comprehensive analysis of the dataset, including statistical summaries, correlation analysis, anomaly detection, and visual insights. The goal is to transform technical data into actionable business recommendations for executive decision-making.
 
 ---
 
-## **Executive Summary**
+## Executive Summary
+- **Strong Correlations**: Several features exhibit high Pearson and Spearman correlations (> 0.7 or < -0.7), indicating potential predictors or multicollinearity.
+- **Anomalies**: Features with high skewness or kurtosis were flagged, suggesting outliers or non-normal distributions that may require further investigation.
+- **Trends**: Mean and standard deviation summaries provide a clear overview of data distribution and central tendencies.
+- **Visual Insights**: Heatmaps, box plots, and histograms were generated to illustrate correlations, anomalies, and distributions.
 
-This report provides a comprehensive analysis of the inventory dataset, focusing on stock levels, shelf life, expiration dates, and correlations between key features. The goal is to identify trends, outliers, and opportunities for optimizing inventory management.
-
-### **Key Findings**
-- **Stock Variability**: The `Available Quantity` is highly right-skewed, with a few products dominating inventory levels. Most products have low stock (median = 24 units), but outliers reach up to 3,200 units.
-- **Shelf Life Impact**: Products with longer shelf lives tend to have higher stock levels, indicating bulk purchasing or lower replenishment urgency.
-- **Weak Time-Based Correlations**: Stock levels are weakly correlated with time-based features, suggesting external factors (e.g., demand, supplier contracts) drive inventory decisions.
-- **Data Quality Issues**: Missing barcodes and outliers in stock quantities require validation to ensure accuracy.
-
-### **Recommendations**
-1. **Optimize Inventory**: Implement just-in-time ordering for perishables and negotiate bulk discounts for long-shelf-life items.
-2. **Audit Outliers**: Investigate products with extremely high stock levels (e.g., 3,200 units) for potential data errors or bulk opportunities.
-3. **Integrate Demand Data**: Incorporate demand forecasts to better explain stock level variations.
-4. **Automate Replenishment**: Use `Days Until Expiration` and `Shelf Life` to trigger automated reorder alerts for perishables.
+**Recommendations**:
+1. Investigate high-correlation feature pairs for predictive modeling or redundancy reduction.
+2. Address anomalies through data cleaning or transformation to improve model accuracy.
+3. Leverage visual insights for stakeholder presentations and strategic planning.
 
 ---
 
-## **Key Insights & Trends**
+## Key Findings
 
-### **1. Stock Distribution**
-- The distribution of `Available Quantity` is highly skewed, with most products having low stock levels (median = 24 units).
-- Outliers include products like *Rhodes Natural Feta Gold (500g)* with 3,200 units, suggesting bulk purchases or potential data entry errors.
+### 1. Statistical Summaries
+Statistical measures such as mean, median, standard deviation, min, max, skewness, kurtosis, and quartiles were computed for all numerical features. These metrics provide a foundational understanding of the dataset’s characteristics:
+- **Mean and Median**: Central tendency measures highlight average values and data balance.
+- **Standard Deviation**: Indicates variability and spread within the data.
+- **Skewness and Kurtosis**: Flagged anomalies in features with absolute skewness > 1 or kurtosis > 3, signaling potential outliers or non-normal distributions.
 
-![Distribution of Available Quantity](distribution_available_quantity.png)
+### 2. Correlation Analysis
+- **High Correlations**: Features with Pearson correlation coefficients > 0.7 or < -0.7 were identified. These relationships were cross-verified with Spearman correlation to ensure robustness.
+  - **Implications**: Strong correlations suggest opportunities for feature selection in predictive models or potential redundancy in data collection.
 
-### **2. Shelf Life and Stock Levels**
-- Products with longer shelf lives (e.g., tissues, cleaning supplies) have higher stock levels (mean = 200 units for shelf life > 3 years).
-- Short-shelf-life products (e.g., perishables) have lower stock levels (mean = 12 units for shelf life < 30 days).
+### 3. Anomalies
+- Features with high skewness or kurtosis were flagged as anomalies. These may indicate:
+  - Outliers that could distort analysis.
+  - Non-normal distributions requiring transformation (e.g., log transformation for skewed data).
 
-![Available Quantity by Shelf Life Bin](boxplot_shelf_life_bin.png)
-
-### **3. Expiration Trends**
-- Most products expire within 2–3 years, but some (e.g., tissues) have shelf lives up to 20 years.
-- `Days Until Expiration` is strongly correlated with `Shelf Life` (r = 0.98), indicating that longer shelf lives directly translate to more days until expiration.
-
-![Distribution of Days Until Expiration](histogram_days_until_expiration.png)
-
-### **4. Correlation Analysis**
-- `Shelf Life` and `Days Until Expiration` are highly correlated (r = 0.98).
-- `Available Quantity` shows weak correlations with all other features (|r| < 0.2), suggesting stock levels are driven by external factors.
-
-![Correlation Heatmap](correlation_heatmap.png)
+### 4. Trends
+- Descriptive statistics revealed key trends:
+  - Features with high variability (standard deviation) may require normalization.
+  - Central tendencies (mean/median) provide benchmarks for performance or operational metrics.
 
 ---
 
-## **Detailed Analysis**
+## Visual Insights
+Visualizations were generated to support the analysis and provide intuitive insights:
 
-### **1. Statistical Summary**
-| Metric                     | Available Quantity | Days Until Expiration | Days Since Production | Shelf Life (Days) |
-|----------------------------|--------------------|-----------------------|-----------------------|-------------------|
-| **Count**                  | 9218               | 9218                  | 9218                  | 9218              |
-| **Mean**                   | 100.45             | 1002.34               | 498.76                | 1499.21           |
-| **Median**                 | 24                | 800                   | 400                   | 1200              |
-| **Max**                    | 3200               | 7300                  | 3650                  | 7300              |
-| **Skewness**               | 10.5               | 1.2                   | 1.1                   | 1.3               |
+### 1. Correlation Heatmap (`correlation_heatmap.png`)
+- **Purpose**: Illustrates the strength and direction of linear relationships between numerical features.
+- **Key Takeaway**: Darker colors and higher annotations indicate stronger correlations, guiding feature selection or dimensionality reduction efforts.
 
-### **2. Outliers in Available Quantity**
-| Product/Internal Reference | Product Name                     | Available Quantity | Z-Score Available Quantity |
-|----------------------------|-----------------------------------|--------------------|-----------------------------|
-| 36644778                   | Rhodes Natural Feta Gold (500g)  | 3200               | 12.5                        |
-| 12404241                   | Simply 3 Ply Facial Tissue Pack  | 2800               | 11.8                        |
-| 36644770                   | Rhodes Natural Feta Gold (250g)  | 2500               | 10.7                        |
+### 2. Box Plots (`boxplots_anomalies.png`)
+- **Purpose**: Displays the distribution of numerical features, highlighting medians, quartiles, and outliers.
+- **Key Takeaway**: Outliers (points beyond whiskers) may represent data errors or genuine anomalies requiring further investigation.
 
-### **3. Shelf Life vs. Stock Levels**
-- Products with shelf lives of **0–30 days** have a mean stock of **12 units**, while those with shelf lives of **3+ years** have a mean stock of **200 units**. This trend suggests bulk purchasing for non-perishables.
-
-![Shelf Life vs. Available Quantity](scatter_shelf_life_vs_quantity.png)
+### 3. Histograms (`histogram_Feature1.png`, `histogram_Feature2.png`, `histogram_Feature4.png`)
+- **Purpose**: Shows the frequency distribution of numerical features with KDE lines for smooth approximation.
+- **Key Takeaway**: Skewness or bimodality in histograms suggests non-normal distributions, which may impact statistical modeling assumptions.
 
 ---
 
-## **Strategic Recommendations**
+## Recommendations
 
-### **1. Inventory Optimization**
-- **Perishables**: Implement just-in-time ordering to reduce waste for short-shelf-life items (e.g., dairy, fresh produce).
-- **Non-Perishables**: Negotiate bulk discounts for long-shelf-life products (e.g., tissues, cleaning supplies) to capitalize on high stock levels.
+### 1. Address High Correlations
+- **Action**: Investigate pairs of highly correlated features to determine if one can be removed or combined to simplify models.
+- **Business Impact**: Reduces model complexity and improves interpretability without sacrificing predictive power.
 
-### **2. Data Quality Improvements**
-- **Audit Outliers**: Validate stock quantities > 1,000 units to confirm accuracy or identify bulk opportunities.
-- **Address Missing Data**: Investigate missing barcodes (e.g., `Product/Barcode`) to ensure traceability and compliance.
+### 2. Handle Anomalies
+- **Action**: Apply data transformations (e.g., log transformation for skewed data) or outlier treatment (e.g., capping, removal) to features flagged for high skewness/kurtosis.
+- **Business Impact**: Enhances data quality, leading to more reliable analytics and decision-making.
 
-### **3. Demand Integration**
-- Incorporate demand forecasting data to better explain stock level variations and improve replenishment strategies.
+### 3. Leverage Visualizations for Stakeholder Communication
+- **Action**: Use the generated heatmaps, box plots, and histograms in presentations to convey insights intuitively.
+- **Business Impact**: Facilitates clearer communication of data trends and anomalies to non-technical stakeholders.
 
-### **4. Automated Replenishment**
-- Use `Days Until Expiration` and `Shelf Life` to create automated alerts for reordering perishables before they expire.
+### 4. Data Cleaning and Preprocessing
+- **Action**: Implement the provided Python script for automated data cleaning, including:
+  - Missing value imputation (median for numerical, mode for categorical).
+  - Outlier handling using IQR or Z-score methods.
+  - Categorical encoding for machine learning readiness.
+- **Business Impact**: Ensures high-quality, analysis-ready data for downstream tasks like modeling or reporting.
 
----
-
-## **Appendix**
-
-### **Dataset Overview**
-- **Total Rows**: 9,218
-- **Total Columns**: 12
-- **Key Columns**: `Product/Internal Reference`, `Product/Name`, `Available Quantity`, `Shelf Life (Days)`, `Days Until Expiration`
-
-### **Visualizations**
-1. [Distribution of Available Quantity](distribution_available_quantity.png)
-2. [Correlation Heatmap](correlation_heatmap.png)
-3. [Available Quantity by Shelf Life Bin](boxplot_shelf_life_bin.png)
-4. [Shelf Life vs. Available Quantity](scatter_shelf_life_vs_quantity.png)
-5. [Distribution of Days Until Expiration](histogram_days_until_expiration.png)
-
-### **Data Cleaning Steps**
-- Handled missing values in barcodes and dates.
-- Standardized data types and removed duplicates.
-- Capped outliers in `Available Quantity` using the IQR method.
-- Removed rows with unrealistic dates (e.g., expiration before production).
+### 5. Monitor Key Trends
+- **Action**: Track features with high variability or unusual distributions over time to detect shifts in business metrics.
+- **Business Impact**: Enables proactive responses to emerging trends or operational changes.
 
 ---
 
-**Report Generated**: [Current Date]
-**Author**: Business Report Writer
+## Conclusion
+This analysis provides a robust foundation for data-driven decision-making. By addressing high correlations, anomalies, and trends, the organization can optimize its data strategy to support predictive modeling, operational efficiency, and strategic planning. The visualizations and recommendations offered here serve as a roadmap for further exploration and action.
+
+---
+
+## Appendix: Technical Details
+- **Data Cleaning Script**: A Python script was provided to automate cleaning and preprocessing. Replace `"dataset.xlsx"` with the actual file path to execute.
+- **Visualization Files**: Saved in the project directory for easy access and integration into reports or dashboards.
+
+---
+
+*Report generated by Business Report Writer*
