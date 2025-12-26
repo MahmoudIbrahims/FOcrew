@@ -3,7 +3,6 @@
 </p>
 
 ![FOcrew Website Screenshot](docs/web_v12.png)
-![FOcrew Website Screenshot](docs/web_v02.png)
 
 <h1 align="center">
   🌟 FOcrew: Future-Oriented Crew
