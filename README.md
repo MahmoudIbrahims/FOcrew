@@ -2,8 +2,8 @@
   <img src="https://github.com/user-attachments/assets/3b8011da-a3d2-4f51-acbd-b80e4d5fc604" alt="FOcrew Logo" width="150"/>
 </p>
 
-![FOcrew Website Screenshot](docs/web_v01.png)
-![FOcrew Website Screenshot](docs/Web_v02.png)
+![FOcrew Website Screenshot](docs/web_v12.png)
+![FOcrew Website Screenshot](docs/web_v02.png)
 
 <h1 align="center">
   🌟 FOcrew: Future-Oriented Crew
