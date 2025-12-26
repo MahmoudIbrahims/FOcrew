@@ -14,6 +14,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({ projectId, isU
     Language: LanguageEnum.ARABIC,
     COMPANY_NAME: '',
     INDUSTRY_NAME: '',
+    MANAGER_EMAIL: '',
   });
   const [status, setStatus] = useState<AnalysisStatus>(AnalysisStatus.IDLE);
   const [progress, setProgress] = useState<number>(0);
@@ -118,6 +119,22 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({ projectId, isU
             className="block w-full rounded-lg border-slate-300 border bg-slate-50 p-2.5 text-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-60"
           />
         </div>
+
+        <div>
+          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+            Manager Email
+          </label>
+          <input
+            type="email"
+            name="MANAGER_EMAIL"
+            value={payload.MANAGER_EMAIL}
+            onChange={handleInputChange}
+            placeholder="manager@company.com"
+            disabled={!isUploadComplete || status === AnalysisStatus.PROCESSING}
+            className="block w-full rounded-lg border-slate-300 border bg-slate-50 p-2.5 text-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-60"
+          />
+        </div>
+
 
         {/* Language Selection */}
         <div>

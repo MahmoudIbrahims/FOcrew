@@ -12,8 +12,11 @@ class RunCommandTool(BaseTool):
         "For large outputs (e.g., big data dumps), the output will be automatically saved to a file, "
         "and the file path will be returned instead of the raw output."
     )
+
+    working_dir: str = Field(..., description="Isolated working directory")
+
     # The working directory where all files/scripts will be executed and saved
-    working_dir: Optional[str] = Field("working", description="Working directory")
+    # working_dir: Optional[str] = Field("working", description="Working directory")
 
     def _run(self, command: str) -> str:
         """Executes a command (shell or multi-line Python) and manages large output."""
@@ -22,10 +25,11 @@ class RunCommandTool(BaseTool):
         LARGE_OUTPUT_THRESHOLD = 50000 
         OUTPUT_FILENAME = "output_log.txt"
 
-        try:
-            # 1. Ensure the isolated working directory exists
-            os.makedirs(self.working_dir, exist_ok=True)
+       
+        # 1. Ensure the isolated working directory exists
+        os.makedirs(self.working_dir, exist_ok=True)
 
+        try:
             # 2. Prepare multi-line Python code for execution
             if "\n" in command:
                 # This uses a 'here-document' to pass the multi-line Python code 

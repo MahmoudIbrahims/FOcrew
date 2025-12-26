@@ -16,9 +16,8 @@ class MarkdownToPDFReport(BaseTool):
     
     def _run(
         self,
-        file_path: str ="results/Data_Analysis/Analysis_Report.md",            # "results/inventory_management/Analysis_Report.md",
-        output_pdf: str = "results/Data_Analysis/Analysis_Report.pdf",
-        logo_path: str ="/mnt/c/Users/Win/Desktop/FOcrew/docs/logo.png"
+        file_path: str  ,#="results/Data_Analysis/Analysis_Report.md",            
+        output_report: str #= "results/Data_Analysis/Analysis_Report.pdf"
         
     ) -> Dict[str, str]:
         try:
@@ -189,10 +188,10 @@ class MarkdownToPDFReport(BaseTool):
             """
 
             # 6. Export as PDF
-            HTML(string=html_with_logo, base_url=".").write_pdf(output_pdf)
+            HTML(string=html_with_logo, base_url=".").write_pdf(output_report)
 
-            logging.info(f"PDF report generated at: {output_pdf}")
-            return {"status": "success", "output_pdf": output_pdf}
+            logging.info(f"PDF report generated at: {output_report}")
+            return {"status": "success", "output_pdf": output_report}
 
         except Exception as e:
             logging.error(f"Error generating PDF: {e}")

@@ -4,10 +4,8 @@ from Providers import ProviderLLM
 from ..BaseAgent import BaseAgent
 
 class DataCleanerAgent(BaseAgent):
-    def __init__(self):
+    def __init__(self,cmd_tool: RunCommandTool):
         llm = ProviderLLM().get_llm()
-        cmd_tool = RunCommandTool()
-
         super().__init__(
             name="DataCleanerAgent",
             role="Data Cleaner",

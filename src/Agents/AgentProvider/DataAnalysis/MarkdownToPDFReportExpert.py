@@ -2,9 +2,10 @@ from crewai import Task
 from ..BaseAgent import BaseAgent
 from Providers import ProviderLLM
 from tools.ConvertToPDF import MarkdownToPDFReport
+from tools.run_command_tool import RunCommandTool
 
 class ReportGeneratorAgent(BaseAgent):
-    def __init__(self):
+    def __init__(self,cmd_tool: RunCommandTool):
         provider = ProviderLLM()
         llm = provider.get_llm()
         pdf_tool = MarkdownToPDFReport()
@@ -21,7 +22,7 @@ class ReportGeneratorAgent(BaseAgent):
             llm=llm,
             reasoning=True,
             allow_delegation=False,
-            tools=[pdf_tool],
+            tools=[pdf_tool,cmd_tool],
         )
 
     def get_task(self):
@@ -34,6 +35,6 @@ class ReportGeneratorAgent(BaseAgent):
                 "4. Confirm the PDF path in the output."
             ]),
             agent=self.get_agent(),
-            context_keys=["final_report_path"],
-            expected_output="Path to the generated PDF report"
+            context_keys=["Translation_report_path"],
+            expected_output="Final_generated_PDF_report"
         )
