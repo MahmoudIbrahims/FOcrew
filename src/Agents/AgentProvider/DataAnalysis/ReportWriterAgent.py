@@ -30,5 +30,5 @@ class ReportWriterAgent(BaseAgent):
                 expected_output="A clear and well-structured Markdown report containing insights and recommendations.",
                 agent=self.get_agent(),
                 context_keys=["dataset_summary", "cleaned_data_summary", "analysis_summary", "visualization_summary"],
-                output_key="final_report_path"
+                output_key="Markdown_report_path"
             )

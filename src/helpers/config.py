@@ -46,10 +46,10 @@ class Settings(BaseSettings):
     AGANT_NAME_LITERAL:List[str]=None
     DATA_PATH:Optional[str] = None
     
-    COMPANY_NAME:str
-    INDUSTRY_NAME:str
+    COMPANY_NAME:str=None
+    INDUSTRY_NAME:str=None
     LANGUAGE_LITERAL:List[str]=None
-    LANGUAGE:str
+    LANGUAGE:Optional[str] = None
     LOGO_COMPANY:str=None
     
     GMAIL_USER:str

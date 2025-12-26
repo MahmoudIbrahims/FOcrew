@@ -9,13 +9,13 @@ class ResponseSignal(Enum):
     FILE_UPLOADED_FAILED = "file_uploaded_failed"
     PROCESSING_SUCCESS ="processing_success"
     PROCESSING_FAILED ="processing_failed"
-    NO_FILE_ERROR ="not found file"
-    FILE_ID_ERROR ="not file found with this id "
+    NO_FILE_ERROR ="not_found_file"
+    FILE_ID_ERROR ="not_file_found_with_this_id "
     PROJECT_NOT_FOUND_ERROR ="project_not_found"
     RESPONSE_FAILED ="response_failed"
     RESPONSE_SUCCESS="file_uploaded_success"
-    RESPONSE_NOT_UPLOADED_FILE="No uploaded file found for this project"
-    RESPONSE_NOT_DOWNLOAD_FILE="Not download this file from S3 please back to solve this problem."
+    RESPONSE_NOT_UPLOADED_FILE="No_uploaded_file_found_for_this_project"
+    RESPONSE_NOT_DOWNLOAD_FILE="Not_download_this_file_from_S3_please_back_to_solve_this_problem."
     
    
     

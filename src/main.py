@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import base,UploadfileEndpoint,InventoryManagmentEndpoint,DataAnalysisEndpoint,NewProject
+from routes import base,UploadfileEndpoint,DataAnalysisEndpoint,NewProject
 from helpers.config import get_settings
 from Agents.AgentProviderFactory import AgentProviderFactory
 from sqlalchemy.ext.asyncio import create_async_engine,AsyncSession
@@ -31,10 +31,11 @@ async def startup_span():
         )
 
     Agent_provider_factory = AgentProviderFactory(settings.Config)
-    app.Agent_client = Agent_provider_factory.create(Crew_Name=settings.AGENT_NAME,lanuage=settings.LANGUAGE,
-                                                     file_path=settings.DATA_PATH,logo_company=settings.LOGO_COMPANY,
-                                                     Managers =settings.MANAGERS
-                                                     )
+    app.Agent_client = Agent_provider_factory.create(Crew_Name=settings.AGENT_NAME,
+                                                            lanuage=settings.LANGUAGE,
+                                                            file_path=settings.DATA_PATH,
+                                                            Managers =settings.MANAGERS
+                                                            )
     
     db_provider_factory = DataBaseProviderFactory(settings.Config ,db_client=app.db_client)
     app.Database_client =db_provider_factory.create(
@@ -61,6 +62,5 @@ app.on_event("shutdown")(shutdown_span)
 
 app.include_router(base.base_router)
 app.include_router(UploadfileEndpoint.data_router)
-app.include_router(InventoryManagmentEndpoint.agent_router)
 app.include_router(DataAnalysisEndpoint.agent_router)
 app.include_router(NewProject.project_router)

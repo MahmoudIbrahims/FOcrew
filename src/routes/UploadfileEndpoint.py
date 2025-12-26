@@ -1,5 +1,5 @@
-from Controllers.DataController import DataController
 from fastapi import APIRouter, Depends, UploadFile, status, Request, HTTPException, File
+from Controllers.DataController import DataController
 from Models.enums.ResponseEnum import ResponseSignal
 from helpers.config import get_settings, Settings
 from Models.UserFileModel import UserFileModel
@@ -126,12 +126,11 @@ async def upload_data(request: Request, project_id: str, file: UploadFile = File
             content={
                 "message": ResponseSignal.FILE_UPLOADED_Success.value,
                 "file_id": str(saved_file.file_id),
-                # "file_uuid": str(file_uuid),
                 "original_filename": str(saved_file.original_filename),
                 "file_size": file_size,
                 "rows": rows_count,
                 "columns": columns_count,
-                # "s3_key": s3_key # Returned S3 Key instead of local path
+                
             }
         )
 

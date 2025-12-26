@@ -6,17 +6,17 @@ from ..BaseAgent import BaseAgent
 
 
 class DataReaderAgent(BaseAgent):
-    def __init__(self):
+    def __init__(self,cmd_tool: RunCommandTool):
         llm = ProviderLLM().get_llm()
         reader_tool = FileReaderTool()
-        CMD_tool =RunCommandTool()
+        
         super().__init__(
             name="DataReaderAgent",
             role="Data Reader",
             goal="Load and summarize the dataset structure.",
             backstory="Specialist in reading and understanding dataset schemas.",
             llm=llm,
-            tools=[reader_tool,CMD_tool],
+            tools=[reader_tool,cmd_tool],
         )
 
     def get_task(self):

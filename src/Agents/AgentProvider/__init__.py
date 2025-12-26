@@ -1,20 +1,18 @@
-#===========================Marketing Stratgey Planner==========================
-from .MarketingStratgeyPlanner import ContentPlanner
-from .MarketingStratgeyPlanner import MarketingStrategist
-from .MarketingStratgeyPlanner import SWOTAnalyst
-from .MarketingStratgeyPlanner import TranslationEnglishArabic
-#==========================Inventory Managment ==========================================
-from .InventoryManagment import DataProcessing
-from .InventoryManagment import DataVisualizationExpert
-from .InventoryManagment import ReportSenderAgent
-from .InventoryManagment import ReportGeneratorAgent
 #===========================DataAnalysis===========================================
 from .DataAnalysis import DataReaderAgent
 from .DataAnalysis import DataCleanerAgent
 from .DataAnalysis import DataAnalyzerAgent
 from .DataAnalysis import DataVisualizerAgent
 from .DataAnalysis import ReportWriterAgent
+from .DataAnalysis import UniversalTranslationAgent
 from .DataAnalysis import ReportGeneratorAgent
-#=============================================================
-from ..Prompts.DataprocessingPrompt import Data_processing_prompt
-from ..Prompts.VisualizationPrompt import Visualization_Prompt
+from .DataAnalysis import ReportSenderAgent
+#===================Prompts===========================
+from ..Prompts.DataReaderPrompt import data_reader_prompt
+from ..Prompts.DataCleanerPrompt import cleaning_prompt
+from ..Prompts.DataAnalyzerPrompt import analysis_prompt
+from ..Prompts.DataVisualizerPrompt import visualizations_prompt
+from ..Prompts.ReportWriterPrompt import report_writer_prompt
+from ..Prompts.TranslationPrompt import Translation_prompt
+from ..Prompts.MarkdownToPDFReportPrompt import Convert_md_to_pdf_prompt
+from ..Prompts.SendEmailprompt import SendEmail_prompt
