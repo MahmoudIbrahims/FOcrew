@@ -35,6 +35,6 @@ class ReportGeneratorAgent(BaseAgent):
                 "4. Confirm the PDF path in the output."
             ]),
             agent=self.get_agent(),
-            context_keys=["Translation_report_path"],
+            context_keys=["Markdown_report_path"],
             expected_output="Final_generated_PDF_report"
         )
