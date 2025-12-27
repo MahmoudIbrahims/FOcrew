@@ -18,8 +18,8 @@ class SendEmailTool(BaseTool):
     args_schema: Type[BaseModel] = EmailSchema
 
     def _run(self, to: str, 
-             subject: str = "Inventory Report by FOcrew", 
-             body : str ="hello manager",
+             subject: str = "Analysis Report by FOcrew", 
+             body : str ="Hello manager",
              pdf_path: str = "results/inventory_management/report.pdf") -> str:
         
         settings = get_settings()
