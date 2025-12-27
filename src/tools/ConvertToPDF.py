@@ -16,8 +16,8 @@ class MarkdownToPDFReport(BaseTool):
     
     def _run(
         self,
-        file_path: str  ,#="results/Data_Analysis/Analysis_Report.md",            
-        output_report: str #= "results/Data_Analysis/Analysis_Report.pdf"
+        file_path: str  ,           
+        output_report: str 
         
     ) -> Dict[str, str]:
         try:
