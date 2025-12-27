@@ -4,7 +4,6 @@ from .AgentProvider import DataCleanerAgent
 from .AgentProvider import DataAnalyzerAgent
 from .AgentProvider import DataVisualizerAgent
 from .AgentProvider import ReportWriterAgent
-from .AgentProvider import UniversalTranslationAgent
 from .AgentProvider import ReportGeneratorAgent
 from .AgentProvider import ReportSenderAgent
 #===================Prompts===========================
@@ -13,7 +12,6 @@ from .Prompts.DataCleanerPrompt import cleaning_prompt
 from .Prompts.DataAnalyzerPrompt import analysis_prompt
 from .Prompts.DataVisualizerPrompt import visualizations_prompt
 from .Prompts.ReportWriterPrompt import report_writer_prompt
-from .Prompts.TranslationPrompt import Translation_prompt
 from .Prompts.MarkdownToPDFReportPrompt import Convert_md_to_pdf_prompt
 from .Prompts.SendEmailprompt import SendEmail_prompt
 #=======================================
@@ -55,38 +53,6 @@ class AgentProviderFactory:
                     working_dir=working_dir.as_posix()
                     )
 
-
-            def build_translation_step(language, translation_machine):
-                """
-                Returns (agents, tasks) or ([], []) if no translation is needed
-                """
-
-                LANGUAGE_TRANSLATION_MAP = {
-                            Languages.ARABIC.value: "Arabic",
-                            Languages.FRENCH.value: "French",
-                            Languages.GERMAN.value: "German",
-                        }
-
-                if language == Languages.ENGLISH.value or None:
-                    return [], []
-                
-
-                target_language = LANGUAGE_TRANSLATION_MAP.get(language)
-                if not target_language:
-                    raise ValueError(f"Unsupported language: {language}")
-
-                translation_agent = translation_machine.get_agent()
-                translation_task = translation_machine.get_task()
-
-                translation_task.description = Translation_prompt.safe_substitute(
-                    source_language="English",
-                    target_language=target_language,
-                    working_dir =working_dir.as_posix()
-                )
-
-                return [translation_agent], [translation_task]
-
-
             Data_Reader = DataReaderAgent(cmd_tool)
             Data_Reader_Agent =Data_Reader.get_agent()
             Data_Reader_task =Data_Reader.get_task()
@@ -110,19 +76,13 @@ class AgentProviderFactory:
             Report_Writer = ReportWriterAgent()
             Report_Writer_Agent =Report_Writer.get_agent()
             Report_Writer_task =Report_Writer.get_task()
-            Report_Writer_task.description =report_writer_prompt.safe_substitute(report_md_path=final_md_path.as_posix(),working_dir=working_dir.as_posix())
+            Report_Writer_task.description =report_writer_prompt.safe_substitute(report_md_path=final_md_path.as_posix(),working_dir=working_dir.as_posix(),target_language=lanuage)
 
-            Translation_machine =UniversalTranslationAgent()
-            translation_Agent, translation_task = build_translation_step(
-                                            language=lanuage,
-                                            translation_machine=Translation_machine
-                                        )
             Report_Generator = ReportGeneratorAgent(cmd_tool)
             Report_Generator_Agent =Report_Generator.get_agent()
             Report_Generator_task =Report_Generator.get_task()
             Report_Generator_task.description =Convert_md_to_pdf_prompt.safe_substitute(working_dir=working_dir.as_posix(),file_path=final_md_path.as_posix(),
                                                                                         output_report=final_pdf_path.as_posix())
-            
             ReportSender_Agent=ReportSenderAgent()
             Report_Sender_Agent =ReportSender_Agent.get_agent()
             Report_Sender_tesk =ReportSender_Agent.get_task()
@@ -134,6 +94,8 @@ class AgentProviderFactory:
                     Data_Analyzer_Agent,
                     Data_Visualizer_Agent,
                     Report_Writer_Agent,
+                    Report_Generator_Agent,
+                    Report_Sender_Agent
                 ]
 
             tasks = [
@@ -142,19 +104,11 @@ class AgentProviderFactory:
                 Data_Analyzer_task,
                 Data_Visualizer_task,
                 Report_Writer_task,
-            ]
-            agents.extend(translation_Agent)
-            tasks.extend(translation_task)
-
-            agents.extend([
-                Report_Generator_Agent,
-                Report_Sender_Agent
-            ])
-
-            tasks.extend([
                 Report_Generator_task,
                 Report_Sender_tesk
-            ])
+
+            ]
+         
 
             crew = Crew(
                 agents=agents,
