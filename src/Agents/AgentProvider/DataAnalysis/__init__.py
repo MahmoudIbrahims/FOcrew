@@ -5,4 +5,3 @@ from .DataVisualizerAgent import DataVisualizerAgent
 from .ReportWriterAgent import ReportWriterAgent
 from .MarkdownToPDFReportExpert import ReportGeneratorAgent
 from .SendEmailAgent import ReportSenderAgent
-from .TranslationAgent import UniversalTranslationAgent

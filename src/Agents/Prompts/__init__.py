@@ -3,6 +3,5 @@ from .DataCleanerPrompt import cleaning_prompt
 from .DataAnalyzerPrompt import analysis_prompt
 from .DataVisualizerPrompt import visualizations_prompt
 from .ReportWriterPrompt import report_writer_prompt
-from .TranslationPrompt import Translation_prompt
 from .MarkdownToPDFReportPrompt import Convert_md_to_pdf_prompt
 from .SendEmailprompt import SendEmail_prompt

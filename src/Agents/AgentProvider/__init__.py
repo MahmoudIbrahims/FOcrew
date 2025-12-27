@@ -4,7 +4,6 @@ from .DataAnalysis import DataCleanerAgent
 from .DataAnalysis import DataAnalyzerAgent
 from .DataAnalysis import DataVisualizerAgent
 from .DataAnalysis import ReportWriterAgent
-from .DataAnalysis import UniversalTranslationAgent
 from .DataAnalysis import ReportGeneratorAgent
 from .DataAnalysis import ReportSenderAgent
 #===================Prompts===========================
@@ -13,6 +12,5 @@ from ..Prompts.DataCleanerPrompt import cleaning_prompt
 from ..Prompts.DataAnalyzerPrompt import analysis_prompt
 from ..Prompts.DataVisualizerPrompt import visualizations_prompt
 from ..Prompts.ReportWriterPrompt import report_writer_prompt
-from ..Prompts.TranslationPrompt import Translation_prompt
 from ..Prompts.MarkdownToPDFReportPrompt import Convert_md_to_pdf_prompt
 from ..Prompts.SendEmailprompt import SendEmail_prompt

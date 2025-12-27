@@ -9,5 +9,4 @@ class Languages(Enum):
     ENGLISH ="English"
     ARABIC  ="Arabic"
     FRENCH  ="French"
-    GERMAN= "German"
-  
+    SPANISH ="Spanish"
