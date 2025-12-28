@@ -60,9 +60,8 @@ cd FOcrew
 Create and activate a dedicated Python environment:
 
 ```bash
-$conda create -n coreAgent python=3.10
-
-$conda activate coreAgent
+conda create -n coreAgent python=3.10
+conda activate coreAgent
 ```
 
 ## Environment Configuration
@@ -77,7 +76,7 @@ cp .env.example.postgres-exporter .env.postgres-exporter
 ### .Set up Alembic for database migrations:
 ```bash
 cd docker/FOcrew
-cp alembic.example.ini alembic.ini
+cp alembic.ini.example alembic.ini
 ```
 
 ### .Start the Services:
@@ -89,7 +88,7 @@ sudo docker compose up -d --build
 #### frontend config:
 ```bash
 cd Frontend
-$ npm run dev
+npm run dev
 ```
 ### . Access the services
 
