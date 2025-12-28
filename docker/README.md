@@ -68,7 +68,7 @@ docker compose up -d fastapi nginx pgvector
 
 #### To prevent database connection errors, start databases first:
 ```bash
-docker compose up -d pgvector qdrant postgres-exporter
+docker compose up -d pgvector postgres-exporter
 sleep 30
 docker compose up --build -d fastapi nginx prometheus grafana node-exporter
 ```
