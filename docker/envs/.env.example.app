@@ -8,7 +8,7 @@ FILE_ALLOWED_TYPES=["text/csv","application/vnd.ms-excel","application/vnd.openx
 #====================config Database=========================
 POSTGRES_USERNAME="postgres"
 POSTGRES_PASSWORD="...."
-POSTGRES_HOST="localhost"
+POSTGRES_HOST="pgvector"
 POSTGRES_PORT="5432"
 POSTGRES_MAIN_DATABASE="FOcrew_DB"
 
@@ -50,7 +50,7 @@ DATA_PATH=""
 COMPANY_NAME="Brea"
 INDUSTRY_NAME="online grocery delivery service"
 LANGUAGE_LITERAL=["Arabic","English","French","Spanish"]
-LANGUAGE=#"Arabic"
+LANGUAGE="Arabic"
 LOGO_COMPANY="./docs/logo.pnp" 
 
 #==================init Send Email ============================

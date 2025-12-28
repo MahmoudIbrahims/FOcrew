@@ -1,5 +1,5 @@
 from .BaseDataModel import BaseDataModel
-from .schema.DBSchemas import Project
+from .db_schemes.DBSchemas import Project
 from sqlalchemy.future import select
 from sqlalchemy import func
 from typing import Optional

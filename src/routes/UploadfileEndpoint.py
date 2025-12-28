@@ -5,7 +5,7 @@ from helpers.config import get_settings, Settings
 from Models.UserFileModel import UserFileModel
 from fastapi.responses import JSONResponse
 from Models.ProjectModel import ProjectModel
-from Models.schema.DBSchemas import UserFile
+from Models.db_schemes.DBSchemas import UserFile
 from .Enums.BasicsEnums import FileNameEnum
 import pandas as pd
 from io import BytesIO
