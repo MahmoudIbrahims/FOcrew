@@ -48,7 +48,7 @@ cp .env.example.postgres-exporter .env.postgres-exporter
 ```
 ### Set up Alembic for database migrations:
 ```bash
-cd FOcrew
+cd docker/FOcrew
 cp alembic.example.ini alembic.ini
 ```
 

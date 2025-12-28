@@ -63,39 +63,42 @@ Create and activate a dedicated Python environment:
 $conda create -n coreAgent python=3.10
 
 $conda activate coreAgent
+```
 
-$uv pip install -r requirements.txt
-```
-### Configuration
-#### The first src
+## Environment Configuration
 ```bash
-cd src
-cp .env.example .env
+cd docker/envs
+
+cp .env.example.app .env.app
+cp .env.example.postgres .env.postgres
+cp .env.example.grafana .env.grafana
+cp .env.example.postgres-exporter .env.postgres-exporter
 ```
-#### The second docker
+### .Set up Alembic for database migrations:
+```bash
+cd docker/FOcrew
+cp alembic.example.ini alembic.ini
+```
+
+### .Start the Services:
 ```bash
 cd docker
-cp .env.example .env
+sudo docker compose up -d --build
 ```
-#### Third alembic for data migration:
-### [Readme](./src/Models/schema/README.md)
 
-#### 2. Run the app:
-
+#### frontend config:
 ```bash
-cd docker
-sudo docker compose up -d
-```
-
- ```bash
- cd src
- $uvicorn main:app --reload --host 0.0.0.0 --port 8000
- ```
-
- ```bash
 cd Frontend
-npm run dev
+$ npm run dev
 ```
-#### Access Backend URL: http://localhost:8000
-#### Access Website URL: http://localhost:3000
+### . Access the services
+
+- FastAPI Application: http://localhost:8000
+- FastAPI Documentation: http://localhost:8000/docs
+- Nginx (serving FastAPI): http://localhost
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:4000
+- website: http://localhost:3000
+
+
 
