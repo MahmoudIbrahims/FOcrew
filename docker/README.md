@@ -1,51 +1,133 @@
-## How to run the docker compose and copy env  :
+# FOcrew – Dockerized Development & Monitoring Stack
 
+This repository contains a complete **Docker-based setup** for the **FOcrew** application, including backend services, vector databases, and a full monitoring stack using **Prometheus** and **Grafana**.
+
+---
+
+## Architecture Overview
+
+The Docker environment consists of the following services:
+
+### Core Services
+- **FastAPI** – Main backend application running on Uvicorn
+- **Nginx** – Reverse proxy serving the FastAPI application
+
+### Databases
+- **PostgreSQL (pgvector)** – Relational database with vector support
+
+### Monitoring & Observability
+- **Prometheus** – Metrics collection and scraping
+- **Grafana** – Metrics visualization and dashboards
+- **Postgres Exporter** – PostgreSQL metrics exporter
+- **Node Exporter** – Host-level system metrics
+
+---
+
+## 📁 Directory Structure
+
+```text
+docker/
+├── envs/                 # Environment variables
+│   ├── .env.example.app
+│   ├── .env.example.postgres
+│   ├── .env.example.grafana
+│   └── .env.example.postgres-exporter
+├── FOcrew/
+│   └── alembic.example.ini
+├── docker-compose.yml
+```
+
+### Environment Configuration
+```bash
+cd docker/envs
+
+cp .env.example.app .env.app
+cp .env.example.postgres .env.postgres
+cp .env.example.grafana .env.grafana
+cp .env.example.postgres-exporter .env.postgres-exporter
+```
+### Set up Alembic for database migrations:
+```bash
+cd FOcrew
+cp alembic.example.ini alembic.ini
+```
+
+### Start the Services:
 ```bash
 cd docker
+docker compose up --build -d
 ```
 
+### Start selected services only:
 ```bash
-cp .env.example .env
+docker compose up -d fastapi nginx pgvector
+
 ```
 
+### Recommended Startup Order (Avoid Connection Issues)
+
+#### To prevent database connection errors, start databases first:
 ```bash
-sudo docker compose up -d
+docker compose up -d pgvector qdrant postgres-exporter
+sleep 30
+docker compose up --build -d fastapi nginx prometheus grafana node-exporter
+```
+### Clean Reset (Containers + Volumes):
+```bash
+docker compose down -v --remove-orphans
+
 ```
 
-#### stop the docker compose:
+### 3. Access the services
+
+- FastAPI Application: http://localhost:8000
+- FastAPI Documentation: http://localhost:8000/docs
+- Nginx (serving FastAPI): http://localhost
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:4000
+
+#### Docker Volume Management:
 ```bash
-sudo docker compose stop
+# List volumes
+docker volume ls
+
+# Inspect a volume
+docker volume inspect <volume_name>
+
+# Browse volume files
+docker run --rm -v <volume_name>:/data busybox ls -l /data
+
+# Remove a volume
+docker volume rm <volume_name>
+
+# Remove unused volumes
+docker volume prune
+
 ```
 
-### You can remove anything in the docker and restart docker :
-
-#### stop the containers :
+### Backup & Restore Volumes
+#### Backup:
 ```bash
-docker stop $(docker ps -aq)
+docker run --rm \
+  -v <volume_name>:/volume \
+  -v $(pwd):/backup \
+  alpine tar cvf /backup/backup.tar /volume
 ```
-#### remove the containers :
+#### Restore:
 ```bash
-docker rm $(docker ps -aq)
-```
-
-#### remove all images :
-```bash
-docker rmi $(docker images -q) --force
-```
-#### remove all volumes :
-```bash
-docker volume rm $(docker volume ls -q) --force
-```
-#### remove all networks :
-```bash
-docker network prune --force
+docker run --rm \
+  -v <volume_name>:/volume \
+  -v $(pwd):/backup \
+  alpine sh -c "cd /volume && tar xvf /backup/backup.tar --strip 1"
 ```
 
-#### remove any cache:
+### logs for anly image :
 ```bash
-docker builder prune --all --force
+cd docker
+docker compose logs -f fastapi
 ```
-#### remove anything:
+
+### You should add build:
 ```bash
-docker system prune --all --volumes --force
+sudo docker compose up -d --build
 ```

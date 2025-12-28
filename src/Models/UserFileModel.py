@@ -1,5 +1,5 @@
 from .BaseDataModel import BaseDataModel
-from .schema.DBSchemas import UserFile
+from .db_schemes.DBSchemas import UserFile
 from sqlalchemy.future import select
 from sqlalchemy import func
 from sqlalchemy import desc 

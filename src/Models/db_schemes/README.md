@@ -8,7 +8,7 @@ cd src
 ```
 
 ```bash
-cd Models/schema
+cd Models/db_schemes
 ```
 
 #### Initiolization alembic:

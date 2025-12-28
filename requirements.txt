@@ -19,3 +19,7 @@ python-multipart==0.0.20
 boto3==1.42.5
 supabase==2.25.0
 pydantic[email]
+prometheus-client==0.23.1
+starlette-exporter==0.23.0
+fastapi-health==0.4.0
+

@@ -7,9 +7,11 @@ from sqlalchemy.orm import sessionmaker
 from Providers import DataBaseProviderFactory
 from fastapi.middleware.cors import CORSMiddleware
 from storage.S3.S3Provider import get_boto3_client
-
+from Utils.metrics import setup_metrics
 
 app =FastAPI()
+
+setup_metrics(app)
 
 app.add_middleware(
     CORSMiddleware,
